@@ -254,35 +254,35 @@ function Workspace() {
             {(tool.category === 'paint' || tool.category === 'video') && (
               <div className="style-presets-row">
                 {tool.category === 'paint' ? [
-                  { id: 1, name: '赛博朋克', img: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=100&h=100&fit=crop' },
-                  { id: 2, name: '二次元', img: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=100&h=100&fit=crop' },
-                  { id: 3, name: '真实摄影', img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=100&h=100&fit=crop' },
-                  { id: 4, name: '3D架构', img: 'https://images.unsplash.com/photo-1506744626753-1fa28f673fac?w=100&h=100&fit=crop' },
-                  { id: 5, name: '魔法幻想', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=100&h=100&fit=crop' },
-                  { id: 6, name: '极简人像', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop' },
-                  { id: 7, name: '自然风景', img: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop' },
-                  { id: 8, name: '美食静物', img: 'https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=100&h=100&fit=crop' },
-                  { id: 9, name: '暗黑星空', img: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=100&h=100&fit=crop' },
+                  { id: 1, name: '赛博朋克', img: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=100&h=100&fit=crop', prompt: ', 赛博朋克风格, 霓虹灯效' },
+                  { id: 2, name: '二次元', img: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=100&h=100&fit=crop', prompt: ', 高质量二次元动漫风格, 绚丽光影' },
+                  { id: 3, name: '真实摄影', img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=100&h=100&fit=crop', prompt: ', 真实摄影, 单反镜头, 8k画质, 电影级光影' },
+                  { id: 4, name: '3D架构', img: 'https://images.unsplash.com/photo-1506744626753-1fa28f673fac?w=100&h=100&fit=crop', prompt: ', 3D渲染, 虚幻引擎5, 辛烷渲染器, 极高细节' },
+                  { id: 5, name: '魔法幻想', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=100&h=100&fit=crop', prompt: ', 奇幻魔法风格, 史诗感, 绚丽的魔法光效' },
+                  { id: 6, name: '极简人像', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop', prompt: ', 极简主义摄影, 干净背景, 人像特写' },
+                  { id: 7, name: '自然风景', img: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop', prompt: ', 壮丽的自然风光, 国家地理摄影, 阳光透过树叶' },
+                  { id: 8, name: '美食静物', img: 'https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=100&h=100&fit=crop', prompt: ', 美食摄影, 令人垂涎欲滴, 焦外虚化, 柔和微距光' },
+                  { id: 9, name: '暗黑星空', img: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=100&h=100&fit=crop', prompt: ', 深空摄影, 浩瀚宇宙, 星空银河, 神秘氛围' },
                 ].map(style => (
-                  <div key={style.id} className="style-avatar" title={style.name}>
+                  <div key={style.id} className="style-avatar" title={style.name} onClick={() => setInput(prev => prev + style.prompt)}>
                     <img src={style.img} alt={style.name} />
                   </div>
                 )) : [
-                  { id: 1, name: '短视频创意编导\n将你的模糊想法或图片，智能添加创意，转换成生产级视频提示词。', img: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=100&h=100&fit=crop' },
-                  { id: 2, name: '电影大片运镜', img: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=100&h=100&fit=crop' },
-                  { id: 3, name: '三维动画大师', img: 'https://images.unsplash.com/photo-1551244072-5d12893278ab?w=100&h=100&fit=crop' },
-                  { id: 4, name: '奇幻魔法特效', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=100&h=100&fit=crop' },
-                  { id: 5, name: '微距特写光影', img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=100&h=100&fit=crop' },
-                  { id: 6, name: '复古胶片质感', img: 'https://images.unsplash.com/photo-1520121401995-928cd50d4e27?w=100&h=100&fit=crop' },
-                  { id: 7, name: '赛博朋克渲染', img: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=100&h=100&fit=crop' },
-                  { id: 8, name: '水墨国风动画', img: 'https://images.unsplash.com/photo-1558470598-a5dda9640f68?w=100&h=100&fit=crop' },
-                  { id: 9, name: '航拍延时风光', img: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop' },
+                  { id: 1, name: '短视频创意编导\n将你的模糊想法或图片，智能添加创意，转换成生产级视频提示词。', img: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=100&h=100&fit=crop', prompt: '[智能编导：请帮我扩展以下创意为电影级运镜提示词] ' },
+                  { id: 2, name: '电影大片运镜', img: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=100&h=100&fit=crop', prompt: ', 电影级质感, 广角镜头推移, 慢动作特写, 好莱坞打光' },
+                  { id: 3, name: '三维动画大师', img: 'https://images.unsplash.com/photo-1551244072-5d12893278ab?w=100&h=100&fit=crop', prompt: ', 迪士尼皮克斯动画风格, 3D高清渲染, 生动的动作表现' },
+                  { id: 4, name: '奇幻魔法特效', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=100&h=100&fit=crop', prompt: ', 震撼的魔法粒子特效, 流光溢彩, 视觉冲击力强' },
+                  { id: 5, name: '微距特写光影', img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=100&h=100&fit=crop', prompt: ', 极致微距拍摄, 焦点清晰, 背景深度虚化, 细腻光影流转' },
+                  { id: 6, name: '复古胶片质感', img: 'https://images.unsplash.com/photo-1520121401995-928cd50d4e27?w=100&h=100&fit=crop', prompt: ', 1980年代复古胶片电影, 王家卫风格, 噪点颗粒感, 暖色调' },
+                  { id: 7, name: '赛博朋克渲染', img: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=100&h=100&fit=crop', prompt: ', 赛博朋克夜景, 高科技都市, 炫酷霓虹灯反光, 赛博格元素' },
+                  { id: 8, name: '水墨国风动画', img: 'https://images.unsplash.com/photo-1558470598-a5dda9640f68?w=100&h=100&fit=crop', prompt: ', 中国风传统水墨画流体动画, 飘逸留白, 意境深远' },
+                  { id: 9, name: '航拍延时风光', img: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop', prompt: ', 无人机高空俯拍, 延时摄影, 云卷云舒, 壮阔自然地貌' },
                 ].map(style => (
-                  <div key={style.id} className="style-avatar" title={style.name}>
+                  <div key={style.id} className="style-avatar" title={style.name} onClick={() => setInput(prev => prev + style.prompt)}>
                     <img src={style.img} alt={style.name.split('\n')[0]} />
                   </div>
                 ))}
-                <div className="style-avatar add-style" title="自定义风格">
+                <div className="style-avatar add-style" title="自定义风格" onClick={() => alert('自定义风格卡槽即将开放')}>
                   <span>+</span>
                 </div>
               </div>
