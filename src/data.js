@@ -76,13 +76,16 @@ export const toolsData = [
   { 
     id: 23, title: 'Nano Banana Pro (Gemini)', modelId: 'gemini-3-pro-image-preview', category: 'paint', desc: '文字渲染极强，支持8K。', tag: '8K文字渲染', hot: true, icon: 'Type',
     configurableParams: [
-      { name: 'aspectRatio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'},{v:'9:16',l:'9:16'},{v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'imageSize', label: '分辨率', type: 'select', options: [{v:'1K',l:'1K 标准'}, {v:'2K',l:'2K 高清'}, {v:'4K',l:'4K 极清'}], default: '2K' },
+      { name: 'aspectRatio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'},{v:'9:16',l:'9:16'},{v:'1:1',l:'1:1'},{v:'auto',l:'自动(根据垫图)'}], default: '16:9' },
       { name: 'images', label: '参考图', type: 'image_upload', max: 14 }
     ]
   },
   { 
     id: 24, title: 'Nano Banana 2', modelId: 'gemini-3.1-flash-image-preview', category: 'paint', desc: '快速轻量图像生成。', hot: false, icon: 'Image',
     configurableParams: [
+      { name: 'imageSize', label: '分辨率', type: 'select', options: [{v:'1K',l:'1K 标准'}, {v:'2K',l:'2K 高清'}, {v:'4K',l:'4K 极清'}], default: '2K' },
+      { name: 'aspectRatio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'},{v:'9:16',l:'9:16'},{v:'1:1',l:'1:1'},{v:'auto',l:'自动(根据垫图)'}], default: '16:9' },
       { name: 'images', label: '参考图', type: 'image_upload', max: 14 }
     ]
   },
