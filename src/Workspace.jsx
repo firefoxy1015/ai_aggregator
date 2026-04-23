@@ -249,58 +249,99 @@ function Workspace() {
               <div ref={messagesEndRef} />
             </div>
           </div>
+          
           <footer className="chat-input-area">
-            <div className="input-box">
-              <input type="text" placeholder={`输入您的指令...`} value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSend()} />
-              <button className="send-btn" onClick={handleSend} disabled={!input.trim()}><Send size={18} /></button>
-            </div>
-            <p className="footer-note">已连接 {BACKEND_URL}</p>
-          </footer>
-        </main>
+            <div className="advanced-input-container">
+              {/* Left side: Edit button */}
+              <div className="input-left-panel">
+                <button className="edit-image-btn">
+                  <ImageIcon size={18} />
+                  <span>编辑图片</span>
+                </button>
+              </div>
 
-        {tool.configurableParams && tool.configurableParams.length > 0 && (
-          <aside className="settings-panel">
-            <div className="settings-header">
-              <Settings2 size={18} /> 模型配置参数
-            </div>
-            {tool.configurableParams.map(param => (
-              <div key={param.name} className="settings-group">
-                {param.type !== 'boolean' && <label className="settings-label">{param.label}</label>}
-                
-                {param.type === 'boolean' && (
-                  <label className="settings-toggle">
-                    <input type="checkbox" checked={params[param.name] || false} onChange={e => handleParamChange(param.name, e.target.checked)} />
-                    {param.label}
-                  </label>
-                )}
-                
-                {param.type === 'select' && (
-                  <select className="settings-select" value={params[param.name] || param.default} onChange={e => handleParamChange(param.name, e.target.value)}>
-                    {param.options.map(opt => (
-                      <option key={opt.v} value={opt.v}>{opt.l}</option>
-                    ))}
-                  </select>
-                )}
-                
-                {param.type === 'textarea' && (
-                  <textarea className="settings-input" placeholder={param.placeholder} value={params[param.name] || ''} onChange={e => handleParamChange(param.name, e.target.value)} />
-                )}
-                
-                {param.type === 'image_upload' && (
-                  <div>
-                    <label className="image-upload-box">
-                      {isUploading ? <RefreshCw size={24} className="spin" /> : <Upload size={24} />}
-                      <span>上传{param.label} {params[param.name]?.length || 0}/{param.max}</span>
+              {/* Right side: Textarea + Toolbar + Image Upload */}
+              <div className="input-right-panel">
+                {tool.configurableParams?.filter(p => p.type === 'image_upload').map(param => (
+                  <div key={param.name} className="image-upload-wrapper">
+                    <label className="reference-upload-box">
+                      {isUploading ? <RefreshCw size={24} className="spin" /> : <span className="plus-icon">+</span>}
+                      <span className="upload-text">{param.label}</span>
                       <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => handleImageUpload(e, param.name, param.max)} />
                     </label>
-                    {params[param.name] && params[param.name].map((url, i) => (
-                      <div key={i} className="uploaded-image-preview">
-                        <img src={url} alt={`Upload ${i}`} />
-                        <button className="remove-image" onClick={() => removeImage(param.name, i)}><X size={12} /></button>
+                    {params[param.name] && params[param.name].length > 0 && (
+                      <div className="uploaded-preview-overlay">
+                        <img src={params[param.name][params[param.name].length - 1]} alt="Preview" />
+                        <span className="count-badge">{params[param.name].length}/{param.max}</span>
+                        <button className="remove-image" onClick={() => removeImage(param.name, params[param.name].length - 1)}><X size={12} /></button>
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+                <div className="price-badge">预计 ⚡ 0.35/次</div>
+                <textarea 
+                  className="main-textarea"
+                  placeholder={`描述你想要生成的内容，支持上传参考图片...`} 
+                  value={input} 
+                  onChange={(e) => setInput(e.target.value)} 
+                  onKeyDown={(e) => {
+                    if(e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSend();
+                    }
+                  }} 
+                />
+                
+                <div className="input-toolbar">
+                  <div className="toolbar-params">
+                    {tool.configurableParams?.filter(p => p.type === 'select' || p.type === 'boolean').map(param => (
+                      <div key={param.name} className="toolbar-param-item">
+                        {param.type === 'boolean' ? (
+                          <button 
+                            className={`param-toggle-btn ${params[param.name] ? 'active' : ''}`}
+                            onClick={() => handleParamChange(param.name, !params[param.name])}
+                          >
+                            <Sparkles size={14} />
+                            {param.label}: {params[param.name] ? '开启' : '关闭'}
+                          </button>
+                        ) : (
+                          <div className="param-select-wrapper">
+                            <select 
+                              className="param-select" 
+                              value={params[param.name] || param.default} 
+                              onChange={e => handleParamChange(param.name, e.target.value)}
+                            >
+                              <optgroup label={param.label}>
+                                {param.options.map(opt => (
+                                  <option key={opt.v} value={opt.v}>{opt.l}</option>
+                                ))}
+                              </optgroup>
+                            </select>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
-                )}
+                  
+                  <button className="send-btn-large" onClick={handleSend} disabled={!input.trim()}>
+                    <Send size={18} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </main>
+
+        {tool.category === 'chat' && tool.configurableParams?.some(p => p.type === 'textarea') && (
+          <aside className="settings-panel">
+            <div className="settings-header">
+              <Settings2 size={18} /> 角色与系统指令
+            </div>
+            {tool.configurableParams.filter(p => p.type === 'textarea').map(param => (
+              <div key={param.name} className="settings-group">
+                <label className="settings-label">{param.label}</label>
+                <textarea className="settings-input" placeholder={param.placeholder} value={params[param.name] || ''} onChange={e => handleParamChange(param.name, e.target.value)} />
               </div>
             ))}
           </aside>
