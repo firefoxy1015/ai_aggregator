@@ -211,6 +211,41 @@
   color: var(--text-main);
 }
 
+.preset-tooltip {
+  position: absolute;
+  top: -80px;
+  left: 10px;
+  background: rgba(15, 15, 20, 0.95);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 16px;
+  border-radius: 8px;
+  width: max-content;
+  max-width: 300px;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  animation: fadeIn 0.2s ease;
+  pointer-events: none;
+}
+
+.tooltip-title {
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+}
+
+.tooltip-desc {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .advanced-input-container {
   display: flex;
   gap: 1rem;
