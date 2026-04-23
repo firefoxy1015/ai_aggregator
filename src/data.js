@@ -195,7 +195,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
     ]
   },
   { 
@@ -208,7 +209,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
@@ -222,7 +224,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
@@ -236,7 +239,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
       { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
     ]
@@ -251,7 +255,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
@@ -265,7 +270,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
     ]
   },
   { 
@@ -278,7 +284,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
     ]
   },
   { 
@@ -291,7 +298,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
     ]
   },
   { 
@@ -304,7 +312,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
       { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
     ]
@@ -319,7 +328,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
     ]
   },
   { 
@@ -332,7 +342,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
       { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
     ]
@@ -347,7 +358,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
@@ -361,7 +373,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
@@ -375,7 +388,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
       { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
     ]
@@ -390,7 +404,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
     ]
   },
   { 
@@ -403,7 +418,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
@@ -417,7 +433,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
     ]
   },
   { 
@@ -430,7 +447,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
@@ -444,7 +462,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
     ]
   },
   { 
@@ -457,7 +476,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
     ]
   },
   { 
@@ -470,7 +490,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
@@ -484,7 +505,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
       { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
     ]
@@ -499,7 +521,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
     ]
   },
   { 
@@ -512,7 +535,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
     ]
   },
   { 
@@ -525,7 +549,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '参考图', type: 'image_upload', max: 1 }
     ]
   },
@@ -539,7 +564,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
     ]
   },
   { 
@@ -552,7 +578,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
@@ -566,7 +593,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
     ]
   },
   { 
@@ -579,7 +607,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
+      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
       { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
       { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
     ]
