@@ -121,7 +121,8 @@ export const toolsData = [
   { 
     id: 29, title: '可灵 Kling v3 首尾帧', modelId: 'kling-v3-omni-shouweizhen', category: 'video', desc: '极强运镜控制，强制首尾帧生成。', tag: '分镜利器', hot: true, icon: 'Film', 
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}, {v:15,l:'15秒'}], default: 5 },
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'mode', label: '模式', type: 'select', options: [{v:'std',l:'标准 (std)'}, {v:'pro',l:'高品质 (pro)'}], default: 'std' },
       { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
       { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
     ]
@@ -130,7 +131,7 @@ export const toolsData = [
     id: 30, title: '可灵 Kling v3 Video', modelId: 'kling-v3-video', category: 'video', desc: '常规高质量视频生成。', hot: false, icon: 'Clapperboard', 
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'mode', label: '模式', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质'}], default: 'standard' },
+      { name: 'mode', label: '模式', type: 'select', options: [{v:'std',l:'标准 (std)'}, {v:'pro',l:'高品质 (pro)'}], default: 'std' },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
       { name: 'image_start', label: '首帧图 (可选)', type: 'image_upload', max: 1 },
       { name: 'image_end', label: '尾帧图 (可选)', type: 'image_upload', max: 1 }
@@ -160,6 +161,7 @@ export const toolsData = [
       { name: 'audio_duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}], default: 5 },
       { name: 'ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}], default: '16:9' },
       { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'1080p',l:'1080p高清'}, {v:'720p',l:'720p标清'}], default: '1080p' },
+      { name: 'generate_audio', label: '生成音频 (必填)', type: 'boolean', default: true },
       { name: 'image_start', label: '上传首帧', type: 'image_upload', max: 1 },
       { name: 'image_end', label: '上传尾帧', type: 'image_upload', max: 1 }
     ]
@@ -167,30 +169,27 @@ export const toolsData = [
   { 
     id: 34, title: 'Sora 2 官转版', modelId: 'sora-2', category: 'video', desc: '100%成功率，极强物理规律。', tag: '最新Sora', hot: true, icon: 'Film', 
     configurableParams: [
-      { name: 'seconds', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'seconds', label: '时长', type: 'select', options: [{v:4,l:'4秒'}, {v:8,l:'8秒'}], default: 4 },
       { name: 'size', label: '分辨率', type: 'select', options: [{v:'1080x1920',l:'竖屏 1080x1920'}, {v:'1920x1080',l:'横屏 1920x1080'}], default: '1080x1920' },
       { name: 'image_start', label: '参考图 (input_reference)', type: 'image_upload', max: 1 }
     ]
   },
   { 
-    id: 35, title: 'Sora 2 全能版', modelId: 'sora-2-all', category: 'video', desc: '支持更多参数控制。', hot: false, icon: 'Film', 
+    id: 35, title: 'Veo 3.1', modelId: 'veo3.1', category: 'video', desc: '自带BGM的创新视频生成。', tag: '带音效', hot: false, icon: 'PlaySquare', 
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}], default: 5 },
-      { name: 'orientation', label: '方向', type: 'select', options: [{v:'portrait',l:'竖屏'}, {v:'landscape',l:'横屏'}], default: 'portrait' },
-      { name: 'size', label: '分辨率', type: 'select', options: [{v:'1080x1920',l:'1080x1920'}, {v:'1920x1080',l:'1920x1080'}], default: '1080x1920' },
-      { name: 'image_start', label: '参考图', type: 'image_upload', max: 1 }
-    ]
-  },
-  { 
-    id: 36, title: 'Veo 3.1', modelId: 'veo3.1', category: 'video', desc: '自带BGM的创新视频生成。', tag: '带音效', hot: false, icon: 'PlaySquare', 
-    configurableParams: [
-      { name: 'generation_mode', label: '模式', type: 'select', options: [{v:'standard',l:'标准'}], default: 'standard' },
+      { name: 'generation_mode', label: '模式', type: 'select', options: [{v:'fast',l:'快速 (fast)'}, {v:'pro',l:'高品质 (pro)'}], default: 'fast' },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}], default: '16:9' },
       { name: 'enhance_prompt', label: '自动润色提示词', type: 'boolean', default: true },
       { name: 'images', label: '参考图 (最多3张)', type: 'image_upload', max: 3 }
     ]
   },
-  { id: 37, title: 'Veo 3.1 Lite', modelId: 'veo3.1-lite', category: 'video', desc: '轻量版 Veo。', hot: false, icon: 'PlaySquare' },
+  { 
+    id: 37, title: 'Veo 3.1 Lite', modelId: 'veo3.1-lite', category: 'video', desc: '轻量版 Veo。', hot: false, icon: 'PlaySquare',
+    configurableParams: [
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'high',l:'高画质'}], default: 'standard' },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}], default: '16:9' }
+    ]
+  },
   { 
     id: 38, title: 'Kuaishou KWVideo v2', modelId: 'kwvideo-v2', category: 'video', desc: '快手全能视频模型。', hot: false, icon: 'Clapperboard',
     configurableParams: [
