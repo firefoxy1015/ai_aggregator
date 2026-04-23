@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Send, Sparkles, User, Bot, RefreshCw, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, Send, Sparkles, User, Bot, RefreshCw, AlertCircle } from 'lucide-react';
 import { toolsData } from './data';
 import './Workspace.css';
+
+const BACKEND_URL = 'http://localhost:8000';
 
 function Workspace() {
   const { id } = useParams();
@@ -12,7 +14,7 @@ function Workspace() {
   const messagesEndRef = useRef(null);
   
   const [messages, setMessages] = useState([
-    { role: 'system', content: `您好！我是 ${tool?.title || 'AI助手'}。我已经被全面激活，现在您可以向我发送真实的指令，我将为您实时生成内容！` }
+    { role: 'system', content: `连接已建立！我是 ${tool?.title} (${tool?.modelId})。您可以向我发送指令了。`, type: 'text' }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -38,46 +40,118 @@ function Workspace() {
     if (!input.trim()) return;
     
     const userMessage = input.trim();
+    // Prepare history for chat context
+    const chatHistory = messages
+      .filter(m => m.type === 'text' && m.role !== 'system')
+      .map(m => ({ role: m.role, content: m.content }));
+      
+    chatHistory.push({ role: 'user', content: userMessage });
+    
     setMessages(prev => [...prev, { role: 'user', content: userMessage, type: 'text' }]);
     setInput('');
     setIsTyping(true);
     
     try {
-      if (tool.category === 'paint' || tool.category === 'video') {
-        // AI Painting - using free pollinations image API
-        const safePrompt = encodeURIComponent(userMessage);
-        const seed = Math.floor(Math.random() * 100000);
-        const imageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=1024&height=1024&seed=${seed}&nologo=true`;
-        
-        // Wait a little bit to simulate generation
-        setTimeout(() => {
-          setMessages(prev => [...prev, { 
-            role: 'system', 
-            content: `已经为您生成了关于“${userMessage}”的图像：`,
-            type: 'image',
-            url: imageUrl
-          }]);
-          setIsTyping(false);
-        }, 2000);
+      if (tool.category === 'chat') {
+        // SSE Streaming Chat
+        const response = await fetch(`${BACKEND_URL}/api/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: tool.modelId,
+            messages: chatHistory
+          })
+        });
 
-      } else {
-        // AI Chat / Agent - using free pollinations text API
-        const response = await fetch(`https://text.pollinations.ai/${encodeURIComponent(userMessage)}`);
-        if (!response.ok) throw new Error('网络请求失败');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         
-        const data = await response.text();
-        setMessages(prev => [...prev, { 
-          role: 'system', 
-          content: data,
-          type: 'text'
-        }]);
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let assistantContent = '';
+        
+        setMessages(prev => [...prev, { role: 'assistant', content: '', type: 'text', id: 'streaming' }]);
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split('\n');
+          
+          for (const line of lines) {
+            if (line.startsWith('data: ') && !line.includes('[DONE]')) {
+              try {
+                const data = JSON.parse(line.substring(6));
+                if (data.text) {
+                  assistantContent += data.text;
+                  setMessages(prev => prev.map(m => 
+                    m.id === 'streaming' ? { ...m, content: assistantContent } : m
+                  ));
+                }
+              } catch (e) {}
+            }
+          }
+        }
+        // Remove streaming ID
+        setMessages(prev => prev.map(m => 
+          m.id === 'streaming' ? { role: 'assistant', content: m.content, type: 'text' } : m
+        ));
         setIsTyping(false);
+
+      } else if (tool.category === 'paint' || tool.category === 'video') {
+        // Media Generation via Backend Task
+        const generateRes = await fetch(`${BACKEND_URL}/api/generate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            source: 'data999',
+            model: tool.modelId,
+            prompt: userMessage,
+            params: tool.defaultParams || {}
+          })
+        });
+
+        const genData = await generateRes.json();
+        if (!generateRes.ok) throw new Error(genData.detail || '生成请求失败');
+        
+        const taskId = genData.task_id;
+        
+        // Add a progress message
+        setMessages(prev => [...prev, { role: 'system', content: `任务已提交 (ID: ${taskId})，正在渲染中，请稍候...`, type: 'text' }]);
+
+        // Poll for status
+        let isFinal = false;
+        while (!isFinal) {
+          await new Promise(r => setTimeout(r, 8000)); // Poll every 8 seconds
+          const statusRes = await fetch(`${BACKEND_URL}/api/status/${taskId}`);
+          const statusData = await statusRes.json();
+          
+          if (statusData.is_final) {
+            isFinal = true;
+            setIsTyping(false);
+            
+            if (statusData.error) {
+              setMessages(prev => [...prev, { role: 'system', content: `生成失败: ${statusData.error}`, type: 'text' }]);
+            } else if (statusData.result_urls && statusData.result_urls.length > 0) {
+              const url = statusData.result_urls[0];
+              const isVideo = url.match(/\.(mp4|webm|mov|m3u8)/i) || tool.category === 'video';
+              
+              setMessages(prev => [...prev, { 
+                role: 'assistant', 
+                content: `为您生成完成：`,
+                type: 'media',
+                url: url,
+                mediaType: isVideo ? 'video' : 'image'
+              }]);
+            }
+          }
+        }
       }
     } catch (error) {
       setMessages(prev => [...prev, { 
         role: 'system', 
-        content: `抱歉，接口调用失败：${error.message}。请稍后再试。`,
-        type: 'text'
+        content: `接口调用失败：${error.message}。请确保后端服务 (main.py) 正在 localhost:8000 运行。`,
+        type: 'error'
       }]);
       setIsTyping(false);
     }
@@ -104,23 +178,27 @@ function Workspace() {
               key={idx} 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`message-wrapper ${msg.role}`}
+              className={`message-wrapper ${msg.role === 'user' ? 'user' : 'system'}`}
             >
               <div className="avatar">
                 {msg.role === 'user' ? <User size={20} /> : <Bot size={20} />}
               </div>
               <div className="message-bubble">
                 {msg.type === 'text' && <div style={{ whiteSpace: 'pre-wrap' }}>{msg.content}</div>}
-                {msg.type === 'image' && (
-                  <div className="image-response">
+                {msg.type === 'error' && (
+                  <div style={{ color: '#ef4444', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <AlertCircle size={16} /> {msg.content}
+                  </div>
+                )}
+                {msg.type === 'media' && (
+                  <div className="media-response">
                     <p style={{ marginBottom: '10px' }}>{msg.content}</p>
                     <div style={{ position: 'relative', width: '100%', maxWidth: '400px', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' }}>
-                      <img 
-                        src={msg.url} 
-                        alt="AI Generated" 
-                        style={{ width: '100%', height: 'auto', display: 'block' }} 
-                        onLoad={() => scrollToBottom()}
-                      />
+                      {msg.mediaType === 'video' ? (
+                        <video src={msg.url} controls autoPlay loop style={{ width: '100%', display: 'block' }} />
+                      ) : (
+                        <img src={msg.url} alt="AI Generated" style={{ width: '100%', height: 'auto', display: 'block' }} onLoad={scrollToBottom} />
+                      )}
                     </div>
                   </div>
                 )}
@@ -132,7 +210,7 @@ function Workspace() {
               <div className="avatar"><Bot size={20} /></div>
               <div className="message-bubble typing">
                 <RefreshCw size={16} className="spin" /> 
-                {tool.category === 'paint' ? '正在渲染图像...' : '正在思考...'}
+                {tool.category === 'paint' ? '正在渲染图像...' : (tool.category === 'video' ? '正在渲染视频...' : '正在思考...')}
               </div>
             </div>
           )}
@@ -144,7 +222,7 @@ function Workspace() {
         <div className="input-box">
           <input 
             type="text" 
-            placeholder={`给 ${tool.title} 发送消息... (尝试输入真实的指令)`}
+            placeholder={`给 ${tool.title} 发送消息... (将调用本地后端 ${BACKEND_URL})`}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
@@ -158,7 +236,7 @@ function Workspace() {
             <Send size={18} />
           </button>
         </div>
-        <p className="footer-note">AI内容由接口实时生成，现在已经完全可用</p>
+        <p className="footer-note">已接入 D:\gravity\ai-studio\main.py 后端，使用 DATA999 真实接口</p>
       </footer>
     </div>
   );
