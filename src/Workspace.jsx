@@ -186,7 +186,12 @@ function Workspace() {
             } else if (statusData.result_urls?.length > 0) {
               const url = statusData.result_urls[0];
               const isVideo = url.match(/\.(mp4|webm|mov|m3u8)/i) || tool.category === 'video';
-              setMessages(prev => [...prev, { role: 'assistant', content: `生成完成：`, type: 'media', url, mediaType: isVideo ? 'video' : 'image' }]);
+              const isAudio = url.match(/\.(mp3|wav|ogg|aac)/i) || tool.category === 'audio';
+              let mType = 'image';
+              if (isVideo) mType = 'video';
+              if (isAudio) mType = 'audio';
+              
+              setMessages(prev => [...prev, { role: 'assistant', content: `生成完成：`, type: 'media', url, mediaType: mType }]);
             }
           }
         }
@@ -226,7 +231,9 @@ function Workspace() {
                       <div className="media-response">
                         <p style={{ marginBottom: '10px' }}>{msg.content}</p>
                         <div style={{ position: 'relative', width: '100%', maxWidth: '400px', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' }}>
-                          {msg.mediaType === 'video' ? <video src={msg.url} controls autoPlay loop style={{ width: '100%', display: 'block' }} /> : <img src={msg.url} alt="AI Generated" style={{ width: '100%', height: 'auto', display: 'block' }} onLoad={scrollToBottom} />}
+                          {msg.mediaType === 'video' ? <video src={msg.url} controls autoPlay loop style={{ width: '100%', display: 'block' }} /> 
+                           : msg.mediaType === 'audio' ? <audio src={msg.url} controls autoPlay style={{ width: '100%', display: 'block', borderRadius: '12px' }} />
+                           : <img src={msg.url} alt="AI Generated" style={{ width: '100%', height: 'auto', display: 'block' }} onLoad={scrollToBottom} />}
                         </div>
                       </div>
                     )}
