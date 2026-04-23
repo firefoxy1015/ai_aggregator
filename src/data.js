@@ -184,9 +184,9 @@ export const toolsData = [
     ]
   },
 
-  // --- AI 视频 (Video) ---
-{ 
-    id: 100, title: '可灵 Kling V3 首尾帧', modelId: 'kling-v3-shouweizhen', category: 'video', desc: '首尾帧控制最强，完美锁帧。优点：首尾一致性极高。缺点：动作幅度过大会轻微畸变。', tag: '首尾帧利器', hot: true, icon: 'Video', 
+// --- AI 视频 (Video) ---
+  { 
+    id: 100, title: 'grok-video-3-plus', modelId: 'grok-video-3-plus', category: 'video', desc: 'Grok 推出的 Plus 级视频生成模型，支持 10/15/20/25 秒多种时长，覆盖 16:9、9:16、3:2、2:3、1:1 全比例，适合社交媒体和创意短片场景。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/Grok_bai.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -194,12 +194,12 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
     ]
   },
   { 
-    id: 101, title: '可灵 Kling V3 参考图', modelId: 'kling-v3-cankao', category: 'video', desc: '经典的图生视频模型。优点：画质细腻，细节丰富。缺点：对复杂指令理解略慢。', tag: '画质天花板', hot: true, icon: 'Video', 
+    id: 101, title: 'Pix C1 参考生', modelId: 'pixverse-c1-cankaosheng', category: 'video', desc: 'PixVerse C1 视频生成模型，专为打斗、法术特效及高速运动等动态场景优化。支持文生视频和参考生两种模式，不传图自动走文生，传图自动走参考生（最多7张），自动生成有声视频，支持360P-1080P分辨率，1-15秒。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/PixVerse.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -207,11 +207,13 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
   { 
-    id: 102, title: '可灵 Kling V3 纯文本', modelId: 'kling-v3-video', category: 'video', desc: '仅通过文字生成视频。优点：创意自由度高，想象力强。缺点：无法精确控制人物长相。', hot: false, icon: 'Video', 
+    id: 102, title: 'SD 2.0 参考生', modelId: 'kwvideo-v2-ref', category: 'video', desc: '字节跳动即梦团队推出的旗舰级视频生成模型 Seedance 2.0，支持多图参考生视频，上传 1~9 张参考图，模型智能融合风格、元素和构图生成新视频。自动生成有声视频，4~15秒灵活时长，标准/快速双版本可选。按官方 Token 计费。', tag: '热推', hot: true, icon: 'https://cos.lingkeai.vip/doubao.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -219,11 +221,13 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
   { 
-    id: 103, title: '可灵 Kling Omni 首尾帧', modelId: 'kling-omni-shouweizhen', category: 'video', desc: '新一代多模态可灵模型。优点：物理规律极佳，动作自然。缺点：生成速度较慢。', tag: '动态最强', hot: true, icon: 'Video', 
+    id: 103, title: 'Pix C1 首尾帧', modelId: 'pixverse-c1-shouweizhen', category: 'video', desc: 'PixVerse C1 视频生成模型，专为打斗、法术特效及高速运动等动态场景优化。支持首帧生视频和首尾帧两种模式，自动生成有声视频，支持360P-1080P分辨率，1-15秒。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/PixVerse.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -231,12 +235,14 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
     ]
   },
   { 
-    id: 104, title: '可灵 Kling Omni 参考', modelId: 'kling-omni-cankao', category: 'video', desc: 'Omni架构的图生视频。优点：人物微表情逼真。缺点：算力消耗大。', hot: false, icon: 'Video', 
+    id: 104, title: 'Vidu Q3 参考生', modelId: 'viduq3-cankaosheng', category: 'video', desc: 'Vidu Q3 参考生视频模型，上传1-7张参考图片，AI以图中主体为参考生成主体一致的有声视频。当前版本为漫剧做了针对优化，支持音画同出，最高1080P分辨率，4-16秒时长可选。', tag: '热推', hot: true, icon: 'https://cos.lingkeai.vip/vidu-icon.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -244,11 +250,13 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
   { 
-    id: 105, title: '可灵 动态头像 V3', modelId: 'kling-avatar', category: 'video', desc: '专用于静图转动态头像。优点：唇形和眨眼极其自然。缺点：只支持面部特写。', tag: '播报必备', hot: false, icon: 'Video', 
+    id: 105, title: 'veo3.1', modelId: 'veo3.1', category: 'video', desc: '谷歌推出的高可控性视频模型，凭借独特的“首尾帧控制”技术（补全起始与结束画面）和精准运镜指令，能生成自带背景音乐的专业级视频。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/gemini.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -256,11 +264,12 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
     ]
   },
   { 
-    id: 106, title: '即梦 Seedance 2.7 首尾帧', modelId: 'doubao-seedance-2-7-shouweizhen', category: 'video', desc: '字节跳动最新旗舰首尾帧。优点：动作张力大，镜头感强。缺点：偶尔出现多出手指的幻觉。', tag: '大动态', hot: true, icon: 'Video', 
+    id: 106, title: 'Vidu Q3', modelId: 'viduq3', category: 'video', desc: 'Vidu 推出的 Q3 系列视频生成模型，支持文生视频、首帧图生视频、首尾帧过渡视频三种模式。内置音视频同步直出能力，生成的视频自带台词和音效。提供快速(turbo)和高质量(pro)两种版本，最长支持16秒视频生成。', tag: '热推', hot: true, icon: 'https://cos.lingkeai.vip/vidu-icon.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -268,12 +277,12 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
     ]
   },
   { 
-    id: 107, title: '即梦 Seedance 2.7 参考图', modelId: 'doubao-seedance-2-7-cankao', category: 'video', desc: '即梦旗舰图生视频。优点：色彩鲜艳，画面极度讨喜。缺点：写实度略逊于可灵。', tag: '网感极佳', hot: true, icon: 'Video', 
+    id: 107, title: 'veo3.1-lite', modelId: 'veo3.1-lite', category: 'video', desc: 'Google最新的高级人工智能模型，veo3.1 lite 模式，支持视频自动配套音频生成，质量高价格很低，性价比最高的选择。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/gemini.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -281,11 +290,12 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
     ]
   },
   { 
-    id: 108, title: '即梦 Seedance 2.7 文本', modelId: 'doubao-seedance-2-7-video', category: 'video', desc: '即梦文生视频。优点：生成速度极快。缺点：一致性中等。', tag: '极速生成', hot: false, icon: 'Video', 
+    id: 108, title: 'Pix V6 首尾帧', modelId: 'pixverse-v6-shouweizhen', category: 'video', desc: 'PixVerse V6 多模态视频生成，支持文生视频、图生视频、首尾帧三种模式。不传图=文生视频，1张图=首帧生视频，2张图=首尾帧，自动生成有声视频，支持360P-1080P分辨率，3-15秒。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/PixVerse.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -293,11 +303,14 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
     ]
   },
   { 
-    id: 109, title: '即梦 Seedance 2.7 视频重写', modelId: 'doubao-seedance-2-7-v2v', category: 'video', desc: '视频转视频。优点：可以完美保留原视频动作换画风。缺点：对原视频光影要求高。', tag: 'V2V利器', hot: true, icon: 'Video', 
+    id: 109, title: 'veo3.1-4K高清', modelId: 'veo3.1-4k', category: 'video', desc: 'Google Veo 3.1 4K 超清画质、逻辑级首尾帧控制、电影级运镜与原生音频生成于一体的“全能 AI 导演”，它让高难度的视频创意实现了从“不可控”到“精准定制”的跨越。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/gemini.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -305,12 +318,12 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
     ]
   },
   { 
-    id: 110, title: '即梦 Seedance 2.6 首尾帧', modelId: 'doubao-seedance-2-6-shouweizhen', category: 'video', desc: '上一代高稳定模型。优点：几乎不崩坏，成功率极高。缺点：画质上限不如2.7。', tag: '高成功率', hot: false, icon: 'Video', 
+    id: 110, title: 'SD 2.0 首尾帧', modelId: 'kwvideo-v2', category: 'video', desc: '字节跳动即梦团队推出的旗舰级视频生成模型 Seedance 2.0，全球第一梯队超级多模态视频生成。支持文生视频、首帧图生视频、首尾帧三种模式，自动生成有声视频，4~15秒灵活时长，标准/快速双版本可选。按官方 Token 计费。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/doubao.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -318,12 +331,14 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
     ]
   },
   { 
-    id: 111, title: '即梦 Seedance 2.6 参考图', modelId: 'doubao-seedance-2-6-cankao', category: 'video', desc: '上一代图生视频。优点：价格便宜。缺点：清晰度一般。', tag: '性价比', hot: false, icon: 'Video', 
+    id: 111, title: '万相 2.6 参考生', modelId: 'wan2.6-cankaosheng', category: 'video', desc: '万相2.6官方版参考生视频模型，支持上传参考图片提取角色形象，生成单角色或多角色互动视频。提供快速和高质量两档画质，支持720P/1080P分辨率，最长可生成10秒视频。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/qwen.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -331,11 +346,13 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
   { 
-    id: 112, title: 'PixVerse C1 首尾帧', modelId: 'pixverse-c1-shouweizhen', category: 'video', desc: 'PixVerse V3升级版。优点：二次元和3D动画生成效果极佳。缺点：写实人物容易偏欧美脸。', tag: '二次元首选', hot: true, icon: 'Video', 
+    id: 112, title: 'SD 2.0 全能参考', modelId: 'kwvideo-v2-quannengcankao', category: 'video', desc: '字节跳动即梦团队推出的旗舰级视频生成模型 Seedance 2.0，支持图片+视频+音频任意组合作为参考输入，智能融合多模态素材生成高质量视频。最多支持 9 张图片、3 个视频、3 段音频，自动生成有声视频。按官方 Token 计费。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/doubao.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -343,12 +360,13 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
   { 
-    id: 113, title: 'PixVerse C1 参考图', modelId: 'pixverse-c1-cankao', category: 'video', desc: 'PixVerse 图生视频。优点：动漫光影处理一流。缺点：无法处理太复杂的物理碰撞。', hot: false, icon: 'Video', 
+    id: 113, title: '可灵-Omni 首尾帧', modelId: 'kling-v3-omni-shouweizhen', category: 'video', desc: '可灵 V3 Omni 首尾帧模式，上传1张图作为首帧，或2张图作为首帧+尾帧，AI智能分镜生成有声视频，支持标准/高品质双模式，5-15秒。', tag: '热推', hot: true, icon: 'https://cos.lingkeai.vip/kling.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -356,11 +374,14 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
     ]
   },
   { 
-    id: 114, title: 'PixVerse V6 首尾帧', modelId: 'pixverse-v6-shouweizhen', category: 'video', desc: 'PixVerse V6 架构。优点：支持4K输出。缺点：生成耗时长达10分钟。', tag: '4K级输出', hot: false, icon: 'Video', 
+    id: 114, title: '可灵-V3-video', modelId: 'kling-v3-video', category: 'video', desc: '快手可灵第三代视频生成模型，支持文生视频和图生视频，支持首尾帧控制，标准/高品质双模式，5-15秒有声视频，画质和运动表现全面升级。', tag: '热推', hot: true, icon: 'https://cos.lingkeai.vip/kling.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -368,12 +389,12 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
     ]
   },
   { 
-    id: 115, title: 'PixVerse V5.6 参考图', modelId: 'pixverse-v5-6-cankao', category: 'video', desc: '稳定版 PixVerse。优点：风格化强烈。缺点：分辨率受限。', hot: false, icon: 'Video', 
+    id: 115, title: '可灵-Omni 视频参考', modelId: 'kling-v3-omni-videoref', category: 'video', desc: '可灵 V3 Omni 视频参考模式，上传参考视频 + 可选0-4张参考图，支持视频参考（参考运镜/风格生新视频）和视频编辑（指令修改原视频）两种玩法，按秒计费。', tag: '热推', hot: true, icon: 'https://cos.lingkeai.vip/kling.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -381,11 +402,13 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
   { 
-    id: 116, title: 'Vidu Q3 参考图', modelId: 'vidu-q3-cankao', category: 'video', desc: 'Vidu最新一代。优点：一键生成3D卡通感，非常立体。缺点：边缘偶尔有闪烁模糊。', tag: '立体感强', hot: true, icon: 'Video', 
+    id: 116, title: '可灵-动作控制 V3', modelId: 'kling-motion-control-v3', category: 'video', desc: '可灵AI动作控制V3模型，基于V3引擎升级，通过上传参考图像和动作视频，让图片中的人物按照视频中的动作运动。支持std标准模式和pro高品质模式，可选择保留视频原声，人物朝向可与图片或视频一致。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/kling.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -393,11 +416,12 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
     ]
   },
   { 
-    id: 117, title: 'Vidu Q3 文本', modelId: 'vidu-q3-video', category: 'video', desc: 'Vidu 文生视频。优点：对长提示词理解深刻。缺点：算力昂贵。', hot: false, icon: 'Video', 
+    id: 117, title: 'Vidu Q2 参考生', modelId: 'viduq2-cankaosheng', category: 'video', desc: 'Vidu Q2 参考生视频模型，上传1-7张参考图片，AI以图中主体为参考生成风格一致的高质量视频。提供标准版（细节丰富）和高质量（支持视频参考、视频编辑）两种模式，最高1080P分辨率，5-10秒时长可选。', tag: '热推', hot: true, icon: 'https://cos.lingkeai.vip/vidu-icon.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -405,11 +429,13 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
   { 
-    id: 118, title: 'Vidu Q2 参考图', modelId: 'vidu-q2-cankao', category: 'video', desc: 'Vidu 上一代模型。优点：超快生成（1分钟内）。缺点：细节缺失。', tag: '秒级出片', hot: false, icon: 'Video', 
+    id: 118, title: '可灵-动作控制', modelId: 'kling-motion-control', category: 'video', desc: '可灵AI动作控制模型，通过上传参考图像和动作视频，让图片中的人物按照视频中的动作运动。支持std标准模式和pro高品质模式，可选择保留视频原声，人物朝向可与图片或视频一致。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/kling.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -417,11 +443,12 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
     ]
   },
   { 
-    id: 119, title: 'Sora-2 全能参考', modelId: 'sora-2-all', category: 'video', desc: 'Sora第二代通用版。优点：物理世界模拟器，流体和光影世界第一。缺点：偶尔报错退回。', tag: '物理引擎', hot: true, icon: 'Video', 
+    id: 119, title: '万相-视频换人', modelId: 'wan2.2-animate-mix', category: 'video', desc: '万相2.2视频换人模型，上传一张人物图片和一段参考视频，AI将视频中的人物替换为图片中的人物，支持标准模式和专业模式。无需输入提示词。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/qwen.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -429,11 +456,12 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
     ]
   },
   { 
-    id: 120, title: 'Sora-2 首尾帧', modelId: 'sora-2-shouweizhen', category: 'video', desc: 'Sora首尾帧控制。优点：极强的前后逻辑一致性。缺点：只支持部分账号灰度测试。', tag: '王者归来', hot: true, icon: 'Video', 
+    id: 120, title: 'Pix V5.6 参考生', modelId: 'pixverse-v5.6-r2v', category: 'video', desc: 'PixVerse V5.6 参考生视频模型，支持上传1-7张参考图片，AI参考图片中的角色、风格、场景融合生成有声视频。支持360P至1080P分辨率，5-10秒时长可选。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/PixVerse.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -441,12 +469,13 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
   { 
-    id: 121, title: 'Sora-2 纯文本', modelId: 'sora-2-video', category: 'video', desc: 'Sora 原生文生视频。优点：可生成长达60秒的连贯视频。缺点：等待队伍极长。', tag: '超长生成', hot: true, icon: 'Video', 
+    id: 121, title: 'Pix V5.6 首尾帧', modelId: 'pixverse-v5.6-shouweizhen', category: 'video', desc: 'PixVerse V5.6 多模态视频生成，支持文生视频、图生视频、首尾帧三种模式。不传图=文生视频，1张图=首帧生视频，2张图=首尾帧，自动生成有声视频，支持360P-1080P分辨率，5-10秒。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/PixVerse.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -454,11 +483,14 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
     ]
   },
   { 
-    id: 122, title: 'Veo 3.1', modelId: 'veo3.1', category: 'video', desc: 'Google 视频大模型。优点：自带非常契合画面的BGM和音效。缺点：对中文提示词理解偏弱。', tag: '自带音效', hot: true, icon: 'Video', 
+    id: 122, title: '万相 2.6 首帧', modelId: 'wan2.6-shouzheng', category: 'video', desc: '万相2.6官方版图生视频模型，支持首帧图片驱动和纯文本生成两种模式，自动生成有声视频。提供快速和高质量两档画质，支持720P/1080P分辨率，最长可生成15秒电影级视频。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/qwen.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -466,11 +498,12 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
     ]
   },
   { 
-    id: 123, title: 'Veo 3.1 Lite', modelId: 'veo3.1-lite', category: 'video', desc: 'Veo轻量版。优点：响应迅速。缺点：画质压缩明显。', hot: false, icon: 'Video', 
+    id: 123, title: '可灵 2.6 Pro', modelId: 'kling-v2-6', category: 'video', desc: '快手推出的“物理世界模拟器”视频旗舰可灵 2.6，支持文生视频与单图生视频。凭借卓越的 Transformer 架构，仅需一张参考图即可生成符合真实物理规律的 1080p 电影级视频。它在光影一致性与大幅度运动表现上实现了质的飞跃，是能将静态灵感瞬间转化为动态大片的“光影造梦引擎”。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/kling.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -478,11 +511,12 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
     ]
   },
   { 
-    id: 124, title: 'Veo 3.1 4K高频', modelId: 'veo3.1-4k', category: 'video', desc: 'Veo高级版。优点：4K超清，色彩还原度极高。缺点：非常耗费Tokens。', tag: '4K原生', hot: false, icon: 'Video', 
+    id: 124, title: '可灵-数字人', modelId: 'kling-avatar-image2video', category: 'video', desc: '可灵AI数字人模型，通过上传数字人参考图和音频文件，让图片中的人物开口说话。支持std标准模式和pro高品质模式，可定义数字人动作、情绪及运镜等。', tag: '热推', hot: true, icon: 'https://cos.lingkeai.vip/kling.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -490,11 +524,13 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '参考图', type: 'image_upload', max: 1 }
     ]
   },
   { 
-    id: 125, title: 'Grok Video 3', modelId: 'grok-video-3', category: 'video', desc: 'xAI 视频生成。优点：无审查限制，脑洞极大。缺点：画面偶尔出现诡异逻辑。', tag: '无限制', hot: true, icon: 'Video', 
+    id: 125, title: '海螺 2.3', modelId: 'hailuo-2.3', category: 'video', desc: '海螺AI是MiniMax推出的视频生成模型，2.3版本在动作自然度、物理真实感和指令遵循能力上实现重大突破。提供标准版和极速版两种选择，极速版价格更优惠，适合批量创作。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/minimax.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -502,11 +538,12 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
     ]
   },
   { 
-    id: 126, title: 'Grok Video 3 Plus', modelId: 'grok-video-3-plus', category: 'video', desc: 'Grok 长视频生成。优点：最长支持30秒一镜到底。缺点：镜头运动较为单一。', tag: '一镜到底', hot: false, icon: 'Video', 
+    id: 126, title: '万相 2.7 参考生', modelId: 'wan2.7-cankaosheng', category: 'video', desc: '阿里云万相2.7旗舰参考生视频模型，支持文本生视频和参考生视频两种模式。纯文本自动走文生视频(t2v)，上传参考图片或视频后自动切换为参考生视频(r2v)。支持720P/1080P分辨率，最长15秒视频生成。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/qwen.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -514,11 +551,13 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
     ]
   },
   { 
-    id: 127, title: 'Runway Gen-3 Alpha', modelId: 'runway-gen3', category: 'video', desc: 'Runway 旗舰模型。优点：好莱坞级别的运镜和光影，极其专业。缺点：生成价格最贵。', tag: '好莱坞级', hot: true, icon: 'Video', 
+    id: 127, title: '万相 2.7 视频续写', modelId: 'wan2.7-xuxie', category: 'video', desc: '阿里云万相2.7视频续写模型，支持首段视频续写和首段视频+尾帧续写两种模式。上传视频片段自动续写，可选添加尾帧图片引导视频方向。支持720P/1080P分辨率，最长15秒视频生成。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/qwen.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -526,11 +565,12 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' }
     ]
   },
   { 
-    id: 128, title: 'Runway Gen-3 极速版', modelId: 'runway-gen3-turbo', category: 'video', desc: 'Runway Turbo。优点：在保留质感的同时提升了3倍速度。缺点：最大时长只有5秒。', hot: false, icon: 'Video', 
+    id: 128, title: '万相 2.7 首尾帧', modelId: 'wan2.7-shouweizhen', category: 'video', desc: '阿里云万相2.7旗舰图生视频模型，支持首帧/首尾帧两种模式。上传1张图片自动走首帧生视频，上传2张图片自动走首尾帧生视频。支持720P/1080P分辨率，最长15秒视频生成。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/qwen.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
@@ -538,55 +578,10 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
-    ]
-  },
-  { 
-    id: 129, title: 'Runway Gen-2', modelId: 'runway-gen2', category: 'video', desc: 'Runway 经典模型。优点：特定艺术风格表现优异。缺点：清晰度和动作幅度落后于时代。', hot: false, icon: 'Video', 
-    channels: [
-      { id: 'official', name: '💎 官方直连' },
-      { id: 'enterprise', name: '🏢 企业级高可用分组' },
-      { id: 'kj', name: '⚡ KJ直连' }
-    ],
-    configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
-    ]
-  },
-  { 
-    id: 130, title: 'Luma Dream Machine', modelId: 'luma-dream', category: 'video', desc: 'Luma 高性能模型。优点：对现实物理引擎还原极好，极少扭曲。缺点：人物面部容易模糊。', tag: '物理极佳', hot: true, icon: 'Video', 
-    channels: [
-      { id: 'official', name: '💎 官方直连' },
-      { id: 'enterprise', name: '🏢 企业级高可用分组' },
-      { id: 'kj', name: '⚡ KJ直连' }
-    ],
-    configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
-    ]
-  },
-  { 
-    id: 131, title: 'Luma 运镜版', modelId: 'luma-camera', category: 'video', desc: 'Luma 专属运镜控制模型。优点：可指定摇、移、推、拉等专业运镜。缺点：学习成本高。', tag: '专业运镜', hot: false, icon: 'Video', 
-    channels: [
-      { id: 'official', name: '💎 官方直连' },
-      { id: 'enterprise', name: '🏢 企业级高可用分组' },
-      { id: 'kj', name: '⚡ KJ直连' }
-    ],
-    configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
-    ]
-  },
-  { 
-    id: 132, title: 'Kuaishou KWVideo V3', modelId: 'kwvideo-v3', category: 'video', desc: '快手最新版大模型。优点：对国内网红风格、短视频风格把控极其精准。缺点：不太适合做正剧/电影。', tag: '短视频风', hot: false, icon: 'Video', 
-    channels: [
-      { id: 'official', name: '💎 官方直连' },
-      { id: 'enterprise', name: '🏢 企业级高可用分组' },
-      { id: 'kj', name: '⚡ KJ直连' }
-    ],
-    configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}], default: 'standard' },
+      { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
     ]
   },
 
