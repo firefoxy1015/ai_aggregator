@@ -193,10 +193,8 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
+      { name: 'images', label: '首帧参考图', type: 'image_upload', max: 1 },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'10',l:'10秒'}, {v:'15',l:'15秒'}, {v:'20',l:'20秒'}, {v:'25',l:'25秒'}, {v:'30',l:'30秒'}], default: 10 }
     ]
   },
   { 
@@ -207,11 +205,10 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'360P',l:'360P'}, {v:'540P',l:'540P'}, {v:'720P',l:'720P'}, {v:'1080P',l:'1080P'}], default: '' },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'3',l:'3秒'}, {v:'6',l:'6秒'}, {v:'9',l:'9秒'}, {v:'12',l:'12秒'}, {v:'15',l:'15秒'}], default: '' },
+      { name: 'aspect_ratio', label: '画面比例', type: 'select', options: [{v:'16:9',l:'横屏 16:9'}, {v:'9:16',l:'竖屏 9:16'}, {v:'1:1',l:'方形 1:1'}, {v:'3:4',l:'竖屏 3:4'}, {v:'4:3',l:'传统 4:3'}, {v:'3:2',l:'横屏 3:2'}, {v:'2:3',l:'竖屏 2:3'}, {v:'21:9',l:'超宽 21:9'}], default: '' },
+      { name: 'images', label: '参考图片', type: 'image_upload', max: 1 }
     ]
   },
   { 
@@ -222,11 +219,11 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
+      { name: 'version', label: '速度版本', type: 'select', options: [{v:'标准',l:'标准'}, {v:'快速',l:'快速'}], default: '快速' },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'auto',l:'自动'}, {v:'4',l:'4秒'}, {v:'5',l:'5秒'}, {v:'6',l:'6秒'}, {v:'7',l:'7秒'}, {v:'8',l:'8秒'}, {v:'9',l:'9秒'}, {v:'10',l:'10秒'}, {v:'11',l:'11秒'}, {v:'12',l:'12秒'}, {v:'13',l:'13秒'}, {v:'14',l:'14秒'}, {v:'15',l:'15秒'}], default: 'auto' },
+      { name: 'aspect_ratio', label: '宽高比', type: 'select', options: [{v:'adaptive',l:'自适应'}, {v:'16:9',l:'16:9'}, {v:'4:3',l:'4:3'}, {v:'1:1',l:'1:1'}, {v:'3:4',l:'3:4'}, {v:'9:16',l:'9:16'}, {v:'21:9',l:'21:9'}], default: 'adaptive' },
+      { name: 'resolution', label: '视频分辨率', type: 'select', options: [{v:'480p',l:'480p'}, {v:'720p',l:'720p'}], default: '480p' },
+      { name: 'images', label: '参考图片', type: 'image_upload', max: 9 }
     ]
   },
   { 
@@ -237,12 +234,9 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'360P',l:'360P'}, {v:'540P',l:'540P'}, {v:'720P',l:'720P'}, {v:'1080P',l:'1080P'}], default: '360P' },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'3',l:'3秒'}, {v:'6',l:'6秒'}, {v:'9',l:'9秒'}, {v:'12',l:'12秒'}, {v:'15',l:'15秒'}], default: 3 },
+      { name: 'images', label: '首尾帧', type: 'image_upload', max: 2 }
     ]
   },
   { 
@@ -253,11 +247,8 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
+      { name: 'images', label: '参考图片', type: 'image_upload', max: 7 },
+      { name: 'duration', label: '时长', type: 'select', options: [{v:'4',l:'4秒'}, {v:'8',l:'8秒'}, {v:'12',l:'12秒'}, {v:'16',l:'16秒'}], default: 4 }
     ]
   },
   { 
@@ -268,10 +259,7 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
+      { name: 'images', label: '参考图片', type: 'image_upload', max: 3 }
     ]
   },
   { 
@@ -282,10 +270,8 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
+      { name: 'images', label: '首尾帧', type: 'image_upload', max: 2 },
+      { name: 'duration', label: '时长', type: 'select', options: [{v:'4',l:'4秒'}, {v:'8',l:'8秒'}, {v:'12',l:'12秒'}, {v:'16',l:'16秒'}], default: 4 }
     ]
   },
   { 
@@ -296,10 +282,8 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
+      { name: 'quality', label: '视频画质', type: 'select', options: [{v:'sd',l:'标清'}, {v:'4k',l:'4K'}], default: '标清' },
+      { name: 'images', label: '首尾帧', type: 'image_upload', max: 2 }
     ]
   },
   { 
@@ -310,12 +294,10 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'360P',l:'360P'}, {v:'540P',l:'540P'}, {v:'720P',l:'720P'}, {v:'1080P',l:'1080P'}], default: '360P' },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'3',l:'3秒'}, {v:'6',l:'6秒'}, {v:'9',l:'9秒'}, {v:'12',l:'12秒'}, {v:'15',l:'15秒'}], default: 3 },
+      { name: 'images', label: '首尾帧', type: 'image_upload', max: 2 },
+      { name: 'aspect_ratio', label: '宽高比', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'4:3',l:'4:3'}, {v:'1:1',l:'1:1'}, {v:'3:4',l:'3:4'}, {v:'9:16',l:'9:16'}, {v:'3:2',l:'3:2'}, {v:'2:3',l:'2:3'}, {v:'21:9',l:'21:9'}], default: '16:9' }
     ]
   },
   { 
@@ -326,10 +308,7 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
+      { name: 'images', label: '参考图片', type: 'image_upload', max: 3 }
     ]
   },
   { 
@@ -340,12 +319,11 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
+      { name: 'version', label: '速度版本', type: 'select', options: [{v:'标准',l:'标准'}, {v:'快速',l:'快速'}], default: '快速' },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'auto',l:'自动'}, {v:'4',l:'4秒'}, {v:'5',l:'5秒'}, {v:'6',l:'6秒'}, {v:'7',l:'7秒'}, {v:'8',l:'8秒'}, {v:'9',l:'9秒'}, {v:'10',l:'10秒'}, {v:'11',l:'11秒'}, {v:'12',l:'12秒'}, {v:'13',l:'13秒'}, {v:'14',l:'14秒'}, {v:'15',l:'15秒'}], default: 'auto' },
+      { name: 'aspect_ratio', label: '宽高比', type: 'select', options: [{v:'adaptive',l:'自适应'}, {v:'16:9',l:'16:9'}, {v:'4:3',l:'4:3'}, {v:'1:1',l:'1:1'}, {v:'3:4',l:'3:4'}, {v:'9:16',l:'9:16'}, {v:'21:9',l:'21:9'}], default: 'adaptive' },
+      { name: 'resolution', label: '视频分辨率', type: 'select', options: [{v:'480p',l:'480p'}, {v:'720p',l:'720p'}], default: '480p' },
+      { name: 'images', label: '首尾帧', type: 'image_upload', max: 1 }
     ]
   },
   { 
@@ -356,11 +334,8 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
+      { name: 'reference_urls', label: '参考图片', type: 'image_upload', max: 5 },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'2',l:'2秒'}, {v:'4',l:'4秒'}, {v:'6',l:'6秒'}, {v:'8',l:'8秒'}, {v:'10',l:'10秒'}], default: 2 }
     ]
   },
   { 
@@ -371,11 +346,13 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
+      { name: 'version', label: '速度版本', type: 'select', options: [{v:'标准',l:'标准'}, {v:'快速',l:'快速'}], default: '快速' },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'auto',l:'自动'}, {v:'4',l:'4秒'}, {v:'5',l:'5秒'}, {v:'6',l:'6秒'}, {v:'7',l:'7秒'}, {v:'8',l:'8秒'}, {v:'9',l:'9秒'}, {v:'10',l:'10秒'}, {v:'11',l:'11秒'}, {v:'12',l:'12秒'}, {v:'13',l:'13秒'}, {v:'14',l:'14秒'}, {v:'15',l:'15秒'}], default: 'auto' },
+      { name: 'aspect_ratio', label: '宽高比', type: 'select', options: [{v:'adaptive',l:'自适应'}, {v:'16:9',l:'16:9'}, {v:'4:3',l:'4:3'}, {v:'1:1',l:'1:1'}, {v:'3:4',l:'3:4'}, {v:'9:16',l:'9:16'}, {v:'21:9',l:'21:9'}], default: 'adaptive' },
+      { name: 'resolution', label: '视频分辨率', type: 'select', options: [{v:'480p',l:'480p'}, {v:'720p',l:'720p'}], default: '480p' },
+      { name: 'image_url', label: '参考图片', type: 'image_upload', max: 9 },
+      { name: 'video_url', label: '参考视频', type: 'image_upload', max: 3 },
+      { name: 'audio_url', label: '音频文件', type: 'image_upload', max: 3 }
     ]
   },
   { 
@@ -386,12 +363,9 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'10',l:'10秒'}, {v:'15',l:'15秒'}], default: 5 },
+      { name: 'images', label: '首尾帧', type: 'image_upload', max: 2 },
+      { name: 'mode', label: '生成模式', type: 'select', options: [{v:'std',l:'标准'}, {v:'pro',l:'高品质'}], default: 'std' }
     ]
   },
   { 
@@ -402,10 +376,10 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'10',l:'10秒'}, {v:'15',l:'15秒'}], default: 5 },
+      { name: 'images', label: '首尾帧', type: 'image_upload', max: 2 },
+      { name: 'mode', label: '生成模式', type: 'select', options: [{v:'std',l:'标准'}, {v:'pro',l:'高品质'}], default: 'std' },
+      { name: 'aspect_ratio', label: '画面比例', type: 'select', options: [{v:'16:9',l:'16:9 横屏'}, {v:'9:16',l:'9:16 竖屏'}, {v:'1:1',l:'1:1 正方形'}], default: '16:9' }
     ]
   },
   { 
@@ -416,11 +390,13 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'10',l:'10秒'}], default: 5 },
+      { name: 'images', label: '参考图片', type: 'image_upload', max: 4 },
+      { name: 'video', label: '参考视频', type: 'image_upload', max: 1 },
+      { name: 'refer_type', label: '参考类型', type: 'select', options: [{v:'feature',l:'视频参考'}, {v:'base',l:'编辑视频'}], default: 'feature' },
+      { name: 'keep_original_sound', label: '保留原声', type: 'select', options: [{v:'yes',l:'保留原声'}, {v:'no',l:'不保留'}], default: 'yes' },
+      { name: 'mode', label: '生成模式', type: 'select', options: [{v:'std',l:'标准'}, {v:'pro',l:'高品质'}], default: 'std' },
+      { name: 'aspect_ratio', label: '画面比例', type: 'select', options: [{v:'16:9',l:'16:9 横屏'}, {v:'9:16',l:'9:16 竖屏'}, {v:'1:1',l:'1:1 正方形'}], default: '16:9' }
     ]
   },
   { 
@@ -431,10 +407,11 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
+      { name: 'image_url', label: '参考图片', type: 'image_upload', max: 1 },
+      { name: 'video_url', label: '参考视频', type: 'image_upload', max: 1 },
+      { name: 'keep_original_sound', label: '保留原声', type: 'select', options: [{v:'yes',l:'保留原声'}, {v:'no',l:'不保留原声'}], default: 'yes' },
+      { name: 'character_orientation', label: '人物朝向', type: 'select', options: [{v:'video',l:'与视频一致'}, {v:'image',l:'与图片一致'}], default: 'video' },
+      { name: 'mode', label: '生成模式', type: 'select', options: [{v:'std',l:'标准模式'}, {v:'pro',l:'专家模式'}], default: 'std' }
     ]
   },
   { 
@@ -445,11 +422,8 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
+      { name: 'images', label: '参考图片', type: 'image_upload', max: 7 },
+      { name: 'duration', label: '时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'10',l:'10秒'}], default: 5 }
     ]
   },
   { 
@@ -460,10 +434,11 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
+      { name: 'image_url', label: '参考图片', type: 'image_upload', max: 1 },
+      { name: 'video_url', label: '参考视频', type: 'image_upload', max: 1 },
+      { name: 'keep_original_sound', label: '保留原声', type: 'select', options: [{v:'yes',l:'保留原声'}, {v:'no',l:'不保留原声'}], default: 'yes' },
+      { name: 'character_orientation', label: '人物朝向', type: 'select', options: [{v:'video',l:'与视频一致'}, {v:'image',l:'与图片一致'}], default: 'video' },
+      { name: 'mode', label: '生成模式', type: 'select', options: [{v:'std',l:'标准模式'}, {v:'pro',l:'专家模式'}], default: 'std' }
     ]
   },
   { 
@@ -474,10 +449,9 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
+      { name: 'image_url', label: '参考图片', type: 'image_upload', max: 1 },
+      { name: 'video_url', label: '参考视频', type: 'image_upload', max: 1 },
+      { name: 'mode', label: '生成模式', type: 'select', options: [{v:'wan-std',l:'标准模式'}, {v:'wan-pro',l:'专业模式'}], default: 'wan-std' }
     ]
   },
   { 
@@ -488,11 +462,10 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
+      { name: 'images', label: '参考图片', type: 'image_upload', max: 7 },
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'360P',l:'360P'}, {v:'540P',l:'540P'}, {v:'720P',l:'720P'}, {v:'1080P',l:'1080P'}], default: '540P' },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'8',l:'8秒'}, {v:'10',l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '画面比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'4:3',l:'4:3'}, {v:'1:1',l:'1:1'}, {v:'3:4',l:'3:4'}, {v:'9:16',l:'9:16'}], default: '16:9' }
     ]
   },
   { 
@@ -503,12 +476,10 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'360P',l:'360P'}, {v:'540P',l:'540P'}, {v:'720P',l:'720P'}, {v:'1080P',l:'1080P'}], default: '540P' },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'8',l:'8秒'}, {v:'10',l:'10秒'}], default: 5 },
+      { name: 'images', label: '首尾帧', type: 'image_upload', max: 2 },
+      { name: 'aspect_ratio', label: '宽高比', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'4:3',l:'4:3'}, {v:'1:1',l:'1:1'}, {v:'3:4',l:'3:4'}, {v:'9:16',l:'9:16'}], default: '16:9' }
     ]
   },
   { 
@@ -519,10 +490,9 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
+      { name: 'img_url', label: '参考图片', type: 'image_upload', max: 1 },
+      { name: 'audio_url', label: '音频文件', type: 'image_upload', max: 1 },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'3',l:'3秒'}, {v:'6',l:'6秒'}, {v:'9',l:'9秒'}, {v:'12',l:'12秒'}, {v:'15',l:'15秒'}], default: 3 }
     ]
   },
   { 
@@ -533,10 +503,10 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'10',l:'10秒'}], default: 5 },
+      { name: 'images', label: '参考图片', type: 'image_upload', max: 1 },
+      { name: 'sound', label: '声音模式', type: 'select', options: [{v:'on',l:'有声'}, {v:'off',l:'无声'}], default: 'on' },
+      { name: 'aspect_ratio', label: '画面比例', type: 'select', options: [{v:'16:9',l:'横屏 16:9'}, {v:'9:16',l:'竖屏 9:16'}, {v:'1:1',l:'方形 1:1'}], default: '16:9' }
     ]
   },
   { 
@@ -547,11 +517,9 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '参考图', type: 'image_upload', max: 1 }
+      { name: 'image', label: '参考图片', type: 'image_upload', max: 1 },
+      { name: 'sound_file', label: '音频文件', type: 'image_upload', max: 1 },
+      { name: 'mode', label: '生成模式', type: 'select', options: [{v:'std',l:'标准模式'}, {v:'pro',l:'专家模式'}], default: 'std' }
     ]
   },
   { 
@@ -562,10 +530,10 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
+      { name: 'model_version', label: '模型版本', type: 'select', options: [{v:'2.3',l:'标准版'}, {v:'2.3-fast',l:'极速版'}], default: '2.3-fast' },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'6',l:'6秒'}, {v:'10',l:'10秒'}], default: 6 },
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'768P',l:'768P'}, {v:'1080P',l:'1080P'}], default: '768P' },
+      { name: 'enhance_prompt', label: '提示词优化', type: 'select', options: [{v:'Enabled',l:'开启优化'}, {v:'Disabled',l:'不优化'}], default: 'Disabled' }
     ]
   },
   { 
@@ -576,11 +544,9 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 9 }
+      { name: 'reference_urls', label: '参考图片', type: 'image_upload', max: 5 },
+      { name: 'reference_video', label: '参考视频', type: 'image_upload', max: 1 },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'3',l:'3秒'}, {v:'6',l:'6秒'}, {v:'9',l:'9秒'}, {v:'12',l:'12秒'}, {v:'15',l:'15秒'}], default: 3 }
     ]
   },
   { 
@@ -591,10 +557,8 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' }
+      { name: 'clips', label: '视频续写', type: 'image_upload', max: 1 },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'3',l:'3秒'}, {v:'6',l:'6秒'}, {v:'9',l:'9秒'}, {v:'12',l:'12秒'}, {v:'15',l:'15秒'}], default: 3 }
     ]
   },
   { 
@@ -605,12 +569,8 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质(Pro)'}, {v:'turbo',l:'快速(Turbo)'}], default: 'standard' },
-      { name: 'version', label: '版本', type: 'select', options: [{v:'standard',l:'标准版'}, {v:'fast',l:'快速版'}, {v:'pro',l:'专业版'}, {v:'v2.0',l:'v2.0'}, {v:'v3.0',l:'v3.0'}], default: 'standard' },
-      { name: 'image_start', label: '首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '尾帧图', type: 'image_upload', max: 1 }
+      { name: 'images', label: '首尾帧', type: 'image_upload', max: 2 },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'3',l:'3秒'}, {v:'6',l:'6秒'}, {v:'9',l:'9秒'}, {v:'12',l:'12秒'}, {v:'15',l:'15秒'}], default: 3 }
     ]
   },
 
