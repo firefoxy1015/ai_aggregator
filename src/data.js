@@ -185,89 +185,408 @@ export const toolsData = [
   },
 
   // --- AI 视频 (Video) ---
-  { 
-    id: 29, title: '可灵 Kling v3 首尾帧', modelId: 'kling-v3-omni-shouweizhen', category: 'video', desc: '极强运镜控制，强制首尾帧生成。', tag: '分镜利器', hot: true, icon: 'Film', 
-    configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'mode', label: '模式', type: 'select', options: [{v:'std',l:'标准 (std)'}, {v:'pro',l:'高品质 (pro)'}], default: 'std' },
-      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
-    ]
-  },
-  { 
-    id: 30, title: '可灵 Kling v3 Video', modelId: 'kling-v3-video', category: 'video', desc: '常规高质量视频生成。', hot: false, icon: 'Clapperboard', 
-    configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
-      { name: 'mode', label: '模式', type: 'select', options: [{v:'std',l:'标准 (std)'}, {v:'pro',l:'高品质 (pro)'}], default: 'std' },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' },
-      { name: 'image_start', label: '首帧图 (可选)', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '尾帧图 (可选)', type: 'image_upload', max: 1 }
-    ]
-  },
-  { 
-    id: 31, title: 'Grok Video 3', modelId: 'grok-video-3', category: 'video', desc: '极速视频生成。', hot: false, icon: 'Zap', 
-    configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}], default: 5 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}], default: '16:9' },
-      { name: 'size', label: '分辨率', type: 'select', options: [{v:'1080x1920',l:'1080x1920'}, {v:'1920x1080',l:'1920x1080'}], default: '1080x1920' },
-      { name: 'image_start', label: '参考图', type: 'image_upload', max: 1 }
-    ]
-  },
-  { 
-    id: 32, title: 'Grok Video 3 Plus', modelId: 'grok-video-3-plus', category: 'video', desc: '最长支持 30 秒长视频。', tag: '超长视频', hot: true, icon: 'Film', 
-    configurableParams: [
-      { name: 'duration', label: '时长', type: 'select', options: [{v:10,l:'10秒'}, {v:20,l:'20秒'}, {v:30,l:'30秒'}], default: 30 },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}], default: '16:9' },
-      { name: 'size', label: '分辨率', type: 'select', options: [{v:'1080x1920',l:'1080x1920'}, {v:'1920x1080',l:'1920x1080'}], default: '1080x1920' },
-      { name: 'image_start', label: '参考图', type: 'image_upload', max: 1 }
-    ]
-  },
-  { 
-    id: 33, title: '即梦 Seedance 1.5 Pro', modelId: 'doubao-seedance-1-5-pro-251215', category: 'video', desc: '音画同步极佳的电影级模型。', tag: '电影级', hot: true, icon: 'Video', 
+{ 
+    id: 100, title: '可灵 Kling V3 首尾帧', modelId: 'kling-v3-shouweizhen', category: 'video', desc: '首尾帧控制最强，完美锁帧。优点：首尾一致性极高。缺点：动作幅度过大会轻微畸变。', tag: '首尾帧利器', hot: true, icon: 'Video', 
     channels: [
       { id: 'official', name: '💎 官方直连' },
       { id: 'enterprise', name: '🏢 企业级高可用分组' },
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'audio_duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}], default: 5 },
-      { name: 'ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}], default: '16:9' },
-      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'1080p',l:'1080p高清'}, {v:'720p',l:'720p标清'}], default: '1080p' },
-      { name: 'generate_audio', label: '生成音频 (必填)', type: 'boolean', default: true },
-      { name: 'image_start', label: '上传首帧', type: 'image_upload', max: 1 },
-      { name: 'image_end', label: '上传尾帧', type: 'image_upload', max: 1 }
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
     ]
   },
   { 
-    id: 34, title: 'Sora 2 官转版', modelId: 'sora-2', category: 'video', desc: '100%成功率，极强物理规律。', tag: '最新Sora', hot: true, icon: 'Film', 
+    id: 101, title: '可灵 Kling V3 参考图', modelId: 'kling-v3-cankao', category: 'video', desc: '经典的图生视频模型。优点：画质细腻，细节丰富。缺点：对复杂指令理解略慢。', tag: '画质天花板', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
     configurableParams: [
-      { name: 'seconds', label: '时长', type: 'select', options: [{v:4,l:'4秒'}, {v:8,l:'8秒'}], default: 4 },
-      { name: 'size', label: '分辨率', type: 'select', options: [{v:'1080x1920',l:'竖屏 1080x1920'}, {v:'1920x1080',l:'横屏 1920x1080'}], default: '1080x1920' },
-      { name: 'image_start', label: '参考图 (input_reference)', type: 'image_upload', max: 1 }
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
     ]
   },
   { 
-    id: 35, title: 'Veo 3.1', modelId: 'veo3.1', category: 'video', desc: '自带BGM的创新视频生成。', tag: '带音效', hot: false, icon: 'PlaySquare', 
+    id: 102, title: '可灵 Kling V3 纯文本', modelId: 'kling-v3-video', category: 'video', desc: '仅通过文字生成视频。优点：创意自由度高，想象力强。缺点：无法精确控制人物长相。', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
     configurableParams: [
-      { name: 'generation_mode', label: '模式', type: 'select', options: [{v:'fast',l:'快速 (fast)'}, {v:'pro',l:'高品质 (pro)'}], default: 'fast' },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}], default: '16:9' },
-      { name: 'enhance_prompt', label: '自动润色提示词', type: 'boolean', default: true },
-      { name: 'images', label: '参考图 (最多3张)', type: 'image_upload', max: 3 }
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
     ]
   },
   { 
-    id: 36, title: 'Veo 3.1 Lite', modelId: 'veo3.1-lite', category: 'video', desc: '轻量版 Veo。', hot: false, icon: 'PlaySquare',
+    id: 103, title: '可灵 Kling Omni 首尾帧', modelId: 'kling-omni-shouweizhen', category: 'video', desc: '新一代多模态可灵模型。优点：物理规律极佳，动作自然。缺点：生成速度较慢。', tag: '动态最强', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
     configurableParams: [
-      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'high',l:'高画质'}], default: 'standard' },
-      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}], default: '16:9' }
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
     ]
   },
   { 
-    id: 37, title: 'Kuaishou KWVideo v2', modelId: 'kwvideo-v2', category: 'video', desc: '快手全能视频模型。', hot: false, icon: 'Clapperboard',
+    id: 104, title: '可灵 Kling Omni 参考', modelId: 'kling-omni-cankao', category: 'video', desc: 'Omni架构的图生视频。优点：人物微表情逼真。缺点：算力消耗大。', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
     configurableParams: [
-      { name: 'version', label: '版本', type: 'select', options: [{v:'v2',l:'v2'}], default: 'v2' },
-      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}], default: 5 },
-      { name: 'images', label: '参考图', type: 'image_upload', max: 5 }
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 105, title: '可灵 动态头像 V3', modelId: 'kling-avatar', category: 'video', desc: '专用于静图转动态头像。优点：唇形和眨眼极其自然。缺点：只支持面部特写。', tag: '播报必备', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 106, title: '即梦 Seedance 2.7 首尾帧', modelId: 'doubao-seedance-2-7-shouweizhen', category: 'video', desc: '字节跳动最新旗舰首尾帧。优点：动作张力大，镜头感强。缺点：偶尔出现多出手指的幻觉。', tag: '大动态', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 107, title: '即梦 Seedance 2.7 参考图', modelId: 'doubao-seedance-2-7-cankao', category: 'video', desc: '即梦旗舰图生视频。优点：色彩鲜艳，画面极度讨喜。缺点：写实度略逊于可灵。', tag: '网感极佳', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 108, title: '即梦 Seedance 2.7 文本', modelId: 'doubao-seedance-2-7-video', category: 'video', desc: '即梦文生视频。优点：生成速度极快。缺点：一致性中等。', tag: '极速生成', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+    ]
+  },
+  { 
+    id: 109, title: '即梦 Seedance 2.7 视频重写', modelId: 'doubao-seedance-2-7-v2v', category: 'video', desc: '视频转视频。优点：可以完美保留原视频动作换画风。缺点：对原视频光影要求高。', tag: 'V2V利器', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 110, title: '即梦 Seedance 2.6 首尾帧', modelId: 'doubao-seedance-2-6-shouweizhen', category: 'video', desc: '上一代高稳定模型。优点：几乎不崩坏，成功率极高。缺点：画质上限不如2.7。', tag: '高成功率', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 111, title: '即梦 Seedance 2.6 参考图', modelId: 'doubao-seedance-2-6-cankao', category: 'video', desc: '上一代图生视频。优点：价格便宜。缺点：清晰度一般。', tag: '性价比', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 112, title: 'PixVerse C1 首尾帧', modelId: 'pixverse-c1-shouweizhen', category: 'video', desc: 'PixVerse V3升级版。优点：二次元和3D动画生成效果极佳。缺点：写实人物容易偏欧美脸。', tag: '二次元首选', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 113, title: 'PixVerse C1 参考图', modelId: 'pixverse-c1-cankao', category: 'video', desc: 'PixVerse 图生视频。优点：动漫光影处理一流。缺点：无法处理太复杂的物理碰撞。', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 114, title: 'PixVerse V6 首尾帧', modelId: 'pixverse-v6-shouweizhen', category: 'video', desc: 'PixVerse V6 架构。优点：支持4K输出。缺点：生成耗时长达10分钟。', tag: '4K级输出', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 115, title: 'PixVerse V5.6 参考图', modelId: 'pixverse-v5-6-cankao', category: 'video', desc: '稳定版 PixVerse。优点：风格化强烈。缺点：分辨率受限。', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 116, title: 'Vidu Q3 参考图', modelId: 'vidu-q3-cankao', category: 'video', desc: 'Vidu最新一代。优点：一键生成3D卡通感，非常立体。缺点：边缘偶尔有闪烁模糊。', tag: '立体感强', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 117, title: 'Vidu Q3 文本', modelId: 'vidu-q3-video', category: 'video', desc: 'Vidu 文生视频。优点：对长提示词理解深刻。缺点：算力昂贵。', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+    ]
+  },
+  { 
+    id: 118, title: 'Vidu Q2 参考图', modelId: 'vidu-q2-cankao', category: 'video', desc: 'Vidu 上一代模型。优点：超快生成（1分钟内）。缺点：细节缺失。', tag: '秒级出片', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 119, title: 'Sora-2 全能参考', modelId: 'sora-2-all', category: 'video', desc: 'Sora第二代通用版。优点：物理世界模拟器，流体和光影世界第一。缺点：偶尔报错退回。', tag: '物理引擎', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：参考图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 120, title: 'Sora-2 首尾帧', modelId: 'sora-2-shouweizhen', category: 'video', desc: 'Sora首尾帧控制。优点：极强的前后逻辑一致性。缺点：只支持部分账号灰度测试。', tag: '王者归来', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'image_start', label: '必填：首帧图', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '必填：尾帧图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 121, title: 'Sora-2 纯文本', modelId: 'sora-2-video', category: 'video', desc: 'Sora 原生文生视频。优点：可生成长达60秒的连贯视频。缺点：等待队伍极长。', tag: '超长生成', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+    ]
+  },
+  { 
+    id: 122, title: 'Veo 3.1', modelId: 'veo3.1', category: 'video', desc: 'Google 视频大模型。优点：自带非常契合画面的BGM和音效。缺点：对中文提示词理解偏弱。', tag: '自带音效', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+    ]
+  },
+  { 
+    id: 123, title: 'Veo 3.1 Lite', modelId: 'veo3.1-lite', category: 'video', desc: 'Veo轻量版。优点：响应迅速。缺点：画质压缩明显。', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+    ]
+  },
+  { 
+    id: 124, title: 'Veo 3.1 4K高频', modelId: 'veo3.1-4k', category: 'video', desc: 'Veo高级版。优点：4K超清，色彩还原度极高。缺点：非常耗费Tokens。', tag: '4K原生', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+    ]
+  },
+  { 
+    id: 125, title: 'Grok Video 3', modelId: 'grok-video-3', category: 'video', desc: 'xAI 视频生成。优点：无审查限制，脑洞极大。缺点：画面偶尔出现诡异逻辑。', tag: '无限制', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+    ]
+  },
+  { 
+    id: 126, title: 'Grok Video 3 Plus', modelId: 'grok-video-3-plus', category: 'video', desc: 'Grok 长视频生成。优点：最长支持30秒一镜到底。缺点：镜头运动较为单一。', tag: '一镜到底', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+    ]
+  },
+  { 
+    id: 127, title: 'Runway Gen-3 Alpha', modelId: 'runway-gen3', category: 'video', desc: 'Runway 旗舰模型。优点：好莱坞级别的运镜和光影，极其专业。缺点：生成价格最贵。', tag: '好莱坞级', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+    ]
+  },
+  { 
+    id: 128, title: 'Runway Gen-3 极速版', modelId: 'runway-gen3-turbo', category: 'video', desc: 'Runway Turbo。优点：在保留质感的同时提升了3倍速度。缺点：最大时长只有5秒。', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+    ]
+  },
+  { 
+    id: 129, title: 'Runway Gen-2', modelId: 'runway-gen2', category: 'video', desc: 'Runway 经典模型。优点：特定艺术风格表现优异。缺点：清晰度和动作幅度落后于时代。', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+    ]
+  },
+  { 
+    id: 130, title: 'Luma Dream Machine', modelId: 'luma-dream', category: 'video', desc: 'Luma 高性能模型。优点：对现实物理引擎还原极好，极少扭曲。缺点：人物面部容易模糊。', tag: '物理极佳', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+    ]
+  },
+  { 
+    id: 131, title: 'Luma 运镜版', modelId: 'luma-camera', category: 'video', desc: 'Luma 专属运镜控制模型。优点：可指定摇、移、推、拉等专业运镜。缺点：学习成本高。', tag: '专业运镜', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
+    ]
+  },
+  { 
+    id: 132, title: 'Kuaishou KWVideo V3', modelId: 'kwvideo-v3', category: 'video', desc: '快手最新版大模型。优点：对国内网红风格、短视频风格把控极其精准。缺点：不太适合做正剧/电影。', tag: '短视频风', hot: false, icon: 'Video', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' },
+      { id: 'enterprise', name: '🏢 企业级高可用分组' },
+      { id: 'kj', name: '⚡ KJ直连' }
+    ],
+    configurableParams: [
+      { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}, {v:'1:1',l:'1:1'}], default: '16:9' }
     ]
   },
 
