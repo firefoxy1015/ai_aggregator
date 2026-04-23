@@ -32,6 +32,36 @@ function Workspace() {
   const [activePreset, setActivePreset] = useState(null);
   const [hoveredPreset, setHoveredPreset] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isEnhancing, setIsEnhancing] = useState(false);
+
+  const handleEnhance = (agent) => {
+    if (!input.trim()) {
+      alert("请先在输入框中写下你的初步想法或提示词~");
+      return;
+    }
+    setActivePreset(agent.id + 100);
+    setIsEnhancing(true);
+    const original = input;
+    let expanded = original;
+    
+    if (agent.id === 1) expanded = `一镜到底短视频运镜：${original}，画面充满视觉张力与高饱和度，黄金分割构图，快速推拉镜头抓人眼球，适合在社交媒体平台传播的高级质感，4k，高动态范围。`;
+    else if (agent.id === 2) expanded = `商业棚拍级打光：完美特写展示${original}，产品居中，镜头缓慢平移扫过材质表面，高级感的柔和漫反射光影，背景纯净，极具视觉说服力的产品广告大片，8k，超高精细度。`;
+    else if (agent.id === 3) expanded = `电影级短片分镜：${original}，叙事感极强的光影氛围，情绪转折，阿莱艾美拉摄影机拍摄，电影级调色，冷暖色调对比，极具戏剧张力的视觉语言。`;
+    else if (agent.id === 4) expanded = `秀场级时尚大片：${original}，顶级时尚杂志封面质感，人物身体语言极具表现力，服装材质细节毕现，前卫的视觉美学与打光，Vogue风格，动态抓拍，4k。`;
+    else if (agent.id === 5) expanded = `超越现实的视觉奇观：${original}，抽象的流体艺术与光影变幻，超现实主义动态，打破常规物理法则的运动轨迹，梦幻般的色彩流转，视觉特效级渲染。`;
+    else expanded = `[智能优化] ${original}，更高清、细节更丰富的画面，8k分辨率，大师级光影。`;
+
+    setInput("");
+    let i = 0;
+    const interval = setInterval(() => {
+      setInput(prev => prev + expanded.charAt(i));
+      i++;
+      if (i >= expanded.length) {
+        clearInterval(interval);
+        setIsEnhancing(false);
+      }
+    }, 20);
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -286,27 +316,20 @@ function Workspace() {
                     <img src={style.img} alt={style.name.split('\n')[0]} />
                   </div>
                 )) : [
-                  { id: 1, name: '短视频创意编导\n将你的模糊想法或图片，智能添加创意，转换成生产级视频提示词。', img: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=100&h=100&fit=crop', prompt: '[智能编导：请帮我扩展以下创意为电影级运镜提示词] ' },
-                  { id: 2, name: '电影大片运镜\n电影级质感，广角镜头推移，好莱坞打光。', img: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=100&h=100&fit=crop', prompt: ', 电影级质感, 广角镜头推移, 慢动作特写, 好莱坞打光' },
-                  { id: 3, name: '三维动画大师\n迪士尼皮克斯动画风格，3D高清渲染。', img: 'https://images.unsplash.com/photo-1551244072-5d12893278ab?w=100&h=100&fit=crop', prompt: ', 迪士尼皮克斯动画风格, 3D高清渲染, 生动的动作表现' },
-                  { id: 4, name: '奇幻魔法特效\n震撼的魔法粒子特效，视觉冲击力极强。', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=100&h=100&fit=crop', prompt: ', 震撼的魔法粒子特效, 流光溢彩, 视觉冲击力强' },
-                  { id: 5, name: '微距特写光影\n极致微距拍摄，细腻的光影流转。', img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=100&h=100&fit=crop', prompt: ', 极致微距拍摄, 焦点清晰, 背景深度虚化, 细腻光影流转' },
-                  { id: 6, name: '复古胶片质感\n1980年代复古胶片电影，王家卫风格。', img: 'https://images.unsplash.com/photo-1520121401995-928cd50d4e27?w=100&h=100&fit=crop', prompt: ', 1980年代复古胶片电影, 王家卫风格, 噪点颗粒感, 暖色调' },
-                  { id: 7, name: '赛博朋克渲染\n高科技都市，炫酷的霓虹灯反光。', img: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=100&h=100&fit=crop', prompt: ', 赛博朋克夜景, 高科技都市, 炫酷霓虹灯反光, 赛博格元素' },
-                  { id: 8, name: '水墨国风动画\n中国风传统水墨画流体动画，飘逸留白。', img: 'https://images.unsplash.com/photo-1558470598-a5dda9640f68?w=100&h=100&fit=crop', prompt: ', 中国风传统水墨画流体动画, 飘逸留白, 意境深远' },
-                  { id: 9, name: '航拍延时风光\n无人机高空俯拍，壮阔自然地貌延时摄影。', img: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop', prompt: ', 无人机高空俯拍, 延时摄影, 云卷云舒, 壮阔自然地貌' },
-                ].map(style => (
+                  { id: 1, name: '短视频创意编导\n将你的模糊想法或图片，智能添加创意，转换成生产级视频提示词。', img: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=100&h=100&fit=crop' },
+                  { id: 2, name: '产品广告导演\n打造让用户一秒种草的产品广告视频，精通商业视频的视觉说服力', img: 'https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=100&h=100&fit=crop' },
+                  { id: 3, name: '微电影编剧导演\n将故事构想变成电影级短片分镜，精通叙事结构、情绪转折与电影化视觉语言', img: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=100&h=100&fit=crop' },
+                  { id: 4, name: '时尚大片导演\n打造秀场级别的时尚视频，精通服装展示、身体语言与视觉美学的极致融合', img: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=100&h=100&fit=crop' },
+                  { id: 5, name: '动态视觉艺术家\n创造超越现实的视觉奇观，精通抽象动态、流体艺术、光影变幻与超现实运动', img: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=100&h=100&fit=crop' },
+                ].map(agent => (
                   <div 
-                    key={style.id} 
-                    className={`style-avatar ${activePreset === style.id + 100 ? 'active' : ''}`} 
-                    onMouseEnter={() => setHoveredPreset(style)}
+                    key={agent.id} 
+                    className={`style-avatar ${activePreset === agent.id + 100 ? 'active' : ''} ${isEnhancing && activePreset === agent.id + 100 ? 'enhancing' : ''}`} 
+                    onMouseEnter={() => setHoveredPreset(agent)}
                     onMouseLeave={() => setHoveredPreset(null)}
-                    onClick={() => {
-                      setActivePreset(style.id + 100);
-                      setInput(prev => prev + style.prompt);
-                    }}
+                    onClick={() => handleEnhance(agent)}
                   >
-                    <img src={style.img} alt={style.name.split('\n')[0]} />
+                    <img src={agent.img} alt={agent.name.split('\n')[0]} />
                   </div>
                 ))}
                 <div className="style-avatar add-style" onMouseEnter={() => setHoveredPreset({name:'自定义\n添加属于你自己的专属风格或预设模型'})} onMouseLeave={() => setHoveredPreset(null)} onClick={() => alert('自定义风格卡槽即将开放')}>
@@ -347,6 +370,7 @@ function Workspace() {
                 <div className="price-badge">预计 ⚡ 0.35/次</div>
                 <textarea 
                   className="main-textarea"
+                  disabled={isEnhancing}
                   placeholder={tool.category === 'video' ? "由于该模型渠道火爆，选择智能调度分组时，大概率会调度到高价格分组，请适度使用\n最好的效果是横版传横图，竖版传竖图，尽量不要乱传" : `描述你想要生成的内容，支持上传参考图片...`} 
                   value={input} 
                   onChange={(e) => setInput(e.target.value)} 
