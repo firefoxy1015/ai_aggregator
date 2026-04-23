@@ -49,6 +49,10 @@ function Workspace() {
     else if (agent.id === 3) expanded = `电影级短片分镜：${original}，叙事感极强的光影氛围，情绪转折，阿莱艾美拉摄影机拍摄，电影级调色，冷暖色调对比，极具戏剧张力的视觉语言。`;
     else if (agent.id === 4) expanded = `秀场级时尚大片：${original}，顶级时尚杂志封面质感，人物身体语言极具表现力，服装材质细节毕现，前卫的视觉美学与打光，Vogue风格，动态抓拍，4k。`;
     else if (agent.id === 5) expanded = `超越现实的视觉奇观：${original}，抽象的流体艺术与光影变幻，超现实主义动态，打破常规物理法则的运动轨迹，梦幻般的色彩流转，视觉特效级渲染。`;
+    else if (agent.id === 6) expanded = `美食广告级微距：${original}，诱人的色泽，热气腾腾的烟雾缭绕，超清微距特写，慢动作焦外虚化，令人垂涎欲滴的视觉盛宴，暖色调高光打亮。`;
+    else if (agent.id === 7) expanded = `殿堂级音乐MV质感：${original}，随节奏律动的镜头语言，炫酷的转场特效，光影随着旋律闪烁，充满超现实情绪表达的视觉爆发力，演唱会级布光。`;
+    else if (agent.id === 8) expanded = `高质量旅行Vlog：${original}，第一人称沉浸式视角与无人机航拍无缝切镜，明快阳光的色彩滤镜，快慢动作结合的丝滑转场，充满旅途的故事感与电影感。`;
+    else if (agent.id === 9) expanded = `BBC自然纪录片：${original}，极其震撼的自然地貌与野生动物特写，史诗级远景推轨镜头，冷峻而真实的自然光影，极高的画面清晰度，8k，国家地理获奖摄影。`;
     else expanded = `[智能优化] ${original}，更高清、细节更丰富的画面，8k分辨率，大师级光影。`;
 
     setInput("");
@@ -321,6 +325,10 @@ function Workspace() {
                   { id: 3, name: '微电影编剧导演\n将故事构想变成电影级短片分镜，精通叙事结构、情绪转折与电影化视觉语言', img: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=100&h=100&fit=crop' },
                   { id: 4, name: '时尚大片导演\n打造秀场级别的时尚视频，精通服装展示、身体语言与视觉美学的极致融合', img: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=100&h=100&fit=crop' },
                   { id: 5, name: '动态视觉艺术家\n创造超越现实的视觉奇观，精通抽象动态、流体艺术、光影变幻与超现实运动', img: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=100&h=100&fit=crop' },
+                  { id: 6, name: '美食短视频导演\n将食物变成让人流口水的视觉盛宴，专精美食订餐视频、食谱短片和餐饮广告', img: 'https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=100&h=100&fit=crop' },
+                  { id: 7, name: '音乐MV导演\n打造视觉与音乐完美共振的MV画面，精通节奏可视化、超现实视觉与情绪转译', img: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&h=100&fit=crop' },
+                  { id: 8, name: '旅行Vlog编导\n打造“没有一帧废镜头”的旅行视频，精通转场、节奏、以及用镜头语言讲故事', img: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=100&h=100&fit=crop' },
+                  { id: 9, name: '自然纪录片编导\n用大制作级镜头语言展现自然的壮美与神秘，精通野生动物、地质奇观、天文现象', img: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=100&h=100&fit=crop' },
                 ].map(agent => (
                   <div 
                     key={agent.id} 
