@@ -60,6 +60,11 @@ export const toolsData = [
   },
   { 
     id: 20, title: '可灵 Kling Image O1', modelId: 'kling-image-o1', category: 'paint', desc: '人物一致性极佳的生图模型。', hot: true, icon: 'Camera',
+    channels: [
+      { id: 'price', name: '¥ 价格优先' },
+      { id: 'speed', name: '⚡ 极速调度' },
+      { id: 'official', name: '💎 官方直连' }
+    ],
     configurableParams: [
       { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'1k',l:'1K 标准'}, {v:'2k',l:'2K 高清'}], default: '1k' },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'},{v:'9:16',l:'9:16'},{v:'1:1',l:'1:1'},{v:'3:4',l:'3:4'},{v:'4:3',l:'4:3'}], default: '9:16' },
@@ -90,6 +95,10 @@ export const toolsData = [
   },
   { 
     id: 22, title: '即梦 Seedream 5.0', modelId: 'doubao-seedream-5-0-260128', category: 'paint', desc: '3K画质，支持联网生图。', hot: true, icon: 'ImagePlus',
+    channels: [
+      { id: 'price', name: '¥ 价格优先' },
+      { id: 'vip', name: '👑 VIP 通道' }
+    ],
     configurableParams: [
       { name: 'images', label: '参考图 (多图融合)', type: 'image_upload', max: 10 }
     ]
@@ -146,6 +155,12 @@ export const toolsData = [
   },
   { 
     id: 27, title: 'Midjourney v6', modelId: 'mj_imagine', category: 'paint', desc: '全球公认艺术感最强模型。', tag: '设计必看', hot: true, icon: 'Palette', 
+    channels: [
+      { id: 'relax', name: '🐢 Relax 慢速通道' },
+      { id: 'fast', name: '⚡ Fast 快速通道' },
+      { id: 'turbo', name: '🚀 Turbo 极速通道' },
+      { id: 'pro', name: '💎 Pro 独享通道' }
+    ],
     configurableParams: [
       { name: 'aspectRatio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9 横屏'}, {v:'9:16',l:'9:16 竖屏'}, {v:'1:1',l:'1:1 方形'}, {v:'4:3',l:'4:3'}, {v:'3:4',l:'3:4'}], default: '16:9' },
       { name: 'botType', label: '引擎类型', type: 'select', options: [{v:'MID_JOURNEY',l:'Midjourney V6'}, {v:'NIJI_JOURNEY',l:'Niji 二次元'}], default: 'MID_JOURNEY' },
@@ -209,6 +224,11 @@ export const toolsData = [
   },
   { 
     id: 33, title: '即梦 Seedance 1.5 Pro', modelId: 'doubao-seedance-1-5-pro-251215', category: 'video', desc: '音画同步极佳的电影级模型。', tag: '电影级', hot: true, icon: 'Video', 
+    channels: [
+      { id: 'price', name: '¥ 价格优先' },
+      { id: 'speed', name: '⚡ 速度优先' },
+      { id: 'high', name: '💎 高价分组' }
+    ],
     configurableParams: [
       { name: 'audio_duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}], default: 5 },
       { name: 'ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}], default: '16:9' },

@@ -337,9 +337,15 @@ function Workspace() {
                         <div className="toolbar-param-item">
                           <div className="param-select-wrapper">
                             <select className="param-select">
-                              <option>¥ 价格优先</option>
-                              <option>⚡ 极速调度</option>
-                              <option>💎 高价分组</option>
+                              {tool.channels ? tool.channels.map(ch => (
+                                <option key={ch.id} value={ch.id}>{ch.name}</option>
+                              )) : (
+                                <>
+                                  <option value="price">¥ 价格优先</option>
+                                  <option value="speed">⚡ 极速调度</option>
+                                  <option value="quality">💎 官方直连</option>
+                                </>
+                              )}
                             </select>
                           </div>
                         </div>
