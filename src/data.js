@@ -187,14 +187,14 @@ export const toolsData = [
     ]
   },
   { 
-    id: 37, title: 'Veo 3.1 Lite', modelId: 'veo3.1-lite', category: 'video', desc: '轻量版 Veo。', hot: false, icon: 'PlaySquare',
+    id: 36, title: 'Veo 3.1 Lite', modelId: 'veo3.1-lite', category: 'video', desc: '轻量版 Veo。', hot: false, icon: 'PlaySquare',
     configurableParams: [
       { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'high',l:'高画质'}], default: 'standard' },
       { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}], default: '16:9' }
     ]
   },
   { 
-    id: 38, title: 'Kuaishou KWVideo v2', modelId: 'kwvideo-v2', category: 'video', desc: '快手全能视频模型。', hot: false, icon: 'Clapperboard',
+    id: 37, title: 'Kuaishou KWVideo v2', modelId: 'kwvideo-v2', category: 'video', desc: '快手全能视频模型。', hot: false, icon: 'Clapperboard',
     configurableParams: [
       { name: 'version', label: '版本', type: 'select', options: [{v:'v2',l:'v2'}], default: 'v2' },
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}], default: 5 },
@@ -204,19 +204,19 @@ export const toolsData = [
 
   // --- AI 音频 (Audio) ---
   { 
-    id: 39, title: '海螺音乐 2.5+', modelId: 'music-2.5+', category: 'audio', desc: '输入歌词生成高质量流行音乐。', tag: 'AI音乐', hot: true, icon: 'Music',
+    id: 38, title: '海螺音乐 2.5+', modelId: 'music-2.5+', category: 'audio', desc: '输入歌词生成高质量流行音乐。', tag: 'AI音乐', hot: true, icon: 'Music',
     configurableParams: [
       { name: 'genre', label: '曲风 (建议写在提示词内)', type: 'textarea', placeholder: 'Pop, Rock, EDM...', default: '' }
     ]
   },
   { 
-    id: 40, title: '海螺语音克隆 2.8', modelId: 'speech-2.8', category: 'audio', desc: '高仿真语音合成与克隆。', hot: false, icon: 'Mic',
+    id: 39, title: '海螺语音克隆 2.8', modelId: 'speech-2.8', category: 'audio', desc: '高仿真语音合成与克隆。', hot: false, icon: 'Mic',
     configurableParams: [
       { name: 'voice_id', label: '声音ID或风格', type: 'textarea', placeholder: '输入你想合成的文本或配音风格', default: '' }
     ]
   },
   { 
-    id: 41, title: '豆包 TTS 2.0', modelId: 'doubao-tts-2.0', category: 'audio', desc: '字节跳动极速语音合成。', hot: false, icon: 'Volume2',
+    id: 40, title: '豆包 TTS 2.0', modelId: 'doubao-tts-2.0', category: 'audio', desc: '字节跳动极速语音合成。', hot: false, icon: 'Volume2',
     configurableParams: [
       { name: 'speed', label: '语速', type: 'select', options: [{v:'1.0',l:'正常'}, {v:'1.2',l:'稍快'}, {v:'1.5',l:'极快'}], default: '1.0' }
     ]
