@@ -251,6 +251,29 @@ function Workspace() {
           </div>
           
           <footer className="chat-input-area">
+            {tool.category === 'paint' && (
+              <div className="style-presets-row">
+                {[
+                  { id: 1, name: '赛博朋克', img: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=100&h=100&fit=crop' },
+                  { id: 2, name: '二次元', img: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=100&h=100&fit=crop' },
+                  { id: 3, name: '真实摄影', img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=100&h=100&fit=crop' },
+                  { id: 4, name: '3D架构', img: 'https://images.unsplash.com/photo-1506744626753-1fa28f673fac?w=100&h=100&fit=crop' },
+                  { id: 5, name: '魔法幻想', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=100&h=100&fit=crop' },
+                  { id: 6, name: '极简人像', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop' },
+                  { id: 7, name: '自然风景', img: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop' },
+                  { id: 8, name: '美食静物', img: 'https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=100&h=100&fit=crop' },
+                  { id: 9, name: '暗黑星空', img: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=100&h=100&fit=crop' },
+                ].map(style => (
+                  <div key={style.id} className="style-avatar" title={style.name}>
+                    <img src={style.img} alt={style.name} />
+                  </div>
+                ))}
+                <div className="style-avatar add-style" title="自定义风格">
+                  <span>+</span>
+                </div>
+              </div>
+            )}
+            
             <div className="advanced-input-container">
               {/* Left side: Edit button */}
               <div className="input-left-panel">
@@ -295,6 +318,30 @@ function Workspace() {
                 
                 <div className="input-toolbar">
                   <div className="toolbar-params">
+                    {tool.category === 'paint' && (
+                      <>
+                        <div className="toolbar-param-item">
+                          <div className="param-select-wrapper">
+                            <select className="param-select">
+                              <option>¥ 价格优先</option>
+                              <option>⚡ 极速出图</option>
+                              <option>💎 画质优先</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="toolbar-param-item">
+                          <div className="param-select-wrapper">
+                            <select className="param-select">
+                              <option>1条</option>
+                              <option>2条</option>
+                              <option>3条</option>
+                              <option>4条</option>
+                            </select>
+                          </div>
+                        </div>
+                      </>
+                    )}
+
                     {tool.configurableParams?.filter(p => p.type === 'select' || p.type === 'boolean').map(param => (
                       <div key={param.name} className="toolbar-param-item">
                         {param.type === 'boolean' ? (
@@ -322,6 +369,14 @@ function Workspace() {
                         )}
                       </div>
                     ))}
+                    
+                    {tool.category === 'paint' && (
+                      <div className="toolbar-param-item">
+                        <button className="param-toggle-btn active">
+                          <Sparkles size={14} /> 开启
+                        </button>
+                      </div>
+                    )}
                   </div>
                   
                   <button className="send-btn-large" onClick={handleSend} disabled={!input.trim()}>
