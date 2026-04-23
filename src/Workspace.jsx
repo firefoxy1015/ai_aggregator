@@ -141,15 +141,25 @@ function Workspace() {
         setIsTyping(false);
 
       } else {
+        const finalParams = { ...params };
+        
+        // Handle custom image_start and image_end mapping
+        if (finalParams.image_start || finalParams.image_end) {
+          const startUrl = finalParams.image_start?.[0] || "";
+          const endUrl = finalParams.image_end?.[0] || "";
+          if (startUrl || endUrl) {
+            finalParams.images = [startUrl, endUrl];
+          }
+          delete finalParams.image_start;
+          delete finalParams.image_end;
+        }
+        
         const reqBody = {
           source: 'data999',
           model: tool.modelId,
           prompt: userMessage,
-          params: { ...params }
+          params: finalParams
         };
-        
-        // Cleanup images array to single string if needed, backend handles some, but frontend can too
-        // The backend handles single_img models, so we just send the array or string as is.
         
         const generateRes = await fetch(`${BACKEND_URL}/api/generate`, {
           method: 'POST',

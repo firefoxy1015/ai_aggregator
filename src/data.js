@@ -50,7 +50,7 @@ export const toolsData = [
     configurableParams: [
       { name: 'seconds', label: '时长', type: 'select', options: [{v:5,l:'5秒'}], default: 5 },
       { name: 'size', label: '分辨率', type: 'select', options: [{v:'1080x1920',l:'竖屏 1080x1920'}, {v:'1920x1080',l:'横屏 1920x1080'}], default: '1080x1920' },
-      { name: 'images', label: '参考首帧 (input_reference)', type: 'image_upload', max: 1 }
+      { name: 'image_start', label: '参考首帧', type: 'image_upload', max: 1 }
     ]
   },
   { 
@@ -59,7 +59,8 @@ export const toolsData = [
       { name: 'duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}, {v:10,l:'10秒'}], default: 5 },
       { name: 'mode', label: '生成模式', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高品质'}], default: 'standard' },
       { name: 'aspect_ratio', label: '画面比例', type: 'select', options: [{v:'16:9',l:'16:9 横屏'}, {v:'9:16',l:'9:16 竖屏'}, {v:'1:1',l:'1:1 方形'}], default: '16:9' },
-      { name: 'images', label: '参考首尾帧', type: 'image_upload', max: 2 }
+      { name: 'image_start', label: '首帧图 (可选)', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '尾帧图 (可选)', type: 'image_upload', max: 1 }
     ]
   },
   { 
@@ -68,7 +69,7 @@ export const toolsData = [
       { name: 'generation_mode', label: '生成模式', type: 'select', options: [{v:'standard',l:'标准'}], default: 'standard' },
       { name: 'aspect_ratio', label: '画面比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}], default: '16:9' },
       { name: 'enhance_prompt', label: '自动润色提示词', type: 'boolean', default: true },
-      { name: 'images', label: '参考图', type: 'image_upload', max: 3 }
+      { name: 'image_start', label: '参考图', type: 'image_upload', max: 1 }
     ]
   },
   { 
@@ -77,7 +78,8 @@ export const toolsData = [
       { name: 'audio_duration', label: '时长', type: 'select', options: [{v:5,l:'5秒'}], default: 5 },
       { name: 'ratio', label: '画面比例', type: 'select', options: [{v:'16:9',l:'16:9'}, {v:'9:16',l:'9:16'}], default: '16:9' },
       { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'1080p',l:'1080p高清'}, {v:'720p',l:'720p标清'}], default: '1080p' },
-      { name: 'images', label: '首尾帧参考图', type: 'image_upload', max: 2 }
+      { name: 'image_start', label: '上传首帧', type: 'image_upload', max: 1 },
+      { name: 'image_end', label: '上传尾帧', type: 'image_upload', max: 1 }
     ]
   },
 ];
