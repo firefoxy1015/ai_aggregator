@@ -52,6 +52,13 @@ export const toolsData = [
     ]
   },
   { 
+    id: 42, title: 'Grok 4.1 Image', modelId: 'grok-4.1-image', category: 'paint', desc: '上一代 Grok 生图。', hot: false, icon: 'Aperture', 
+    configurableParams: [
+      { name: 'size', label: '分辨率与比例', type: 'select', options: grokSizes, default: '1080x1920' },
+      { name: 'images', label: '参考图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
     id: 20, title: '可灵 Kling Image O1', modelId: 'kling-image-o1', category: 'paint', desc: '人物一致性极佳的生图模型。', hot: true, icon: 'Camera',
     configurableParams: [
       { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'1k',l:'1K 标准'}, {v:'2k',l:'2K 高清'}], default: '1k' },
@@ -68,13 +75,33 @@ export const toolsData = [
     ]
   },
   { 
-    id: 22, title: '即梦 Seedream 5.0', modelId: 'doubao-seedream-5-0-260128', category: 'paint', desc: '3K画质，支持联网生图。', hot: false, icon: 'ImagePlus',
+    id: 43, title: '可灵 Kling v3', modelId: 'kling-v3', category: 'paint', desc: '基础版可灵生图。', hot: false, icon: 'Camera',
+    configurableParams: [
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'1k',l:'1K 标准'}, {v:'2k',l:'2K 高清'}], default: '1k' },
+      { name: 'aspect_ratio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'},{v:'9:16',l:'9:16'},{v:'1:1',l:'1:1'}], default: '9:16' },
+      { name: 'images', label: '参考图', type: 'image_upload', max: 10 }
+    ]
+  },
+  { 
+    id: 44, title: '可灵 动态头像', modelId: 'kling-avatar-image2video', category: 'paint', desc: '可灵头像转视频。', hot: false, icon: 'Smile',
+    configurableParams: [
+      { name: 'images', label: '头像原图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
+    id: 22, title: '即梦 Seedream 5.0', modelId: 'doubao-seedream-5-0-260128', category: 'paint', desc: '3K画质，支持联网生图。', hot: true, icon: 'ImagePlus',
     configurableParams: [
       { name: 'images', label: '参考图 (多图融合)', type: 'image_upload', max: 10 }
     ]
   },
   { 
-    id: 23, title: 'Nano Banana Pro (Gemini)', modelId: 'gemini-3-pro-image-preview', category: 'paint', desc: '文字渲染极强，支持8K。', tag: '8K文字渲染', hot: true, icon: 'Type',
+    id: 45, title: '即梦 Seedream 4.5', modelId: 'doubao-seedream-4-5-251128', category: 'paint', desc: '即梦上一代画图模型。', hot: false, icon: 'ImagePlus',
+    configurableParams: [
+      { name: 'images', label: '参考图', type: 'image_upload', max: 10 }
+    ]
+  },
+  { 
+    id: 23, title: 'Nano Banana Pro', modelId: 'gemini-3-pro-image-preview', category: 'paint', desc: '文字渲染极强，支持8K。', tag: '8K文字渲染', hot: true, icon: 'Type',
     configurableParams: [
       { name: 'imageSize', label: '分辨率', type: 'select', options: [{v:'1K',l:'1K 标准'}, {v:'2K',l:'2K 高清'}, {v:'4K',l:'4K 极清'}], default: '2K' },
       { name: 'aspectRatio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9'},{v:'9:16',l:'9:16'},{v:'1:1',l:'1:1'},{v:'auto',l:'自动(根据垫图)'}], default: '16:9' },
@@ -90,7 +117,7 @@ export const toolsData = [
     ]
   },
   { 
-    id: 25, title: 'DALL·E 3 (GPT Image 1.5)', modelId: 'gpt-image-1.5-all', category: 'paint', desc: '语义理解极佳。', hot: false, icon: 'Brush',
+    id: 25, title: 'GPT Image 1.5 (DALL-E 3)', modelId: 'gpt-image-1.5-all', category: 'paint', desc: '语义理解极佳。', hot: false, icon: 'Brush',
     configurableParams: [
       { name: 'size', label: '图片尺寸', type: 'select', options: [{v:'1024x1024',l:'1024x1024'},{v:'1024x1792',l:'1024x1792'},{v:'1792x1024',l:'1792x1024'}], default: '1024x1024' },
       { name: 'images', label: '参考图', type: 'image_upload', max: 10 }
@@ -104,6 +131,20 @@ export const toolsData = [
     ]
   },
   { 
+    id: 46, title: 'GPT Image 2 官转', modelId: 'gpt-image-2-guan', category: 'paint', desc: '官方原版GPT生图。', hot: false, icon: 'Brush',
+    configurableParams: [
+      { name: 'size', label: '图片尺寸', type: 'select', options: [{v:'1024x1024',l:'1024x1024'}], default: '1024x1024' },
+      { name: 'images', label: '参考图', type: 'image_upload', max: 10 }
+    ]
+  },
+  { 
+    id: 47, title: '千问 Image Max', modelId: 'qwen-image', category: 'paint', desc: '阿里云通义千问顶级视觉。', hot: false, icon: 'Cloud',
+    configurableParams: [
+      { name: 'size', label: '图片尺寸', type: 'select', options: [{v:'1024x1024',l:'1024x1024'}], default: '1024x1024' },
+      { name: 'images', label: '参考图', type: 'image_upload', max: 1 }
+    ]
+  },
+  { 
     id: 27, title: 'Midjourney v6', modelId: 'mj_imagine', category: 'paint', desc: '全球公认艺术感最强模型。', tag: '设计必看', hot: true, icon: 'Palette', 
     configurableParams: [
       { name: 'aspectRatio', label: '比例', type: 'select', options: [{v:'16:9',l:'16:9 横屏'}, {v:'9:16',l:'9:16 竖屏'}, {v:'1:1',l:'1:1 方形'}, {v:'4:3',l:'4:3'}, {v:'3:4',l:'3:4'}], default: '16:9' },
@@ -113,6 +154,14 @@ export const toolsData = [
   },
   { 
     id: 28, title: 'Wan 2.7 Image', modelId: 'wan2.7-image', category: 'paint', desc: '最新4K高质量图像模型。', hot: false, icon: 'Camera',
+    configurableParams: [
+      { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高画质(Pro)'}], default: 'pro' },
+      { name: 'size', label: '分辨率', type: 'select', options: [{v:'1080x1920',l:'1080x1920'}, {v:'1920x1080',l:'1920x1080'}, {v:'1024x1024',l:'1024x1024'}], default: '1080x1920' },
+      { name: 'images', label: '参考图', type: 'image_upload', max: 9 }
+    ]
+  },
+  { 
+    id: 48, title: 'Wan 2.6 Image', modelId: 'wan2.6-image', category: 'paint', desc: '上一代 Wan 生图。', hot: false, icon: 'Camera',
     configurableParams: [
       { name: 'quality', label: '画质', type: 'select', options: [{v:'standard',l:'标准'}, {v:'pro',l:'高画质(Pro)'}], default: 'pro' },
       { name: 'size', label: '分辨率', type: 'select', options: [{v:'1080x1920',l:'1080x1920'}, {v:'1920x1080',l:'1920x1080'}, {v:'1024x1024',l:'1024x1024'}], default: '1080x1920' },
