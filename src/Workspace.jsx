@@ -29,6 +29,7 @@ function Workspace() {
     return init;
   });
 
+  const [activePreset, setActivePreset] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
   const scrollToBottom = () => {
@@ -264,7 +265,15 @@ function Workspace() {
                   { id: 8, name: '美食静物', img: 'https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=100&h=100&fit=crop', prompt: ', 美食摄影, 令人垂涎欲滴, 焦外虚化, 柔和微距光' },
                   { id: 9, name: '暗黑星空', img: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=100&h=100&fit=crop', prompt: ', 深空摄影, 浩瀚宇宙, 星空银河, 神秘氛围' },
                 ].map(style => (
-                  <div key={style.id} className="style-avatar" title={style.name} onClick={() => setInput(prev => prev + style.prompt)}>
+                  <div 
+                    key={style.id} 
+                    className={`style-avatar ${activePreset === style.id ? 'active' : ''}`} 
+                    title={style.name} 
+                    onClick={() => {
+                      setActivePreset(style.id);
+                      setInput(prev => prev + style.prompt);
+                    }}
+                  >
                     <img src={style.img} alt={style.name} />
                   </div>
                 )) : [
@@ -278,7 +287,15 @@ function Workspace() {
                   { id: 8, name: '水墨国风动画', img: 'https://images.unsplash.com/photo-1558470598-a5dda9640f68?w=100&h=100&fit=crop', prompt: ', 中国风传统水墨画流体动画, 飘逸留白, 意境深远' },
                   { id: 9, name: '航拍延时风光', img: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop', prompt: ', 无人机高空俯拍, 延时摄影, 云卷云舒, 壮阔自然地貌' },
                 ].map(style => (
-                  <div key={style.id} className="style-avatar" title={style.name} onClick={() => setInput(prev => prev + style.prompt)}>
+                  <div 
+                    key={style.id} 
+                    className={`style-avatar ${activePreset === style.id + 100 ? 'active' : ''}`} 
+                    title={style.name} 
+                    onClick={() => {
+                      setActivePreset(style.id + 100);
+                      setInput(prev => prev + style.prompt);
+                    }}
+                  >
                     <img src={style.img} alt={style.name.split('\n')[0]} />
                   </div>
                 ))}
