@@ -1,28 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Routes, Route, useSearchParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Search, 
-  ChevronRight, 
-  LayoutGrid, 
-  MessageSquare, 
-  Palette, 
-  Video, 
-  Bot,
-  Code,
-  Sparkles,
-  Image,
-  Aperture,
-  Brush,
-  Film,
-  Clapperboard,
-  PlaySquare,
-  BookOpen,
-  ShoppingBag,
-  PenTool,
-  Zap
+  Search, ChevronRight, LayoutGrid, MessageSquare, Palette, Video, Bot,
+  Code, Sparkles, Image, Aperture, Brush, Film, Clapperboard, PlaySquare, 
+  BookOpen, ShoppingBag, PenTool, Zap
 } from 'lucide-react';
 import { menuItems, toolsData } from './data';
+import Workspace from './Workspace';
 
 const IconMap = {
   LayoutGrid, MessageSquare, Palette, Video, Bot,
@@ -30,22 +15,18 @@ const IconMap = {
   Clapperboard, PlaySquare, BookOpen, ShoppingBag, PenTool, Zap
 };
 
-function App() {
+function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   
-  // Logic from Lingke AI: ?menu=all or other category
   const activeMenu = searchParams.get('menu') || 'all';
-  
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Handle URL change like Lingke AI logic
   const handleMenuClick = (menuId) => {
     setSearchParams({ menu: menuId });
     setSearchQuery('');
   };
 
-  // Filter tools based on active menu and search query
   const filteredTools = toolsData.filter(tool => {
     const matchesMenu = activeMenu === 'all' || tool.category === activeMenu;
     const matchesSearch = tool.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -60,7 +41,6 @@ function App() {
 
   return (
     <>
-      {/* Sidebar */}
       <aside className="sidebar">
         <div className="logo-container">
           <div className="logo-icon">
@@ -71,7 +51,7 @@ function App() {
         
         <nav className="nav-menu">
           {menuItems.map((menu) => {
-            const Icon = IconMap[menu.icon];
+            const Icon = IconMap[menu.icon] || Bot;
             const isActive = activeMenu === menu.id;
             return (
               <div 
@@ -87,7 +67,6 @@ function App() {
         </nav>
       </aside>
 
-      {/* Main Content */}
       <main className="main-content">
         <header className="header">
           <div>
@@ -105,10 +84,7 @@ function App() {
           </div>
         </header>
 
-        <motion.div 
-          className="tools-grid"
-          layout
-        >
+        <motion.div className="tools-grid" layout>
           <AnimatePresence mode="popLayout">
             {filteredTools.map((tool) => {
               const ToolIcon = IconMap[tool.icon] || Bot;
@@ -116,6 +92,7 @@ function App() {
                 <motion.div 
                   key={tool.id}
                   className="tool-card"
+                  onClick={() => navigate(`/tool/${tool.id}`)}
                   layout
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -135,11 +112,9 @@ function App() {
                   <p className="card-desc">{tool.desc}</p>
                   
                   <div className="card-footer">
-                    {tool.hot && <span className="hot-badge">HOT</span>}
-                    {!tool.hot && <span></span>}
-                    
+                    {tool.hot ? <span className="hot-badge">HOT</span> : <span></span>}
                     <div className="card-action">
-                      立即使用 <ChevronRight size={16} />
+                      进入工作台 <ChevronRight size={16} />
                     </div>
                   </div>
                 </motion.div>
@@ -149,8 +124,7 @@ function App() {
           
           {filteredTools.length === 0 && (
             <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} 
               style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '4rem', color: 'var(--text-muted)' }}
             >
               <Bot size={48} style={{ margin: '0 auto 1rem', opacity: 0.5 }} />
@@ -161,6 +135,15 @@ function App() {
         </motion.div>
       </main>
     </>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/tool/:id" element={<Workspace />} />
+    </Routes>
   );
 }
 
