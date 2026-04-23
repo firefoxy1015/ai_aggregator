@@ -251,9 +251,9 @@ function Workspace() {
           </div>
           
           <footer className="chat-input-area">
-            {tool.category === 'paint' && (
+            {(tool.category === 'paint' || tool.category === 'video') && (
               <div className="style-presets-row">
-                {[
+                {tool.category === 'paint' ? [
                   { id: 1, name: '赛博朋克', img: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=100&h=100&fit=crop' },
                   { id: 2, name: '二次元', img: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=100&h=100&fit=crop' },
                   { id: 3, name: '真实摄影', img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=100&h=100&fit=crop' },
@@ -266,6 +266,20 @@ function Workspace() {
                 ].map(style => (
                   <div key={style.id} className="style-avatar" title={style.name}>
                     <img src={style.img} alt={style.name} />
+                  </div>
+                )) : [
+                  { id: 1, name: '短视频创意编导\n将你的模糊想法或图片，智能添加创意，转换成生产级视频提示词。', img: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=100&h=100&fit=crop' },
+                  { id: 2, name: '电影大片运镜', img: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=100&h=100&fit=crop' },
+                  { id: 3, name: '三维动画大师', img: 'https://images.unsplash.com/photo-1551244072-5d12893278ab?w=100&h=100&fit=crop' },
+                  { id: 4, name: '奇幻魔法特效', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=100&h=100&fit=crop' },
+                  { id: 5, name: '微距特写光影', img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=100&h=100&fit=crop' },
+                  { id: 6, name: '复古胶片质感', img: 'https://images.unsplash.com/photo-1520121401995-928cd50d4e27?w=100&h=100&fit=crop' },
+                  { id: 7, name: '赛博朋克渲染', img: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=100&h=100&fit=crop' },
+                  { id: 8, name: '水墨国风动画', img: 'https://images.unsplash.com/photo-1558470598-a5dda9640f68?w=100&h=100&fit=crop' },
+                  { id: 9, name: '航拍延时风光', img: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop' },
+                ].map(style => (
+                  <div key={style.id} className="style-avatar" title={style.name}>
+                    <img src={style.img} alt={style.name.split('\n')[0]} />
                   </div>
                 ))}
                 <div className="style-avatar add-style" title="自定义风格">
@@ -305,7 +319,7 @@ function Workspace() {
                 <div className="price-badge">预计 ⚡ 0.35/次</div>
                 <textarea 
                   className="main-textarea"
-                  placeholder={`描述你想要生成的内容，支持上传参考图片...`} 
+                  placeholder={tool.category === 'video' ? "由于该模型渠道火爆，选择智能调度分组时，大概率会调度到高价格分组，请适度使用\n最好的效果是横版传横图，竖版传竖图，尽量不要乱传" : `描述你想要生成的内容，支持上传参考图片...`} 
                   value={input} 
                   onChange={(e) => setInput(e.target.value)} 
                   onKeyDown={(e) => {
@@ -318,14 +332,14 @@ function Workspace() {
                 
                 <div className="input-toolbar">
                   <div className="toolbar-params">
-                    {tool.category === 'paint' && (
+                    {(tool.category === 'paint' || tool.category === 'video') && (
                       <>
                         <div className="toolbar-param-item">
                           <div className="param-select-wrapper">
                             <select className="param-select">
                               <option>¥ 价格优先</option>
-                              <option>⚡ 极速出图</option>
-                              <option>💎 画质优先</option>
+                              <option>⚡ 极速调度</option>
+                              <option>💎 高价分组</option>
                             </select>
                           </div>
                         </div>
