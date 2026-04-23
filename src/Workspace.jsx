@@ -5,7 +5,7 @@ import { ArrowLeft, Send, Sparkles, User, Bot, RefreshCw, AlertCircle } from 'lu
 import { toolsData } from './data';
 import './Workspace.css';
 
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = 'https://ai-studio-swo7.onrender.com';
 
 function Workspace() {
   const { id } = useParams();
@@ -222,7 +222,7 @@ function Workspace() {
         <div className="input-box">
           <input 
             type="text" 
-            placeholder={`给 ${tool.title} 发送消息... (将调用本地后端 ${BACKEND_URL})`}
+            placeholder={`给 ${tool.title} 发送消息... (已连接到专属云端算力节点)`}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
@@ -236,7 +236,7 @@ function Workspace() {
             <Send size={18} />
           </button>
         </div>
-        <p className="footer-note">已接入 D:\gravity\ai-studio\main.py 后端，使用 DATA999 真实接口</p>
+        <p className="footer-note">已接入 {BACKEND_URL} 云端后端，使用 DATA999 真实接口</p>
       </footer>
     </div>
   );
