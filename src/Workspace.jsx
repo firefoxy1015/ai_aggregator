@@ -34,23 +34,39 @@ function Workspace() {
   const [isUploading, setIsUploading] = useState(false);
   const [isEnhancing, setIsEnhancing] = useState(false);
 
+    const [directorModal, setDirectorModal] = useState({ open: false, agent: null, status: 'idle', result: null });
+
   const handleEnhance = async (agent) => {
     if (!input.trim()) {
       alert("请先在输入框中写下你的初步想法或提示词~");
       return;
     }
-    setActivePreset(agent.id + 100);
-    setIsEnhancing(true);
     const original = input;
-    setInput("");
+    setDirectorModal({ open: true, agent, status: 'dispatch', result: null });
     
+    // Simulate progress steps
+    setTimeout(() => setDirectorModal(prev => prev.status === 'dispatch' ? { ...prev, status: 'think' } : prev), 1000);
+    setTimeout(() => setDirectorModal(prev => prev.status === 'think' ? { ...prev, status: 'build' } : prev), 3000);
+
     try {
       const response = await fetch(`${BACKEND_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          system: `你现在是${agent.name.split('\n')[0]}。${agent.name.split('\n')[1]} 请将用户的简短提示词扩写成一段专业的视频生成提示词，要求画面感强、细节丰富、包含运镜和光影描述。请直接输出最终的提示词，不要带任何其他废话或解释。`,
+          source: 'data999',
+          model: 'gpt-4o-mini',
+          system: `你现在是${agent.name.split('\n')[0]}。${agent.name.split('\n')[1]} 
+请根据用户的输入，生成一段专业的视频提示词。
+请严格按照以下格式输出（必须包含这三个标签，不要带Markdown代码块的修饰，直接输出文本）：
+
+[EXPLANATION]
+你的创意灵感说明（分析用户的需求并说明你增加的细节）
+
+[ZH_PROMPT]
+扩写后的中文提示词（包含画面、光影、运镜、风格，逗号分隔，不要超过100字）
+
+[EN_PROMPT]
+对应的英文提示词（专业影视术语，逗号分隔）`,
           messages: [{ role: 'user', content: original }]
         })
       });
@@ -71,19 +87,40 @@ function Workspace() {
               const data = JSON.parse(line.substring(6));
               if (data.text) {
                 assistantContent += data.text;
-                setInput(assistantContent);
               }
             } catch (e) {}
           }
         }
       }
+
+      if (assistantContent.includes('暂不支持') || assistantContent.includes('请联系管理员')) {
+        throw new Error(assistantContent);
+      }
+
+      // Parse the response
+      const expMatch = assistantContent.match(/\[EXPLANATION\]([\s\S]*?)(?=\[ZH_PROMPT\]|\[EN_PROMPT\]|$)/i);
+      const zhMatch = assistantContent.match(/\[ZH_PROMPT\]([\s\S]*?)(?=\[EN_PROMPT\]|$)/i);
+      const enMatch = assistantContent.match(/\[EN_PROMPT\]([\s\S]*?)$/i);
+
+      setDirectorModal(prev => ({
+        ...prev,
+        status: 'complete',
+        result: {
+          explanation: expMatch ? expMatch[1].trim() : '已为你生成创意提示词。',
+          zhPrompt: zhMatch ? zhMatch[1].trim() : assistantContent.trim(),
+          enPrompt: enMatch ? enMatch[1].trim() : '请查看上方生成的提示词'
+        }
+      }));
+
     } catch (err) {
-      alert("智能扩写失败: " + err.message);
-      setInput(original);
-    } finally {
-      setIsEnhancing(false);
-      setActivePreset(null);
+      alert("AI 引擎调用失败: " + err.message);
+      setDirectorModal({ open: false, agent: null, status: 'idle', result: null });
     }
+  };
+
+  const applyDirectorPrompt = (promptText) => {
+    setInput(promptText);
+    setDirectorModal({ open: false, agent: null, status: 'idle', result: null });
   };
 
   const scrollToBottom = () => {
@@ -487,6 +524,85 @@ function Workspace() {
               </div>
             </div>
           </footer>
+        
+          {directorModal.open && (
+            <div className="director-modal-overlay">
+              <div className="director-modal">
+                <div className="director-modal-header">
+                  <div className="director-modal-title">
+                    <img src={directorModal.agent?.img} alt="avatar" className="director-avatar" />
+                    <span>{directorModal.agent?.name.split('\n')[0]}</span>
+                  </div>
+                  <button className="director-close-btn" onClick={() => setDirectorModal({ open: false, agent: null, status: 'idle', result: null })}><X size={18} /></button>
+                </div>
+                
+                <div className="director-modal-body">
+                  {directorModal.status === 'complete' ? (
+                    <div className="director-success-header">
+                      <CheckCircle2 size={18} color="#10b981" />
+                      <span className="success-text">生成完成</span>
+                    </div>
+                  ) : (
+                    <div className="director-loading-header">
+                      <div className="pulse-dot"></div>
+                      <span className="loading-text">
+                        {directorModal.status === 'dispatch' && '正在连接AI创作引擎...'}
+                        {directorModal.status === 'think' && '正在深度解析画面需求...'}
+                        {directorModal.status === 'build' && '正在构建分镜与光影细节...'}
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="director-progress-bar">
+                    <div className="progress-line-bg"></div>
+                    <div className="progress-line-fill" style={{ 
+                      width: directorModal.status === 'dispatch' ? '10%' : 
+                             directorModal.status === 'think' ? '40%' : 
+                             directorModal.status === 'build' ? '70%' : '100%' 
+                    }}></div>
+                    <div className={`progress-step ${['dispatch', 'think', 'build', 'complete'].includes(directorModal.status) ? 'active' : ''}`}>调度</div>
+                    <div className={`progress-step ${['think', 'build', 'complete'].includes(directorModal.status) ? 'active' : ''}`}>思考</div>
+                    <div className={`progress-step ${['build', 'complete'].includes(directorModal.status) ? 'active' : ''}`}>构建</div>
+                    <div className={`progress-step ${directorModal.status === 'complete' ? 'active' : ''}`}>完成</div>
+                  </div>
+
+                  {directorModal.status === 'complete' && directorModal.result && (
+                    <div className="director-result-cards">
+                      <div className="result-card">
+                        <div className="card-title"><Lightbulb size={14} color="#f59e0b" /> 创意说明</div>
+                        <div className="card-content">{directorModal.result.explanation}</div>
+                      </div>
+                      <div className="result-card">
+                        <div className="card-title">🇨🇳 中文提示词</div>
+                        <div className="card-content">{directorModal.result.zhPrompt}</div>
+                      </div>
+                      <div className="result-card">
+                        <div className="card-title">🌐 英文提示词</div>
+                        <div className="card-content">{directorModal.result.enPrompt}</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {directorModal.status === 'complete' && (
+                  <div className="director-modal-footer">
+                    <button className="director-btn btn-ghost" onClick={() => handleEnhance(directorModal.agent)}>
+                      <RefreshCw size={14} /> 重新生成
+                    </button>
+                    <div className="footer-actions">
+                      <button className="director-btn btn-secondary" onClick={() => applyDirectorPrompt(directorModal.result.zhPrompt)}>
+                        使用中文提示词
+                      </button>
+                      <button className="director-btn btn-primary" onClick={() => applyDirectorPrompt(directorModal.result.enPrompt)}>
+                        使用英文提示词
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
         </main>
 
         {tool.category === 'chat' && tool.configurableParams?.some(p => p.type === 'textarea') && (
