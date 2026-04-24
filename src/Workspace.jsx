@@ -227,10 +227,17 @@ function Workspace() {
           const startUrl = finalParams.image_start?.[0] || "";
           const endUrl = finalParams.image_end?.[0] || "";
           if (startUrl || endUrl) {
-            finalParams.images = [startUrl, endUrl];
+            finalParams.images = [startUrl, endUrl].filter(u => u);
           }
           delete finalParams.image_start;
           delete finalParams.image_end;
+        }
+
+        // Clean up empty values to prevent backend validation errors
+        for (const key of Object.keys(finalParams)) {
+          const val = finalParams[key];
+          if (Array.isArray(val) && val.length === 0) delete finalParams[key];
+          else if (val === '' || val === undefined || val === null) delete finalParams[key];
         }
 
         const reqBody = {
