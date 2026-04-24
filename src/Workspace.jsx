@@ -34,7 +34,7 @@ function Workspace() {
   const [isUploading, setIsUploading] = useState(false);
   const [isEnhancing, setIsEnhancing] = useState(false);
 
-  const handleEnhance = (agent) => {
+  const handleEnhance = async (agent) => {
     if (!input.trim()) {
       alert("请先在输入框中写下你的初步想法或提示词~");
       return;
@@ -42,29 +42,48 @@ function Workspace() {
     setActivePreset(agent.id + 100);
     setIsEnhancing(true);
     const original = input;
-    let expanded = original;
-    
-    if (agent.id === 1) expanded = `一镜到底短视频运镜：${original}，画面充满视觉张力与高饱和度，黄金分割构图，快速推拉镜头抓人眼球，适合在社交媒体平台传播的高级质感，4k，高动态范围。`;
-    else if (agent.id === 2) expanded = `商业棚拍级打光：完美特写展示${original}，产品居中，镜头缓慢平移扫过材质表面，高级感的柔和漫反射光影，背景纯净，极具视觉说服力的产品广告大片，8k，超高精细度。`;
-    else if (agent.id === 3) expanded = `电影级短片分镜：${original}，叙事感极强的光影氛围，情绪转折，阿莱艾美拉摄影机拍摄，电影级调色，冷暖色调对比，极具戏剧张力的视觉语言。`;
-    else if (agent.id === 4) expanded = `秀场级时尚大片：${original}，顶级时尚杂志封面质感，人物身体语言极具表现力，服装材质细节毕现，前卫的视觉美学与打光，Vogue风格，动态抓拍，4k。`;
-    else if (agent.id === 5) expanded = `超越现实的视觉奇观：${original}，抽象的流体艺术与光影变幻，超现实主义动态，打破常规物理法则的运动轨迹，梦幻般的色彩流转，视觉特效级渲染。`;
-    else if (agent.id === 6) expanded = `美食广告级微距：${original}，诱人的色泽，热气腾腾的烟雾缭绕，超清微距特写，慢动作焦外虚化，令人垂涎欲滴的视觉盛宴，暖色调高光打亮。`;
-    else if (agent.id === 7) expanded = `殿堂级音乐MV质感：${original}，随节奏律动的镜头语言，炫酷的转场特效，光影随着旋律闪烁，充满超现实情绪表达的视觉爆发力，演唱会级布光。`;
-    else if (agent.id === 8) expanded = `高质量旅行Vlog：${original}，第一人称沉浸式视角与无人机航拍无缝切镜，明快阳光的色彩滤镜，快慢动作结合的丝滑转场，充满旅途的故事感与电影感。`;
-    else if (agent.id === 9) expanded = `BBC自然纪录片：${original}，极其震撼的自然地貌与野生动物特写，史诗级远景推轨镜头，冷峻而真实的自然光影，极高的画面清晰度，8k，国家地理获奖摄影。`;
-    else expanded = `[智能优化] ${original}，更高清、细节更丰富的画面，8k分辨率，大师级光影。`;
-
     setInput("");
-    let i = 0;
-    const interval = setInterval(() => {
-      setInput(prev => prev + expanded.charAt(i));
-      i++;
-      if (i >= expanded.length) {
-        clearInterval(interval);
-        setIsEnhancing(false);
+    
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'gpt-3.5-turbo',
+          system: `你现在是${agent.name.split('\n')[0]}。${agent.name.split('\n')[1]} 请将用户的简短提示词扩写成一段专业的视频生成提示词，要求画面感强、细节丰富、包含运镜和光影描述。请直接输出最终的提示词，不要带任何其他废话或解释。`,
+          messages: [{ role: 'user', content: original }]
+        })
+      });
+
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let assistantContent = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        for (const line of chunk.split('\n')) {
+          if (line.startsWith('data: ') && !line.includes('[DONE]')) {
+            try {
+              const data = JSON.parse(line.substring(6));
+              if (data.text) {
+                assistantContent += data.text;
+                setInput(assistantContent);
+              }
+            } catch (e) {}
+          }
+        }
       }
-    }, 20);
+    } catch (err) {
+      alert("智能扩写失败: " + err.message);
+      setInput(original);
+    } finally {
+      setIsEnhancing(false);
+      setActivePreset(null);
+    }
   };
 
   const scrollToBottom = () => {
@@ -358,37 +377,39 @@ function Workspace() {
 
               {/* Right side: Textarea + Toolbar + Image Upload */}
               <div className="input-right-panel">
-                {tool.configurableParams?.filter(p => p.type === 'image_upload').map(param => (
-                  <div key={param.name} className="image-upload-wrapper">
-                    <label className="reference-upload-box">
-                      {isUploading ? <RefreshCw size={24} className="spin" /> : <span className="plus-icon">+</span>}
-                      <span className="upload-text">{param.label}</span>
-                      <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => handleImageUpload(e, param.name, param.max)} />
-                    </label>
-                    {params[param.name] && params[param.name].length > 0 && (
-                      <div className="uploaded-preview-overlay">
-                        <img src={params[param.name][params[param.name].length - 1]} alt="Preview" />
-                        <span className="count-badge">{params[param.name].length}/{param.max}</span>
-                        <button className="remove-image" onClick={() => removeImage(param.name, params[param.name].length - 1)}><X size={12} /></button>
-                      </div>
-                    )}
-                  </div>
-                ))}
-
                 <div className="price-badge">预计 ⚡ 0.35/次</div>
-                <textarea 
-                  className="main-textarea"
-                  disabled={isEnhancing}
-                  placeholder={tool.category === 'video' ? "由于该模型渠道火爆，选择智能调度分组时，大概率会调度到高价格分组，请适度使用\n最好的效果是横版传横图，竖版传竖图，尽量不要乱传" : `描述你想要生成的内容，支持上传参考图片...`} 
-                  value={input} 
-                  onChange={(e) => setInput(e.target.value)} 
-                  onKeyDown={(e) => {
-                    if(e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      handleSend();
-                    }
-                  }} 
-                />
+                
+                <div className="textarea-with-images">
+                  {tool.configurableParams?.filter(p => p.type === 'image_upload').map(param => (
+                    <div key={param.name} className="image-upload-wrapper inline-upload">
+                      <label className="reference-upload-box inline-box">
+                        {isUploading ? <RefreshCw size={24} className="spin" /> : <span className="plus-icon">+</span>}
+                        <span className="upload-text">{param.label}</span>
+                        <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => handleImageUpload(e, param.name, param.max)} />
+                      </label>
+                      {params[param.name] && params[param.name].length > 0 && (
+                        <div className="uploaded-preview-overlay inline-preview">
+                          <img src={params[param.name][params[param.name].length - 1]} alt="Preview" />
+                          <span className="count-badge">{params[param.name].length}/{param.max}</span>
+                          <button className="remove-image" onClick={() => removeImage(param.name, params[param.name].length - 1)}><X size={12} /></button>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                  <textarea 
+                    className="main-textarea"
+                    disabled={isEnhancing}
+                    placeholder={tool.category === 'video' ? "由于该模型渠道火爆，选择智能调度分组时，大概率会调度到高价格分组，请适度使用\n最好的效果是横版传横图，竖版传竖图，尽量不要乱传" : `描述你想要生成的内容，支持上传参考图片...`} 
+                    value={input} 
+                    onChange={(e) => setInput(e.target.value)} 
+                    onKeyDown={(e) => {
+                      if(e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSend();
+                      }
+                    }} 
+                  />
+                </div>
                 
                 <div className="input-toolbar">
                   <div className="toolbar-params">

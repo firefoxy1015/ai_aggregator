@@ -607,3 +607,35 @@ textarea.settings-input {
   justify-content: center;
   font-size: 12px;
 }
+
+/* Inline Textarea Upload Styles */
+.textarea-with-images {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+.inline-upload {
+  margin-bottom: 0;
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  position: relative;
+}
+
+.inline-box {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  margin: 0;
+}
+
+.inline-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
