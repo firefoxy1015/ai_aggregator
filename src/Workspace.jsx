@@ -14,9 +14,17 @@ function Workspace() {
   const chatStorageKey = `nexus_chat_${id}`;
 
   const [messages, setMessages] = useState(() => {
-    const saved = localStorage.getItem(chatStorageKey);
-    if (saved) {
-      try { return JSON.parse(saved); } catch (e) {}
+    try {
+      const saved = localStorage.getItem(chatStorageKey);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          // Filter out any incomplete streaming messages
+          return parsed.filter(m => m.id !== 'streaming');
+        }
+      }
+    } catch (e) {
+      localStorage.removeItem(chatStorageKey);
     }
     return [{ role: 'system', content: `连接已建立！我是 ${tool?.title} (${tool?.modelId})。您可以向我发送指令了。`, type: 'text' }];
   });

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, ChevronRight, LayoutGrid, MessageSquare, Palette, Video, Bot,
   Code, Sparkles, Image, Aperture, Brush, Film, Clapperboard, PlaySquare, 
-  BookOpen, ShoppingBag, PenTool, Zap, FolderOpen
+  BookOpen, ShoppingBag, PenTool, Zap, FolderOpen, Music
 } from 'lucide-react';
 import { menuItems, toolsData } from './data';
 import Workspace from './Workspace';
@@ -13,7 +13,7 @@ import Gallery from './Gallery';
 const IconMap = {
   LayoutGrid, MessageSquare, Palette, Video, Bot,
   Code, Sparkles, Image, Aperture, Brush, Film,
-  Clapperboard, PlaySquare, BookOpen, ShoppingBag, PenTool, Zap, FolderOpen
+  Clapperboard, PlaySquare, BookOpen, ShoppingBag, PenTool, Zap, FolderOpen, Music
 };
 
 function Home() {
