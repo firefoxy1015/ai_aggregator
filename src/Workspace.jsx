@@ -45,58 +45,45 @@ function Workspace() {
     setDirectorModal({ open: true, agent, status: 'dispatch', result: null });
 
     // Simulate progress steps
-    setTimeout(() => setDirectorModal(prev => prev.status === 'dispatch' ? { ...prev, status: 'think' } : prev), 1000);
-    setTimeout(() => setDirectorModal(prev => prev.status === 'think' ? { ...prev, status: 'build' } : prev), 3000);
+    setTimeout(() => setDirectorModal(prev => prev.status === 'dispatch' ? { ...prev, status: 'think' } : prev), 1200);
+    setTimeout(() => setDirectorModal(prev => prev.status === 'think' ? { ...prev, status: 'build' } : prev), 3500);
 
     try {
+      const agentTitle = agent.name.split('\n')[0];
+      const agentDesc = agent.name.split('\n')[1] || '';
+      const sysPrompt = `你现在是${agentTitle}。${agentDesc}\n请根据用户的输入，生成一段专业的视频提示词。\n请严格按照以下格式输出（必须包含这三个标签，不要带Markdown代码块的修饰，直接输出文本）：\n\n[EXPLANATION]\n你的创意灵感说明（分析用户的需求并说明你增加的细节）\n\n[ZH_PROMPT]\n扩写后的中文提示词（包含画面、光影、运镜、风格，逗号分隔，不要超过100字）\n\n[EN_PROMPT]\n对应的英文提示词（专业影视术语，逗号分隔）`;
+
       const response = await fetch(`${BACKEND_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-6',
-          system: `你现在是${agent.name.split('\n')[0]}。${agent.name.split('\n')[1]} 
-请根据用户的输入，生成一段专业的视频提示词。
-请严格按照以下格式输出（必须包含这三个标签，不要带Markdown代码块的修饰，直接输出文本）：
-
-[EXPLANATION]
-你的创意灵感说明（分析用户的需求并说明你增加的细节）
-![1777026499540](image/Workspace/1777026499540.png)![1777026501534](image/Workspace/1777026501534.png)![1777026512609](image/Workspace/1777026512609.png)
-[ZH_PROMPT]
-扩写后的中文提示词（包含画面、光影、运镜、风格，逗号分隔，不要超过100字）
-
-[EN_PROMPT]
-对应的英文提示词（专业影视术语，逗号分隔）`,
+          system: sysPrompt,
           messages: [{ role: 'user', content: original }]
         })
       });
 
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
+      // Read full response text (SSE format)
+      const rawText = await response.text();
+      
+      // Extract all text chunks from SSE data lines
       let assistantContent = '';
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        const chunk = decoder.decode(value, { stream: true });
-        for (const line of chunk.split('\n')) {
-          if (line.startsWith('data: ') && !line.includes('[DONE]')) {
-            try {
-              const data = JSON.parse(line.substring(6));
-              if (data.text) {
-                assistantContent += data.text;
-              }
-            } catch (e) { }
-          }
+      for (const line of rawText.split('\n')) {
+        if (line.startsWith('data: ') && !line.includes('[DONE]')) {
+          try {
+            const data = JSON.parse(line.substring(6));
+            if (data.text) assistantContent += data.text;
+          } catch (e) { /* skip malformed lines */ }
         }
       }
 
-      if (assistantContent.includes('暂不支持') || assistantContent.includes('请联系管理员')) {
-        throw new Error(assistantContent);
+      if (!assistantContent || assistantContent.includes('暂不支持') || assistantContent.includes('请联系管理员')) {
+        throw new Error(assistantContent || '未收到有效回复');
       }
 
-      // Parse the response
+      // Parse the structured response
       const expMatch = assistantContent.match(/\[EXPLANATION\]([\s\S]*?)(?=\[ZH_PROMPT\]|\[EN_PROMPT\]|$)/i);
       const zhMatch = assistantContent.match(/\[ZH_PROMPT\]([\s\S]*?)(?=\[EN_PROMPT\]|$)/i);
       const enMatch = assistantContent.match(/\[EN_PROMPT\]([\s\S]*?)$/i);
@@ -107,11 +94,12 @@ function Workspace() {
         result: {
           explanation: expMatch ? expMatch[1].trim() : '已为你生成创意提示词。',
           zhPrompt: zhMatch ? zhMatch[1].trim() : assistantContent.trim(),
-          enPrompt: enMatch ? enMatch[1].trim() : '请查看上方生成的提示词'
+          enPrompt: enMatch ? enMatch[1].trim() : 'See Chinese prompt above.'
         }
       }));
 
     } catch (err) {
+      console.error('Director enhance error:', err);
       alert("AI 引擎调用失败: " + err.message);
       setDirectorModal({ open: false, agent: null, status: 'idle', result: null });
     }
