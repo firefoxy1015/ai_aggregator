@@ -53,7 +53,6 @@ function Workspace() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          source: 'data999',
           model: 'claude-sonnet-4-6',
           system: `你现在是${agent.name.split('\n')[0]}。${agent.name.split('\n')[1]} 
 请根据用户的输入，生成一段专业的视频提示词。
