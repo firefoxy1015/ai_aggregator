@@ -54,7 +54,7 @@ function Workspace() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           source: 'data999',
-          model: 'qwen3.5-plus',
+          model: 'claude-sonnet-4-6',
           system: `你现在是${agent.name.split('\n')[0]}。${agent.name.split('\n')[1]} 
 请根据用户的输入，生成一段专业的视频提示词。
 请严格按照以下格式输出（必须包含这三个标签，不要带Markdown代码块的修饰，直接输出文本）：
