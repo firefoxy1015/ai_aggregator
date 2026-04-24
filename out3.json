@@ -1,0 +1,118 @@
+[
+  [
+    "grok-video-3-plus",
+    "grok-video-3-plus"
+  ],
+  [
+    "Pix C1 参考生",
+    "pixverse-c1-cankaosheng"
+  ],
+  [
+    "SD 2.0 参考生",
+    "kwvideo-v2-ref"
+  ],
+  [
+    "Pix C1 首尾帧",
+    "pixverse-c1-shouweizhen"
+  ],
+  [
+    "Vidu Q3 参考生",
+    "viduq3-cankaosheng"
+  ],
+  [
+    "veo3.1",
+    "veo3.1"
+  ],
+  [
+    "Vidu Q3",
+    "viduq3"
+  ],
+  [
+    "veo3.1-lite",
+    "veo3.1-lite"
+  ],
+  [
+    "Pix V6 首尾帧",
+    "pixverse-v6-shouweizhen"
+  ],
+  [
+    "veo3.1-4K高清",
+    "veo3.1-4k"
+  ],
+  [
+    "SD 2.0 首尾帧",
+    "kwvideo-v2"
+  ],
+  [
+    "万相 2.6 参考生",
+    "wan2.6-cankaosheng"
+  ],
+  [
+    "SD 2.0 全能参考",
+    "kwvideo-v2-quannengcankao"
+  ],
+  [
+    "可灵-Omni 首尾帧",
+    "kling-v3-omni-shouweizhen"
+  ],
+  [
+    "可灵-V3-video",
+    "kling-v3-video"
+  ],
+  [
+    "可灵-Omni 视频参考",
+    "kling-v3-omni-videoref"
+  ],
+  [
+    "可灵-动作控制 V3",
+    "kling-motion-control-v3"
+  ],
+  [
+    "Vidu Q2 参考生",
+    "viduq2-cankaosheng"
+  ],
+  [
+    "可灵-动作控制",
+    "kling-motion-control"
+  ],
+  [
+    "万相-视频换人",
+    "wan2.2-animate-mix"
+  ],
+  [
+    "Pix V5.6 参考生",
+    "pixverse-v5.6-r2v"
+  ],
+  [
+    "Pix V5.6 首尾帧",
+    "pixverse-v5.6-shouweizhen"
+  ],
+  [
+    "万相 2.6 首帧",
+    "wan2.6-shouzheng"
+  ],
+  [
+    "可灵 2.6 Pro",
+    "kling-v2-6"
+  ],
+  [
+    "可灵-数字人",
+    "kling-avatar-image2video"
+  ],
+  [
+    "海螺 2.3",
+    "hailuo-2.3"
+  ],
+  [
+    "万相 2.7 参考生",
+    "wan2.7-cankaosheng"
+  ],
+  [
+    "万相 2.7 视频续写",
+    "wan2.7-xuxie"
+  ],
+  [
+    "万相 2.7 首尾帧",
+    "wan2.7-shouweizhen"
+  ]
+]

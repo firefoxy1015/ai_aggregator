@@ -111,6 +111,12 @@ body {
   border-radius: 0 12px 12px 0;
 }
 
+.nav-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 8px 12px;
+}
+
 /* Main Content */
 .main-content {
   margin-left: var(--sidebar-width);

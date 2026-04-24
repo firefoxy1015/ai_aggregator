@@ -11,13 +11,25 @@ function Workspace() {
   const { id } = useParams();
   const navigate = useNavigate();
   const tool = toolsData.find(t => t.id === parseInt(id));
-  const messagesEndRef = useRef(null);
+  const chatStorageKey = `nexus_chat_${id}`;
 
-  const [messages, setMessages] = useState([
-    { role: 'system', content: `连接已建立！我是 ${tool?.title} (${tool?.modelId})。您可以向我发送指令了。`, type: 'text' }
-  ]);
+  const [messages, setMessages] = useState(() => {
+    const saved = localStorage.getItem(chatStorageKey);
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) {}
+    }
+    return [{ role: 'system', content: `连接已建立！我是 ${tool?.title} (${tool?.modelId})。您可以向我发送指令了。`, type: 'text' }];
+  });
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+
+  // Persist messages to localStorage whenever they change
+  useEffect(() => {
+    // Don't save if there's only the initial welcome message
+    if (messages.length > 1) {
+      localStorage.setItem(chatStorageKey, JSON.stringify(messages));
+    }
+  }, [messages, chatStorageKey]);
 
   // Params state based on configurableParams and defaultParams
   const [params, setParams] = useState(() => {
@@ -35,6 +47,7 @@ function Workspace() {
   const [isEnhancing, setIsEnhancing] = useState(false);
 
   const [directorModal, setDirectorModal] = useState({ open: false, agent: null, status: 'idle', result: null });
+  const messagesEndRef = useRef(null);
 
   const handleEnhance = async (agent) => {
     if (!input.trim()) {
@@ -278,6 +291,21 @@ function Workspace() {
               if (isAudio) mType = 'audio';
 
               setMessages(prev => [...prev, { role: 'assistant', content: `生成完成：`, type: 'media', url, mediaType: mType }]);
+
+              // Save to gallery
+              try {
+                const gallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
+                gallery.push({
+                  id: `${Date.now()}_${Math.random().toString(36).substr(2,6)}`,
+                  url,
+                  mediaType: mType,
+                  modelId: tool.modelId,
+                  modelTitle: tool.title,
+                  prompt: userMessage,
+                  timestamp: Date.now()
+                });
+                localStorage.setItem('nexus_gallery', JSON.stringify(gallery));
+              } catch (e) { console.error('Gallery save error:', e); }
             }
           }
         }

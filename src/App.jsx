@@ -4,15 +4,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, ChevronRight, LayoutGrid, MessageSquare, Palette, Video, Bot,
   Code, Sparkles, Image, Aperture, Brush, Film, Clapperboard, PlaySquare, 
-  BookOpen, ShoppingBag, PenTool, Zap
+  BookOpen, ShoppingBag, PenTool, Zap, FolderOpen
 } from 'lucide-react';
 import { menuItems, toolsData } from './data';
 import Workspace from './Workspace';
+import Gallery from './Gallery';
 
 const IconMap = {
   LayoutGrid, MessageSquare, Palette, Video, Bot,
   Code, Sparkles, Image, Aperture, Brush, Film,
-  Clapperboard, PlaySquare, BookOpen, ShoppingBag, PenTool, Zap
+  Clapperboard, PlaySquare, BookOpen, ShoppingBag, PenTool, Zap, FolderOpen
 };
 
 function Home() {
@@ -64,6 +65,11 @@ function Home() {
               </div>
             );
           })}
+          <div className="nav-divider"></div>
+          <div className="nav-item" onClick={() => navigate('/gallery')}>
+            <FolderOpen size={20} />
+            <span>我的作品集</span>
+          </div>
         </nav>
       </aside>
 
@@ -143,6 +149,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/tool/:id" element={<Workspace />} />
+      <Route path="/gallery" element={<Gallery />} />
     </Routes>
   );
 }
