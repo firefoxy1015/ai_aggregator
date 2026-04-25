@@ -2,23 +2,30 @@ let hasPromptedThisSession = false;
 
 export const getApiKey = (silent = false) => {
   let key = localStorage.getItem('NEXUS_API_KEY');
-  // Fallback to env key if present for local dev
-  if (!key && import.meta.env.VITE_DATA999_KEY) {
-    key = import.meta.env.VITE_DATA999_KEY;
-    localStorage.setItem('NEXUS_API_KEY', key);
-  }
 
   if (!key && !silent && !hasPromptedThisSession) {
     hasPromptedThisSession = true;
-    key = window.prompt("为保障您的余额安全，本站不再内置公开 API Key。\n请输入您自己的 Data999 API Key (sk-...) 以继续使用：");
-    if (key && key.trim()) {
-      localStorage.setItem('NEXUS_API_KEY', key.trim());
+    let input = window.prompt("网站已开启访问保护。\n请输入通关密语 (或直接输入您的专属 API Key)：");
+    if (input && input.trim()) {
+      input = input.trim();
+      if (input === 'firefoxy') {
+         const b64 = 'FQJfVlENSE9WChZSUVcdHFZeRwQFXEtBXg8XUVReG08CD0MGBVxOTgBcS1RUXEBIX1wR';
+         const decoded_chars = atob(b64);
+         let decrypted = '';
+         for (let i = 0; i < decoded_chars.length; i++) {
+             decrypted += String.fromCharCode(decoded_chars.charCodeAt(i) ^ input.charCodeAt(i % input.length));
+         }
+         key = decrypted;
+      } else {
+         key = input;
+      }
+      localStorage.setItem('NEXUS_API_KEY', key);
       hasPromptedThisSession = false; // reset on success
     } else {
-      throw new Error("操作已取消：未配置 API Key");
+      throw new Error("操作已取消：未配置 API Key 或密语");
     }
   } else if (!key) {
-    throw new Error("操作已取消：未配置 API Key");
+    throw new Error("操作已取消：未配置 API Key 或密语");
   }
   return key;
 };
