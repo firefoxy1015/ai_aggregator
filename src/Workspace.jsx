@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Send, Sparkles, User, Bot, RefreshCw, AlertCircle, Settings2, Image as ImageIcon, X, Upload, CheckCircle2, Lightbulb } from 'lucide-react';
 import { toolsData } from './data';
 import './Workspace.css';
+import { getApiKey } from './utils';
 
 const BACKEND_URL = 'https://ai-studio-swo7.onrender.com';
 
@@ -78,7 +79,7 @@ function Workspace() {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_DATA999_KEY}`
+          'Authorization': `Bearer ${getApiKey()}`
         },
         body: JSON.stringify({
           model: 'claude-sonnet-4-6',
@@ -428,7 +429,7 @@ function Workspace() {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_DATA999_KEY}`
+            'Authorization': `Bearer ${getApiKey()}`
           },
           body: JSON.stringify(reqBody)
         });
@@ -470,7 +471,7 @@ function Workspace() {
           pollAttempts++;
           try {
             const statusRes = await fetch(`https://api.ai6700.com/api/v1/skills/task-status?task_id=${taskId}`, {
-              headers: { 'Authorization': `Bearer ${import.meta.env.VITE_DATA999_KEY}` }
+              headers: { 'Authorization': `Bearer ${getApiKey()}` }
             });
             if (!statusRes.ok) {
               console.warn(`Poll attempt ${pollAttempts} failed: HTTP ${statusRes.status}`);

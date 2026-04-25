@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Image, Video, Music, Trash2, Download, Clock, Cpu, Filter, Grid, List, Search, Zap, AlertCircle, RefreshCw } from 'lucide-react';
 import './Gallery.css';
+import { getApiKey } from './utils';
 
 function Gallery() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ function Gallery() {
         if (w.status === 'pending') {
           try {
             const res = await fetch(`https://api.ai6700.com/api/v1/skills/task-status?task_id=${w.taskId}`, {
-              headers: { 'Authorization': `Bearer ${import.meta.env.VITE_DATA999_KEY}` }
+              headers: { 'Authorization': `Bearer ${getApiKey()}` }
             });
             if (!res.ok) continue;
             const data = await res.json();
@@ -89,7 +90,7 @@ function Gallery() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_DATA999_KEY}`
+          'Authorization': `Bearer ${getApiKey()}`
         },
         body: JSON.stringify(work.reqBody)
       });
