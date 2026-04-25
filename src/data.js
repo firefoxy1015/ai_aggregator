@@ -27,7 +27,7 @@ export const toolsData = [
   { id: 4, title: 'Claude 3.5 Haiku', modelId: 'claude-haiku-4-5-20251001', category: 'chat', desc: '极速轻量，响应迅捷。', hot: false, icon: 'Zap', configurableParams: chatParams },
   { id: 5, title: 'Claude 3.5 Sonnet (上代)', modelId: 'claude-opus-4-5-20251101', category: 'chat', desc: '上一代均衡模型。', hot: false, icon: 'Archive', configurableParams: chatParams },
   
-  { id: 200, title: 'GPT-5.5', modelId: 'gpt-5.5', category: 'chat', desc: 'OpenAI最新旗舰模型，全面升级推理与创作能力。', tag: '最新上线', hot: true, icon: 'Cpu', configurableParams: chatParams },
+  { id: 200, title: 'GPT-5.5', modelId: 'gpt-5.5', category: 'chat', desc: 'OpenAI最新旗舰模型，全面升级推理与创作能力。（代理接入中）', tag: '即将上线', hot: true, icon: 'Cpu', configurableParams: chatParams },
   { id: 6, title: 'GPT-5.4', modelId: 'gpt-5.4', category: 'chat', desc: 'OpenAI上代旗舰，全能大师。', tag: '', hot: false, icon: 'Cpu', configurableParams: chatParams },
   { id: 7, title: 'GPT-5.4 深度推理', modelId: 'gpt-5.4-xhigh', category: 'chat', desc: '极致的推理与计算能力。', tag: '深度思考', hot: true, icon: 'BrainCircuit', configurableParams: chatParams },
   { id: 8, title: 'GPT-5.4 Mini', modelId: 'gpt-5.4-mini', category: 'chat', desc: '轻量化，日常问答。', hot: false, icon: 'Zap', configurableParams: chatParams },
@@ -336,7 +336,7 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'quality', label: '画质', type: 'select', options: [{v:'fast',l:'快速'}, {v:'quality',l:'高质量'}], default: 'fast' },
-      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720p',l:'720P'}, {v:'1080p',l:'1080P'}], default: '720p' },
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720P',l:'720P'}, {v:'1080P',l:'1080P'}], default: '720P' },
       { name: 'reference_urls', label: '参考图片', type: 'image_upload', max: 5 },
       { name: 'duration', label: '视频时长', type: 'select', options: [{v:'2',l:'2秒'}, {v:'4',l:'4秒'}, {v:'6',l:'6秒'}, {v:'8',l:'8秒'}, {v:'10',l:'10秒'}], default: 2 }
     ]
@@ -494,7 +494,7 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'quality', label: '画质', type: 'select', options: [{v:'fast',l:'快速'}, {v:'quality',l:'高质量'}], default: 'fast' },
-      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720p',l:'720P'}, {v:'1080p',l:'1080P'}], default: '720p' },
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720P',l:'720P'}, {v:'1080P',l:'1080P'}], default: '720P' },
       { name: 'img_url', label: '参考图片', type: 'image_upload', max: 1 },
       { name: 'audio_url', label: '音频文件', type: 'image_upload', max: 1 },
       { name: 'duration', label: '视频时长', type: 'select', options: [{v:'3',l:'3秒'}, {v:'6',l:'6秒'}, {v:'9',l:'9秒'}, {v:'12',l:'12秒'}, {v:'15',l:'15秒'}], default: 3 }
@@ -550,7 +550,7 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'quality', label: '画质', type: 'select', options: [{v:'fast',l:'快速'}, {v:'quality',l:'高质量'}], default: 'fast' },
-      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720p',l:'720P'}, {v:'1080p',l:'1080P'}], default: '720p' },
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720P',l:'720P'}, {v:'1080P',l:'1080P'}], default: '720P' },
       { name: 'reference_urls', label: '参考图片', type: 'image_upload', max: 5 },
       { name: 'reference_video', label: '参考视频', type: 'image_upload', max: 1 },
       { name: 'duration', label: '视频时长', type: 'select', options: [{v:'3',l:'3秒'}, {v:'6',l:'6秒'}, {v:'9',l:'9秒'}, {v:'12',l:'12秒'}, {v:'15',l:'15秒'}], default: 3 }
@@ -565,7 +565,7 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'quality', label: '画质', type: 'select', options: [{v:'fast',l:'快速'}, {v:'quality',l:'高质量'}], default: 'fast' },
-      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720p',l:'720P'}, {v:'1080p',l:'1080P'}], default: '720p' },
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720P',l:'720P'}, {v:'1080P',l:'1080P'}], default: '720P' },
       { name: 'clips', label: '视频续写', type: 'image_upload', max: 1 },
       { name: 'duration', label: '视频时长', type: 'select', options: [{v:'3',l:'3秒'}, {v:'6',l:'6秒'}, {v:'9',l:'9秒'}, {v:'12',l:'12秒'}, {v:'15',l:'15秒'}], default: 3 }
     ]
@@ -579,7 +579,7 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'quality', label: '画质', type: 'select', options: [{v:'fast',l:'快速'}, {v:'quality',l:'高质量'}], default: 'fast' },
-      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720p',l:'720P'}, {v:'1080p',l:'1080P'}], default: '720p' },
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720P',l:'720P'}, {v:'1080P',l:'1080P'}], default: '720P' },
       { name: 'images', label: '首尾帧', type: 'image_upload', max: 2 },
       { name: 'duration', label: '视频时长', type: 'select', options: [{v:'3',l:'3秒'}, {v:'6',l:'6秒'}, {v:'9',l:'9秒'}, {v:'12',l:'12秒'}, {v:'15',l:'15秒'}], default: 3 }
     ]
