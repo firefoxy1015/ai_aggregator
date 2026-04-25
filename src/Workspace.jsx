@@ -83,8 +83,7 @@ function Workspace() {
         body: JSON.stringify({
           model: 'claude-sonnet-4-6',
           messages: [
-            { role: 'system', content: sysPrompt },
-            { role: 'user', content: original }
+            { role: 'user', content: sysPrompt + '\n\n用户的真实输入内容如下：\n' + original }
           ],
           stream: false
         })
