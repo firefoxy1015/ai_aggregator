@@ -158,20 +158,23 @@ function Workspace() {
 
     setIsUploading(true);
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('reqtype', 'fileupload');
+    formData.append('fileToUpload', file);
 
     try {
-      const res = await fetch(`${BACKEND_URL}/api/upload`, { method: 'POST', body: formData });
-      const data = await res.json();
-      if (res.ok && data.url) {
+      const res = await fetch('https://catbox.moe/user/api.php', { method: 'POST', body: formData });
+      const url = await res.text();
+      if (res.ok && url.startsWith('http')) {
         setParams(prev => {
           const current = prev[name] || [];
           if (current.length >= max) current.shift(); // keep under max
-          return { ...prev, [name]: [...current, data.url] };
+          return { ...prev, [name]: [...current, url] };
         });
+      } else {
+        throw new Error('公共CDN上传失败: ' + url);
       }
     } catch (err) {
-      alert("上传失败: " + err.message);
+      alert("媒体文件上传失败: " + err.message + "\n\n(如果持续失败，可能是本地网络无法访问公共图床，请直接粘贴图片/视频链接)");
     }
     setIsUploading(false);
   };
@@ -627,11 +630,19 @@ function Workspace() {
                         <label className="reference-upload-box inline-box" style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px dashed rgba(255,255,255,0.2)', borderRadius: '8px', cursor: 'pointer', background: 'rgba(20,20,25,0.6)' }}>
                           {isUploading ? <RefreshCw size={24} className="spin" /> : <span className="plus-icon">+</span>}
                           <span className="upload-text" style={{ fontSize: '0.65rem', marginTop: '4px', color: 'var(--text-muted)' }}>{param.label}</span>
-                          <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => handleImageUpload(e, param.name, param.max)} />
+                          <input type="file" accept={param.name.includes('video') ? "video/*" : param.name.includes('audio') ? "audio/*" : "image/*"} style={{ display: 'none' }} onChange={e => handleImageUpload(e, param.name, param.max)} />
                         </label>
                         {params[param.name] && params[param.name].length > 0 && (
-                          <div className="uploaded-preview-overlay inline-preview" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: '8px', overflow: 'hidden' }}>
-                            <img src={params[param.name][params[param.name].length - 1]} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                          <div className="uploaded-preview-overlay inline-preview" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: '8px', overflow: 'hidden', background: '#1a1a24' }}>
+                            {param.name.includes('video') ? (
+                              <video src={params[param.name][params[param.name].length - 1]} style={{ width: '100%', height: '100%', objectFit: 'cover' }} autoPlay muted loop />
+                            ) : param.name.includes('audio') ? (
+                              <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                                <span style={{ fontSize: '0.65rem', color: '#c4b5fd' }}>🎵 已传</span>
+                              </div>
+                            ) : (
+                              <img src={params[param.name][params[param.name].length - 1]} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            )}
                             <span className="count-badge" style={{ position: 'absolute', bottom: '4px', right: '4px', background: 'rgba(0,0,0,0.7)', fontSize: '0.6rem', padding: '2px 4px', borderRadius: '4px' }}>{params[param.name].length}/{param.max}</span>
                             <button className="remove-image" style={{ position: 'absolute', top: '4px', right: '4px', background: 'rgba(0,0,0,0.6)', border: 'none', borderRadius: '50%', width: '18px', height: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#fff' }} onClick={() => removeImage(param.name, params[param.name].length - 1)}><X size={12} /></button>
                           </div>
