@@ -202,6 +202,7 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'images', label: '首帧参考图', type: 'image_upload', max: 1 },
+      { name: 'aspect_ratio', label: '画面比例', type: 'select', options: [{v:'16:9',l:'16:9 (横屏)'}, {v:'9:16',l:'9:16 (竖屏)'}, {v:'1:1',l:'1:1 (方形)'}, {v:'3:2',l:'3:2'}, {v:'2:3',l:'2:3'}], default: '16:9' },
       { name: 'duration', label: '视频时长', type: 'select', options: [{v:'10',l:'10秒'}, {v:'15',l:'15秒'}, {v:'20',l:'20秒'}, {v:'25',l:'25秒'}, {v:'30',l:'30秒'}], default: 10 }
     ]
   },
