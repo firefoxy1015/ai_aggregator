@@ -74,31 +74,26 @@ function Workspace() {
       const agentDesc = agent.name.split('\n')[1] || '';
       const sysPrompt = `你现在是${agentTitle}。${agentDesc}\n请根据用户的输入，生成一段专业的视频提示词。\n请严格按照以下格式输出（必须包含这三个标签，不要带Markdown代码块的修饰，直接输出文本）：\n\n[EXPLANATION]\n你的创意灵感说明（分析用户的需求并说明你增加的细节）\n\n[ZH_PROMPT]\n扩写后的中文提示词（包含画面、光影、运镜、风格，逗号分隔，不要超过100字）\n\n[EN_PROMPT]\n对应的英文提示词（专业影视术语，逗号分隔）`;
 
-      const response = await fetch(`${BACKEND_URL}/api/chat`, {
+      const response = await fetch(`https://api.ai6700.com/v1/chat/completions`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer sk-37b060cd778ee075ac3388fe421c6df1cc367f591238195c`
+        },
         body: JSON.stringify({
           model: 'claude-sonnet-4-6',
-          system: sysPrompt,
-          messages: [{ role: 'user', content: original }]
+          messages: [
+            { role: 'system', content: sysPrompt },
+            { role: 'user', content: original }
+          ],
+          stream: false
         })
       });
 
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-      // Read full response text (SSE format)
-      const rawText = await response.text();
-      
-      // Extract all text chunks from SSE data lines
-      let assistantContent = '';
-      for (const line of rawText.split('\n')) {
-        if (line.startsWith('data: ') && !line.includes('[DONE]')) {
-          try {
-            const data = JSON.parse(line.substring(6));
-            if (data.text) assistantContent += data.text;
-          } catch (e) { /* skip malformed lines */ }
-        }
-      }
+      const data = await response.json();
+      const assistantContent = data.choices?.[0]?.message?.content || '';
 
       if (!assistantContent || assistantContent.includes('暂不支持') || assistantContent.includes('请联系管理员')) {
         throw new Error(assistantContent || '未收到有效回复');
