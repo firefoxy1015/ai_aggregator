@@ -72,7 +72,7 @@ function Workspace() {
     try {
       const agentTitle = agent.name.split('\n')[0];
       const agentDesc = agent.name.split('\n')[1] || '';
-      const sysPrompt = `你现在是${agentTitle}。${agentDesc}\n请根据用户的输入，生成一段专业的视频提示词。\n请严格使用以下XML标签包裹你的输出内容（不要包含在Markdown代码块中，直接输出XML）：\n\n<explanation>你的创意灵感说明（分析用户的需求并说明你增加的细节）</explanation>\n<zh_prompt>扩写后的中文提示词（包含画面、光影、运镜、风格，逗号分隔，不要超过100字）</zh_prompt>\n<en_prompt>对应的英文提示词（专业影视术语，逗号分隔）</en_prompt>`;
+      const sysPrompt = `你现在是顶级大厂的${agentTitle}。${agentDesc}\n你的任务是将用户的简短输入，扩写成极具画面感、电影级质感的高质量 AI 视频生成提示词。请尽情发挥你的专业编剧和导演能力，补充丰富的细节，包括但不限于：1.画面主体（动作、服饰、神态） 2.场景环境（时间、天气、气氛） 3.电影级光影（丁达尔光、轮廓光、霓虹灯等） 4.专业运镜（推拉摇移、微距、慢动作等） 5.画质与质感（8k、电影感、胶片质感）。\n\n请严格使用以下XML标签包裹输出内容（直接输出XML，绝对不要带Markdown代码块或任何废话）：\n\n<explanation>你的编剧构思说明（分析你为什么这么设计，增加了哪些惊艳的视觉细节）</explanation>\n<zh_prompt>极具画面感的中文视频提示词（细节极度丰富，包含构图、光影、动作等全方位描述，字数在200-400字左右，必须极具专业水准）</zh_prompt>\n<en_prompt>完美对应的英文视频提示词（使用好莱坞级别的专业影视词汇、打光术语和摄影机参数，逗号分隔，这是最终喂给AI视频大模型的提示词，必须极为详尽和专业）</en_prompt>`;
 
       const response = await fetch(`https://api.ai6700.com/v1/chat/completions`, {
         method: 'POST',
