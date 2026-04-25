@@ -281,41 +281,59 @@ function Workspace() {
         setMessages(prev => [...prev, { role: 'system', content: `任务已提交 (ID: ${taskId})，渲染中...`, type: 'text' }]);
 
         let isFinal = false;
-        while (!isFinal) {
+        let pollAttempts = 0;
+        const maxPollAttempts = 60; // 60 * 8s = 8 minutes max
+        while (!isFinal && pollAttempts < maxPollAttempts) {
           await new Promise(r => setTimeout(r, 8000));
-          const statusRes = await fetch(`${BACKEND_URL}/api/status/${taskId}`);
-          const statusData = await statusRes.json();
-          if (statusData.is_final) {
-            isFinal = true;
-            setIsTyping(false);
-            if (statusData.error) {
-              setMessages(prev => [...prev, { role: 'system', content: `生成失败: ${statusData.error}`, type: 'error' }]);
-            } else if (statusData.result_urls?.length > 0) {
-              const url = statusData.result_urls[0];
-              const isVideo = url.match(/\.(mp4|webm|mov|m3u8)/i) || tool.category === 'video';
-              const isAudio = url.match(/\.(mp3|wav|ogg|aac)/i) || tool.category === 'audio';
-              let mType = 'image';
-              if (isVideo) mType = 'video';
-              if (isAudio) mType = 'audio';
-
-              setMessages(prev => [...prev, { role: 'assistant', content: `生成完成：`, type: 'media', url, mediaType: mType }]);
-
-              // Save to gallery
-              try {
-                const gallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
-                gallery.push({
-                  id: `${Date.now()}_${Math.random().toString(36).substr(2,6)}`,
-                  url,
-                  mediaType: mType,
-                  modelId: tool.modelId,
-                  modelTitle: tool.title,
-                  prompt: userMessage,
-                  timestamp: Date.now()
-                });
-                localStorage.setItem('nexus_gallery', JSON.stringify(gallery));
-              } catch (e) { console.error('Gallery save error:', e); }
+          pollAttempts++;
+          try {
+            const statusRes = await fetch(`${BACKEND_URL}/api/status/${taskId}`);
+            if (!statusRes.ok) {
+              console.warn(`Poll attempt ${pollAttempts} failed: HTTP ${statusRes.status}`);
+              continue; // retry
             }
+            const statusData = await statusRes.json();
+            if (statusData.is_final) {
+              isFinal = true;
+              setIsTyping(false);
+              if (statusData.error) {
+                setMessages(prev => [...prev, { role: 'system', content: `生成失败: ${statusData.error}`, type: 'error' }]);
+              } else if (statusData.result_urls?.length > 0) {
+                const url = statusData.result_urls[0];
+                const isVideo = url.match(/\.(mp4|webm|mov|m3u8)/i) || tool.category === 'video';
+                const isAudio = url.match(/\.(mp3|wav|ogg|aac)/i) || tool.category === 'audio';
+                let mType = 'image';
+                if (isVideo) mType = 'video';
+                if (isAudio) mType = 'audio';
+
+                setMessages(prev => [...prev, { role: 'assistant', content: `生成完成：`, type: 'media', url, mediaType: mType }]);
+
+                // Save to gallery
+                try {
+                  const gallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
+                  gallery.push({
+                    id: `${Date.now()}_${Math.random().toString(36).substr(2,6)}`,
+                    url,
+                    mediaType: mType,
+                    modelId: tool.modelId,
+                    modelTitle: tool.title,
+                    prompt: userMessage,
+                    timestamp: Date.now()
+                  });
+                  localStorage.setItem('nexus_gallery', JSON.stringify(gallery));
+                } catch (e) { console.error('Gallery save error:', e); }
+              } else {
+                setMessages(prev => [...prev, { role: 'system', content: `生成完成但未返回结果文件。`, type: 'error' }]);
+              }
+            }
+          } catch (pollErr) {
+            console.warn(`Poll attempt ${pollAttempts} error:`, pollErr.message);
+            // Continue polling on network errors
           }
+        }
+        if (!isFinal) {
+          setIsTyping(false);
+          setMessages(prev => [...prev, { role: 'system', content: `轮询超时（已等待${maxPollAttempts * 8}秒），请手动刷新或稍后重试。`, type: 'error' }]);
         }
       }
     } catch (error) {
