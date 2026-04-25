@@ -554,16 +554,8 @@ function Workspace() {
             )}
 
             <div className="advanced-input-container">
-              {/* Left side: Edit button */}
-              <div className="input-left-panel">
-                <button className="edit-image-btn">
-                  <ImageIcon size={18} />
-                  <span>编辑图片</span>
-                </button>
-              </div>
-
-              {/* Right side: Textarea + Toolbar + Image Upload */}
-              <div className="input-right-panel">
+              {/* Main Input Area: Textarea + Toolbar + Image Upload */}
+              <div className="input-right-panel" style={{ width: '100%' }}>
                 <div className="price-badge">预计 ⚡ 0.35/次</div>
 
                 <div className="textarea-with-images">
@@ -600,36 +592,6 @@ function Workspace() {
 
                 <div className="input-toolbar">
                   <div className="toolbar-params">
-                    {(tool.category === 'paint' || tool.category === 'video') && (
-                      <>
-                        <div className="toolbar-param-item">
-                          <div className="param-select-wrapper">
-                            <select className="param-select">
-                              {tool.channels ? tool.channels.map(ch => (
-                                <option key={ch.id} value={ch.id}>{ch.name}</option>
-                              )) : (
-                                <>
-                                  <option value="price">¥ 价格优先</option>
-                                  <option value="speed">⚡ 极速调度</option>
-                                  <option value="quality">💎 官方直连</option>
-                                </>
-                              )}
-                            </select>
-                          </div>
-                        </div>
-                        <div className="toolbar-param-item">
-                          <div className="param-select-wrapper">
-                            <select className="param-select">
-                              <option>1条</option>
-                              <option>2条</option>
-                              <option>3条</option>
-                              <option>4条</option>
-                            </select>
-                          </div>
-                        </div>
-                      </>
-                    )}
-
                     {tool.configurableParams?.filter(p => p.type === 'select' || p.type === 'boolean').map(param => (
                       <div key={param.name} className="toolbar-param-item">
                         {param.type === 'boolean' ? (
@@ -657,14 +619,6 @@ function Workspace() {
                         )}
                       </div>
                     ))}
-
-                    {tool.category === 'paint' && (
-                      <div className="toolbar-param-item">
-                        <button className="param-toggle-btn active">
-                          <Sparkles size={14} /> 开启
-                        </button>
-                      </div>
-                    )}
                   </div>
 
                   <button className="send-btn-large" onClick={handleSend} disabled={!input.trim()}>
