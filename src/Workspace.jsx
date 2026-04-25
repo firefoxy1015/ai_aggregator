@@ -355,31 +355,75 @@ function Workspace() {
           delete finalParams.image_end;
         }
 
-        // Clean up empty values to prevent backend validation errors
+        // Helper to convert base64 to public URL via Catbox (Data999 requires public URLs)
+        const uploadBase64 = async (base64Str) => {
+          if (typeof base64Str !== 'string' || !base64Str.startsWith('data:')) return base64Str;
+          try {
+            const match = base64Str.match(/^data:(image\/[a-zA-Z]+);base64,(.*)$/);
+            if (!match) return base64Str;
+            const mime = match[1];
+            const bstr = atob(match[2]);
+            let n = bstr.length;
+            const u8arr = new Uint8Array(n);
+            while(n--){ u8arr[n] = bstr.charCodeAt(n); }
+            const blob = new Blob([u8arr], {type: mime});
+            const ext = mime.split('/')[1] || 'jpg';
+            const file = new File([blob], `upload.${ext}`, {type: mime});
+            const formData = new FormData();
+            formData.append('reqtype', 'fileupload');
+            formData.append('fileToUpload', file);
+            const res = await fetch('https://catbox.moe/user/api.php', { method: 'POST', body: formData });
+            if (!res.ok) throw new Error('Catbox upload failed');
+            return await res.text();
+          } catch (e) {
+            console.error('Image upload error:', e);
+            return base64Str; // Fallback, though Data999 will likely reject base64
+          }
+        };
+
+        // Clean up empty values and upload any base64 images
         for (const key of Object.keys(finalParams)) {
           const val = finalParams[key];
-          if (Array.isArray(val) && val.length === 0) delete finalParams[key];
-          else if (val === '' || val === undefined || val === null) delete finalParams[key];
+          if (Array.isArray(val)) {
+            if (val.length === 0) delete finalParams[key];
+            else {
+              setMessages(prev => [...prev.filter(m => m.content !== '正在上传参考图到公共CDN...'), { role: 'system', content: '正在上传参考图到公共CDN...', type: 'text' }]);
+              finalParams[key] = await Promise.all(val.map(uploadBase64));
+            }
+          } else if (val === '' || val === undefined || val === null) {
+            delete finalParams[key];
+          } else if (typeof val === 'string' && val.startsWith('data:')) {
+            setMessages(prev => [...prev.filter(m => m.content !== '正在上传参考图到公共CDN...'), { role: 'system', content: '正在上传参考图到公共CDN...', type: 'text' }]);
+            finalParams[key] = await uploadBase64(val);
+          }
         }
 
+        const DATA999_MEDIA_URL = 'https://api.ai6700.com/api/v1/media/generate';
         const reqBody = {
-          source: 'data999',
           model: tool.modelId,
           prompt: userMessage,
           params: finalParams
         };
 
-        const generateRes = await fetch(`${BACKEND_URL}/api/generate`, {
+        const generateRes = await fetch(DATA999_MEDIA_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer sk-37b060cd778ee075ac3388fe421c6df1cc367f591238195c`
+          },
           body: JSON.stringify(reqBody)
         });
 
         const genData = await generateRes.json();
-        if (!generateRes.ok) throw new Error(genData.detail || '生成请求失败');
+        if (!generateRes.ok || genData.code !== 200) {
+          throw new Error(genData.msg || genData.error?.message || 'Data999请求失败');
+        }
 
-        const taskId = genData.task_id;
-        setMessages(prev => [...prev, { role: 'system', content: `任务已提交 (ID: ${taskId})，渲染中...`, type: 'text' }]);
+        // Data999 v1 media API returns task ids in data.任务ids[0]
+        const taskId = genData.data?.['任务ids']?.[0] || genData.data?.task_id;
+        if (!taskId) throw new Error('未能从Data999获取到任务ID');
+
+        setMessages(prev => [...prev.filter(m => m.content !== '正在上传参考图到公共CDN...'), { role: 'system', content: `任务已提交 (ID: ${taskId})，Data999 渲染中...`, type: 'text' }]);
 
         let isFinal = false;
         let pollAttempts = 0;
@@ -388,19 +432,25 @@ function Workspace() {
           await new Promise(r => setTimeout(r, 8000));
           pollAttempts++;
           try {
-            const statusRes = await fetch(`${BACKEND_URL}/api/status/${taskId}`);
+            const statusRes = await fetch(`https://api.ai6700.com/api/v1/skills/task-status?task_id=${taskId}`, {
+              headers: { 'Authorization': `Bearer sk-37b060cd778ee075ac3388fe421c6df1cc367f591238195c` }
+            });
             if (!statusRes.ok) {
               console.warn(`Poll attempt ${pollAttempts} failed: HTTP ${statusRes.status}`);
-              continue; // retry
+              continue;
             }
             const statusData = await statusRes.json();
-            if (statusData.is_final) {
+            
+            // Data999 status API returns 'is_final', 'state', 'error', 'result_url' inside data or root
+            const sData = statusData.data || statusData;
+            
+            if (sData.is_final) {
               isFinal = true;
               setIsTyping(false);
-              if (statusData.error) {
-                setMessages(prev => [...prev, { role: 'system', content: `生成失败: ${statusData.error}`, type: 'error' }]);
-              } else if (statusData.result_urls?.length > 0) {
-                const url = statusData.result_urls[0];
+              if (sData.state === 'failed' || sData.error) {
+                setMessages(prev => [...prev, { role: 'system', content: `生成失败: ${sData.error || '未知错误'}`, type: 'error' }]);
+              } else if (sData.result_url || (sData.result_urls && sData.result_urls.length > 0)) {
+                const url = sData.result_url || sData.result_urls[0];
                 const isVideo = url.match(/\.(mp4|webm|mov|m3u8)/i) || tool.category === 'video';
                 const isAudio = url.match(/\.(mp3|wav|ogg|aac)/i) || tool.category === 'audio';
                 let mType = 'image';
@@ -429,7 +479,6 @@ function Workspace() {
             }
           } catch (pollErr) {
             console.warn(`Poll attempt ${pollAttempts} error:`, pollErr.message);
-            // Continue polling on network errors
           }
         }
         if (!isFinal) {
