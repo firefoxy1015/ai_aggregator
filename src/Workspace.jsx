@@ -398,10 +398,26 @@ function Workspace() {
           }
         }
 
+        let finalPrompt = userMessage;
+        if (activePreset && tool.category === 'paint') {
+          const presetObj = [
+            { id: 1, prompt: ', 赛博朋克风格, 霓虹灯效' },
+            { id: 2, prompt: ', 高质量二次元动漫风格, 绚丽光影' },
+            { id: 3, prompt: ', 真实摄影, 单反镜头, 8k画质, 电影级光影' },
+            { id: 4, prompt: ', 3D渲染, 虚幻引擎5, 辛烷渲染器, 极高细节' },
+            { id: 5, prompt: ', 奇幻魔法风格, 史诗感, 绚丽的魔法光效' },
+            { id: 6, prompt: ', 极简主义摄影, 干净背景, 人像特写' },
+            { id: 7, prompt: ', 壮丽的自然风光, 国家地理摄影, 阳光透过树叶' },
+            { id: 8, prompt: ', 美食摄影, 令人垂涎欲滴, 焦外虚化, 柔和微距光' },
+            { id: 9, prompt: ', 深空摄影, 浩瀚宇宙, 星空银河, 神秘氛围' }
+          ].find(s => s.id === activePreset);
+          if (presetObj) finalPrompt += presetObj.prompt;
+        }
+
         const DATA999_MEDIA_URL = 'https://api.ai6700.com/api/v1/media/generate';
         const reqBody = {
           model: tool.modelId,
-          prompt: userMessage,
+          prompt: finalPrompt,
           params: finalParams
         };
 
@@ -567,10 +583,7 @@ function Workspace() {
                       className={`style-avatar ${activePreset === style.id ? 'active' : ''}`}
                       onMouseEnter={() => setHoveredPreset(style)}
                       onMouseLeave={() => setHoveredPreset(null)}
-                      onClick={() => {
-                        setActivePreset(style.id);
-                        setInput(prev => prev + style.prompt);
-                      }}
+                      onClick={() => setActivePreset(prev => prev === style.id ? null : style.id)}
                     >
                       <img src={style.img} alt={style.name.split('\n')[0]} />
                     </div>
@@ -604,57 +617,77 @@ function Workspace() {
 
             <div className="advanced-input-container">
               {/* Main Input Area: Textarea + Toolbar + Image Upload */}
-              <div className="input-right-panel" style={{ width: '100%' }}>
+              <div className="input-right-panel" style={{ width: '100%', position: 'relative' }}>
                 <div className="price-badge">预计 ⚡ 0.35/次</div>
 
-                <div className="textarea-with-images">
-                  {tool.configurableParams?.filter(p => p.type === 'image_upload').map(param => (
-                    <div key={param.name} className="inline-upload">
-                      <label className="reference-upload-box inline-box">
-                        {isUploading ? <RefreshCw size={24} className="spin" /> : <span className="plus-icon">+</span>}
-                        <span className="upload-text">{param.label}</span>
-                        <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => handleImageUpload(e, param.name, param.max)} />
-                      </label>
-                      {params[param.name] && params[param.name].length > 0 && (
-                        <div className="uploaded-preview-overlay inline-preview">
-                          <img src={params[param.name][params[param.name].length - 1]} alt="Preview" />
-                          <span className="count-badge">{params[param.name].length}/{param.max}</span>
-                          <button className="remove-image" onClick={() => removeImage(param.name, params[param.name].length - 1)}><X size={12} /></button>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                  <textarea
-                    className="main-textarea"
-                    disabled={isEnhancing}
-                    placeholder={tool.category === 'video' ? "由于该模型渠道火爆，选择智能调度分组时，大概率会调度到高价格分组，请适度使用\n最好的效果是横版传横图，竖版传竖图，尽量不要乱传" : `描述你想要生成的内容，支持上传参考图片...`}
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        handleSend();
-                      }
-                    }}
-                  />
+                <div className="textarea-with-images" style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                  <div className="upload-section" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', flexShrink: 0, maxWidth: '240px' }}>
+                    {tool.configurableParams?.filter(p => p.type === 'image_upload').map(param => (
+                      <div key={param.name} className="inline-upload" style={{ position: 'relative', width: '70px', height: '90px' }}>
+                        <label className="reference-upload-box inline-box" style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px dashed rgba(255,255,255,0.2)', borderRadius: '8px', cursor: 'pointer', background: 'rgba(20,20,25,0.6)' }}>
+                          {isUploading ? <RefreshCw size={24} className="spin" /> : <span className="plus-icon">+</span>}
+                          <span className="upload-text" style={{ fontSize: '0.65rem', marginTop: '4px', color: 'var(--text-muted)' }}>{param.label}</span>
+                          <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => handleImageUpload(e, param.name, param.max)} />
+                        </label>
+                        {params[param.name] && params[param.name].length > 0 && (
+                          <div className="uploaded-preview-overlay inline-preview" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: '8px', overflow: 'hidden' }}>
+                            <img src={params[param.name][params[param.name].length - 1]} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <span className="count-badge" style={{ position: 'absolute', bottom: '4px', right: '4px', background: 'rgba(0,0,0,0.7)', fontSize: '0.6rem', padding: '2px 4px', borderRadius: '4px' }}>{params[param.name].length}/{param.max}</span>
+                            <button className="remove-image" style={{ position: 'absolute', top: '4px', right: '4px', background: 'rgba(0,0,0,0.6)', border: 'none', borderRadius: '50%', width: '18px', height: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#fff' }} onClick={() => removeImage(param.name, params[param.name].length - 1)}><X size={12} /></button>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="text-input-section" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <textarea
+                      className="main-textarea"
+                      style={{ width: '100%', minHeight: '80px', maxHeight: '200px', background: 'transparent', border: 'none', resize: 'none', color: 'var(--text-main)', outline: 'none', padding: '4px 0', fontFamily: 'inherit', fontSize: '0.95rem' }}
+                      disabled={isEnhancing}
+                      placeholder={tool.category === 'video' ? "由于该模型渠道火爆，选择智能调度分组时，大概率会调度到高价格分组，请适度使用\n最好的效果是横版传横图，竖版传竖图，尽量不要乱传" : `描述你想要生成的内容...`}
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                          e.preventDefault();
+                          handleSend();
+                        }
+                      }}
+                    />
+                    {activePreset && tool.category === 'paint' && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#c4b5fd', fontSize: '0.8rem', background: 'rgba(124, 58, 237, 0.15)', padding: '4px 10px', borderRadius: '12px', width: 'fit-content' }}>
+                        <Sparkles size={12} />
+                        <span>已应用风格: {
+                          [
+                            { id: 1, name: '赛博朋克' }, { id: 2, name: '二次元' }, { id: 3, name: '真实摄影' },
+                            { id: 4, name: '3D架构' }, { id: 5, name: '魔法幻想' }, { id: 6, name: '极简人像' },
+                            { id: 7, name: '自然风景' }, { id: 8, name: '美食静物' }, { id: 9, name: '暗黑星空' }
+                          ].find(s => s.id === activePreset)?.name
+                        }</span>
+                        <button onClick={() => setActivePreset(null)} style={{ background: 'none', border: 'none', color: '#c4b5fd', cursor: 'pointer', display: 'flex', padding: 0, marginLeft: '4px' }}><X size={12} /></button>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
-                <div className="input-toolbar">
-                  <div className="toolbar-params">
+                <div className="input-toolbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: '12px', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '12px' }}>
+                  <div className="toolbar-params" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
                     {tool.configurableParams?.filter(p => p.type === 'select' || p.type === 'boolean').map(param => (
                       <div key={param.name} className="toolbar-param-item">
                         {param.type === 'boolean' ? (
                           <button
                             className={`param-toggle-btn ${params[param.name] ? 'active' : ''}`}
+                            style={{ display: 'flex', alignItems: 'center', gap: '4px', background: params[param.name] ? 'rgba(124,58,237,0.2)' : 'rgba(40,40,50,0.6)', border: `1px solid ${params[param.name] ? 'var(--accent)' : 'rgba(255,255,255,0.1)'}`, color: params[param.name] ? '#c4b5fd' : 'var(--text-main)', padding: '6px 12px', borderRadius: '20px', fontSize: '0.8rem', cursor: 'pointer' }}
                             onClick={() => handleParamChange(param.name, !params[param.name])}
                           >
                             <Sparkles size={14} />
-                            {param.label}: {params[param.name] ? '开启' : '关闭'}
+                            {param.label}
                           </button>
                         ) : (
                           <div className="param-select-wrapper">
                             <select
                               className="param-select"
+                              style={{ background: 'rgba(40,40,50,0.6)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text-main)', padding: '6px 12px', borderRadius: '20px', fontSize: '0.8rem', cursor: 'pointer', appearance: 'none', WebkitAppearance: 'none' }}
                               value={params[param.name] || param.default}
                               onChange={e => handleParamChange(param.name, e.target.value)}
                             >
@@ -670,7 +703,7 @@ function Workspace() {
                     ))}
                   </div>
 
-                  <button className="send-btn-large" onClick={handleSend} disabled={!input.trim()}>
+                  <button className="send-btn-large" style={{ flexShrink: 0, marginLeft: '12px', width: '36px', height: '36px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--accent-secondary))', color: 'white', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 4px 15px rgba(124,58,237,0.3)' }} onClick={handleSend} disabled={!input.trim()}>
                     <Send size={18} />
                   </button>
                 </div>
