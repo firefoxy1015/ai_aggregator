@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Image, Video, Music, Trash2, Download, Clock, Cpu, Filter, Grid, List, Search, Zap } from 'lucide-react';
+import { ArrowLeft, Image, Video, Music, Trash2, Download, Clock, Cpu, Filter, Grid, List, Search, Zap, AlertCircle, RefreshCw } from 'lucide-react';
 import './Gallery.css';
 
 function Gallery() {
@@ -13,9 +13,113 @@ function Gallery() {
   const [selectedWork, setSelectedWork] = useState(null);
 
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
-    setWorks(saved.sort((a, b) => b.timestamp - a.timestamp));
+    const pollPendingTasks = async () => {
+      const currentGallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
+      const pendingWorks = currentGallery.filter(w => w.status === 'pending');
+      if (pendingWorks.length === 0) {
+        // Just initial load if no pending
+        if (works.length === 0) setWorks(currentGallery.sort((a, b) => b.timestamp - a.timestamp));
+        return;
+      }
+
+      let hasUpdates = false;
+      for (let i = 0; i < currentGallery.length; i++) {
+        const w = currentGallery[i];
+        if (w.status === 'pending') {
+          try {
+            const res = await fetch(`https://api.ai6700.com/api/v1/skills/task-status?task_id=${w.taskId}`, {
+              headers: { 'Authorization': `Bearer sk-37b060cd778ee075ac3388fe421c6df1cc367f591238195c` }
+            });
+            if (!res.ok) continue;
+            const data = await res.json();
+            const sData = data.data || data;
+
+            if (sData.is_final) {
+              if (sData.state === 'failed' || sData.error) {
+                currentGallery[i] = { ...w, status: 'failed', progressText: sData.error || '生成失败' };
+                hasUpdates = true;
+              } else if (sData.result_url || sData.result_urls?.[0]) {
+                const url = sData.result_url || sData.result_urls[0];
+                currentGallery[i] = { ...w, status: 'success', url: url };
+                hasUpdates = true;
+              } else {
+                currentGallery[i] = { ...w, status: 'failed', progressText: '未返回有效URL' };
+                hasUpdates = true;
+              }
+            } else {
+               const pText = sData.progress ? `${sData.progress}%` : '';
+               const sText = sData.status || '';
+               const newProgressText = `${sText} ${pText}`.trim() || '排队中';
+               if (w.progressText !== newProgressText) {
+                 currentGallery[i] = { ...w, progressText: newProgressText };
+                 hasUpdates = true;
+               }
+            }
+          } catch (e) {}
+        }
+      }
+
+      if (hasUpdates) {
+        localStorage.setItem('nexus_gallery', JSON.stringify(currentGallery));
+        setWorks(currentGallery.sort((a, b) => b.timestamp - a.timestamp));
+      } else if (works.length === 0) {
+        setWorks(currentGallery.sort((a, b) => b.timestamp - a.timestamp));
+      }
+    };
+
+    pollPendingTasks();
+    const intervalId = setInterval(pollPendingTasks, 8000);
+    return () => clearInterval(intervalId);
   }, []);
+
+  const handleRetry = async (e, work) => {
+    e.stopPropagation();
+    if (!work.reqBody) return alert('无法重试：缺少请求参数');
+    
+    const updated = [...works];
+    const idx = updated.findIndex(w => w.id === work.id);
+    if (idx > -1) {
+      updated[idx] = { ...work, status: 'pending', progressText: '正在重新提交...' };
+      setWorks(updated);
+      localStorage.setItem('nexus_gallery', JSON.stringify(updated));
+    }
+
+    try {
+      const res = await fetch('https://api.ai6700.com/api/v1/media/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer sk-37b060cd778ee075ac3388fe421c6df1cc367f591238195c`
+        },
+        body: JSON.stringify(work.reqBody)
+      });
+      const genData = await res.json();
+      if (!res.ok || genData.code !== 200) throw new Error(genData.msg || genData.error?.message || 'Data999请求失败');
+      
+      const newTaskId = genData.data?.['任务ids']?.[0] || genData.data?.task_id;
+      if (!newTaskId) throw new Error('未能获取到新任务ID');
+
+      const currentGallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
+      const targetIdx = currentGallery.findIndex(w => w.id === work.id);
+      if (targetIdx > -1) {
+        currentGallery[targetIdx].taskId = newTaskId.toString();
+        currentGallery[targetIdx].progressText = '已重新提交，排队中...';
+        currentGallery[targetIdx].status = 'pending';
+        localStorage.setItem('nexus_gallery', JSON.stringify(currentGallery));
+        setWorks(currentGallery.sort((a, b) => b.timestamp - a.timestamp));
+      }
+    } catch(err) {
+      alert('重试失败: ' + err.message);
+      const currentGallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
+      const targetIdx = currentGallery.findIndex(w => w.id === work.id);
+      if (targetIdx > -1) {
+        currentGallery[targetIdx].progressText = '重试失败: ' + err.message;
+        currentGallery[targetIdx].status = 'failed';
+        localStorage.setItem('nexus_gallery', JSON.stringify(currentGallery));
+        setWorks(currentGallery.sort((a, b) => b.timestamp - a.timestamp));
+      }
+    }
+  };
 
   const deleteWork = (id) => {
     const updated = works.filter(w => w.id !== id);
@@ -154,16 +258,27 @@ function Gallery() {
               {filteredWorks.map((work) => (
                 <motion.div
                   key={work.id}
-                  className="gallery-card"
+                  className={`gallery-card ${work.status === 'pending' ? 'pending-card' : work.status === 'failed' ? 'failed-card' : ''}`}
                   layout
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.25 }}
-                  onClick={() => setSelectedWork(work)}
+                  onClick={() => { if(work.status === 'success' || !work.status) setSelectedWork(work) }}
                 >
                   <div className="card-media">
-                    {work.mediaType === 'video' ? (
+                    {work.status === 'pending' ? (
+                       <div className="pending-placeholder" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', background: 'rgba(255,255,255,0.05)', color: 'var(--accent-secondary)' }}>
+                         <div className="loader-spinner" style={{ border: '3px solid rgba(255,255,255,0.1)', borderTop: '3px solid var(--accent-secondary)', borderRadius: '50%', width: '30px', height: '30px', animation: 'spin 1s linear infinite', marginBottom: '10px' }}></div>
+                         <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+                         <span>{work.progressText || '渲染中...'}</span>
+                       </div>
+                    ) : work.status === 'failed' ? (
+                       <div className="failed-placeholder" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', textAlign: 'center', padding: '10px' }}>
+                         <AlertCircle size={30} style={{ marginBottom: '10px' }} />
+                         <span style={{ fontSize: '12px' }}>{work.progressText || '生成失败'}</span>
+                       </div>
+                    ) : work.mediaType === 'video' ? (
                       <video src={work.url} muted preload="metadata" />
                     ) : work.mediaType === 'audio' ? (
                       <div className="audio-placeholder">
@@ -186,9 +301,16 @@ function Gallery() {
                     <div className="card-meta">
                       <span className="card-time"><Clock size={12} /> {formatTime(work.timestamp)}</span>
                       <div className="card-actions">
-                        <a href={work.url} download target="_blank" rel="noreferrer" className="action-btn" onClick={e => e.stopPropagation()}>
-                          <Download size={14} />
-                        </a>
+                        {work.status === 'failed' && work.reqBody && (
+                           <button className="action-btn primary" title="重试生成" onClick={(e) => handleRetry(e, work)}>
+                             <RefreshCw size={14} />
+                           </button>
+                        )}
+                        {(work.status === 'success' || !work.status) && (
+                          <a href={work.url} download target="_blank" rel="noreferrer" className="action-btn" onClick={e => e.stopPropagation()}>
+                            <Download size={14} />
+                          </a>
+                        )}
                         <button className="action-btn danger" onClick={e => { e.stopPropagation(); deleteWork(work.id); }}>
                           <Trash2 size={14} />
                         </button>

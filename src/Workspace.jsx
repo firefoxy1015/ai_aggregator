@@ -444,6 +444,24 @@ function Workspace() {
 
         setMessages(prev => [...prev.filter(m => m.content !== '正在上传参考图到公共CDN...'), { role: 'system', content: `任务已提交 (ID: ${taskId})，Data999 渲染中...`, type: 'text' }]);
 
+        // Save PENDING task to gallery
+        try {
+          const gallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
+          gallery.push({
+            id: taskId.toString(),
+            taskId: taskId.toString(),
+            status: 'pending',
+            progressText: '队列中',
+            mediaType: tool.category === 'video' ? 'video' : tool.category === 'audio' ? 'audio' : 'image',
+            modelId: tool.modelId,
+            modelTitle: tool.title,
+            prompt: userMessage,
+            timestamp: Date.now(),
+            reqBody: reqBody
+          });
+          localStorage.setItem('nexus_gallery', JSON.stringify(gallery));
+        } catch (e) { console.error('Gallery save pending error:', e); }
+
         let isFinal = false;
         let pollAttempts = 0;
         const maxPollAttempts = tool.category === 'video' ? 150 : 60; // 150 * 8s = 20 minutes max for videos
@@ -464,21 +482,49 @@ function Workspace() {
             const sData = statusData.data || statusData;
             
             if (!sData.is_final) {
+              const pText = sData.progress ? ` (进度: ${sData.progress}%)` : '';
+              const sText = sData.status ? ` [${sData.status}]` : '';
+              const progStr = `${sText}${pText}`.trim();
+              
               setMessages(prev => {
                 const newMsg = [...prev];
                 const lastIdx = newMsg.length - 1;
                 if (newMsg[lastIdx] && newMsg[lastIdx].role === 'system' && newMsg[lastIdx].content.includes(taskId)) {
-                  let pText = sData.progress ? ` (进度: ${sData.progress}%)` : '';
-                  let sText = sData.status ? ` [${sData.status}]` : '';
-                  newMsg[lastIdx].content = `任务已提交 (ID: ${taskId})${sText}${pText}，请耐心等待渲染...`;
+                  newMsg[lastIdx].content = `任务已提交 (ID: ${taskId}) ${progStr}，请耐心等待渲染...`;
                 }
                 return newMsg;
               });
+
+              try {
+                const gallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
+                const item = gallery.find(g => g.id === taskId.toString());
+                if (item && progStr) {
+                  item.progressText = progStr;
+                  localStorage.setItem('nexus_gallery', JSON.stringify(gallery));
+                }
+              } catch(e) {}
             }
 
             if (sData.is_final) {
               isFinal = true;
               setIsTyping(false);
+
+              try {
+                const gallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
+                const item = gallery.find(g => g.id === taskId.toString());
+                if (item) {
+                  if (sData.state === 'failed' || sData.error) {
+                    item.status = 'failed';
+                    item.progressText = sData.error || '生成失败';
+                  } else {
+                    const url = sData.result_url || sData.result_urls?.[0];
+                    item.status = 'success';
+                    item.url = url;
+                  }
+                  localStorage.setItem('nexus_gallery', JSON.stringify(gallery));
+                }
+              } catch(e) {}
+
               if (sData.state === 'failed' || sData.error) {
                 setMessages(prev => [...prev, { role: 'system', content: `生成失败: ${sData.error || '未知错误'}`, type: 'error' }]);
               } else if (sData.result_url || (sData.result_urls && sData.result_urls.length > 0)) {
@@ -490,21 +536,6 @@ function Workspace() {
                 if (isAudio) mType = 'audio';
 
                 setMessages(prev => [...prev, { role: 'assistant', content: `生成完成：`, type: 'media', url, mediaType: mType }]);
-
-                // Save to gallery
-                try {
-                  const gallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
-                  gallery.push({
-                    id: `${Date.now()}_${Math.random().toString(36).substr(2,6)}`,
-                    url,
-                    mediaType: mType,
-                    modelId: tool.modelId,
-                    modelTitle: tool.title,
-                    prompt: userMessage,
-                    timestamp: Date.now()
-                  });
-                  localStorage.setItem('nexus_gallery', JSON.stringify(gallery));
-                } catch (e) { console.error('Gallery save error:', e); }
               } else {
                 setMessages(prev => [...prev, { role: 'system', content: `生成完成但未返回结果文件。`, type: 'error' }]);
               }
@@ -516,6 +547,15 @@ function Workspace() {
         if (!isFinal) {
           setIsTyping(false);
           setMessages(prev => [...prev, { role: 'system', content: `轮询超时（已等待${maxPollAttempts * 8}秒），请手动刷新或稍后重试。`, type: 'error' }]);
+          try {
+            const gallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
+            const item = gallery.find(g => g.id === taskId.toString());
+            if (item) {
+              item.status = 'failed';
+              item.progressText = '轮询超时';
+              localStorage.setItem('nexus_gallery', JSON.stringify(gallery));
+            }
+          } catch(e) {}
         }
         } // end useAltVideo else
       }
