@@ -72,7 +72,7 @@ function Workspace() {
     try {
       const agentTitle = agent.name.split('\n')[0];
       const agentDesc = agent.name.split('\n')[1] || '';
-      const sysPrompt = `你现在是${agentTitle}。${agentDesc}\n请根据用户的输入，生成一段专业的视频提示词。\n请严格按照以下格式输出（必须包含这三个标签，不要带Markdown代码块的修饰，直接输出文本）：\n\n[EXPLANATION]\n你的创意灵感说明（分析用户的需求并说明你增加的细节）\n\n[ZH_PROMPT]\n扩写后的中文提示词（包含画面、光影、运镜、风格，逗号分隔，不要超过100字）\n\n[EN_PROMPT]\n对应的英文提示词（专业影视术语，逗号分隔）`;
+      const sysPrompt = `你现在是${agentTitle}。${agentDesc}\n请根据用户的输入，生成一段专业的视频提示词。\n请严格使用以下XML标签包裹你的输出内容（不要包含在Markdown代码块中，直接输出XML）：\n\n<explanation>你的创意灵感说明（分析用户的需求并说明你增加的细节）</explanation>\n<zh_prompt>扩写后的中文提示词（包含画面、光影、运镜、风格，逗号分隔，不要超过100字）</zh_prompt>\n<en_prompt>对应的英文提示词（专业影视术语，逗号分隔）</en_prompt>`;
 
       const response = await fetch(`https://api.ai6700.com/v1/chat/completions`, {
         method: 'POST',
@@ -99,18 +99,24 @@ function Workspace() {
         throw new Error(assistantContent || '未收到有效回复');
       }
 
-      // Parse the structured response
-      const expMatch = assistantContent.match(/\[EXPLANATION\]([\s\S]*?)(?=\[ZH_PROMPT\]|\[EN_PROMPT\]|$)/i);
-      const zhMatch = assistantContent.match(/\[ZH_PROMPT\]([\s\S]*?)(?=\[EN_PROMPT\]|$)/i);
-      const enMatch = assistantContent.match(/\[EN_PROMPT\]([\s\S]*?)$/i);
+      // Parse XML tags robustly
+      const extractTag = (text, tag) => {
+        const regex = new RegExp(`<${tag}>([\\s\\S]*?)</${tag}>`, 'i');
+        const match = text.match(regex);
+        return match ? match[1].trim() : '';
+      };
+
+      const exp = extractTag(assistantContent, 'explanation');
+      const zh = extractTag(assistantContent, 'zh_prompt');
+      const en = extractTag(assistantContent, 'en_prompt');
 
       setDirectorModal(prev => ({
         ...prev,
         status: 'complete',
         result: {
-          explanation: expMatch ? expMatch[1].trim() : '已为你生成创意提示词。',
-          zhPrompt: zhMatch ? zhMatch[1].trim() : assistantContent.trim(),
-          enPrompt: enMatch ? enMatch[1].trim() : 'See Chinese prompt above.'
+          explanation: exp || '已为你生成创意提示词。',
+          zhPrompt: zh || assistantContent.replace(/<[^>]+>/g, '').trim(),
+          enPrompt: en || '未成功生成英文提示词，请重试或检查模型输出。'
         }
       }));
 
