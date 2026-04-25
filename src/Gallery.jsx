@@ -28,7 +28,7 @@ function Gallery() {
         if (w.status === 'pending') {
           try {
             const res = await fetch(`https://api.ai6700.com/api/v1/skills/task-status?task_id=${w.taskId}`, {
-              headers: { 'Authorization': `Bearer sk-37b060cd778ee075ac3388fe421c6df1cc367f591238195c` }
+              headers: { 'Authorization': `Bearer ${import.meta.env.VITE_DATA999_KEY}` }
             });
             if (!res.ok) continue;
             const data = await res.json();
@@ -89,7 +89,7 @@ function Gallery() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer sk-37b060cd778ee075ac3388fe421c6df1cc367f591238195c`
+          'Authorization': `Bearer ${import.meta.env.VITE_DATA999_KEY}`
         },
         body: JSON.stringify(work.reqBody)
       });
