@@ -200,19 +200,33 @@ function Workspace() {
 
     try {
       if (tool.category === 'chat') {
-        const body = {
-          model: tool.modelId,
-          messages: chatHistory,
-          system: params.system || undefined,
-          web_search: params.web_search,
-          enable_thinking: params.enable_thinking
-        };
+        // Some models use an alternate API endpoint
+        const ALT_MODELS = { 'gpt-5.5': true };
+        const useAlt = ALT_MODELS[tool.modelId];
+        const ALT_URL = 'https://zx1.deepwl.net/v1/chat/completions';
+        const ALT_KEY = 'sk-H5gG0ZphEmW0uZ3795551fFa86394a20A9EbF144Ff472d3c';
 
-        const response = await fetch(`${BACKEND_URL}/api/chat`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
-        });
+        let response;
+        if (useAlt) {
+          response = await fetch(ALT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${ALT_KEY}` },
+            body: JSON.stringify({ model: tool.modelId, messages: chatHistory, stream: true })
+          });
+        } else {
+          const body = {
+            model: tool.modelId,
+            messages: chatHistory,
+            system: params.system || undefined,
+            web_search: params.web_search,
+            enable_thinking: params.enable_thinking
+          };
+          response = await fetch(`${BACKEND_URL}/api/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          });
+        }
 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
@@ -229,8 +243,10 @@ function Workspace() {
             if (line.startsWith('data: ') && !line.includes('[DONE]')) {
               try {
                 const data = JSON.parse(line.substring(6));
-                if (data.text) {
-                  assistantContent += data.text;
+                // Support both proxy format (data.text) and OpenAI format (choices[0].delta.content)
+                const txt = data.text || data.choices?.[0]?.delta?.content || '';
+                if (txt) {
+                  assistantContent += txt;
                   setMessages(prev => prev.map(m => m.id === 'streaming' ? { ...m, content: assistantContent } : m));
                 }
               } catch (e) { }
