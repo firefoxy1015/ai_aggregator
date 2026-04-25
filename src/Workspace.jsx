@@ -446,7 +446,7 @@ function Workspace() {
 
         let isFinal = false;
         let pollAttempts = 0;
-        const maxPollAttempts = 60; // 60 * 8s = 8 minutes max
+        const maxPollAttempts = tool.category === 'video' ? 150 : 60; // 150 * 8s = 20 minutes max for videos
         while (!isFinal && pollAttempts < maxPollAttempts) {
           await new Promise(r => setTimeout(r, 8000));
           pollAttempts++;
@@ -463,6 +463,19 @@ function Workspace() {
             // Data999 status API returns 'is_final', 'state', 'error', 'result_url' inside data or root
             const sData = statusData.data || statusData;
             
+            if (!sData.is_final) {
+              setMessages(prev => {
+                const newMsg = [...prev];
+                const lastIdx = newMsg.length - 1;
+                if (newMsg[lastIdx] && newMsg[lastIdx].role === 'system' && newMsg[lastIdx].content.includes(taskId)) {
+                  let pText = sData.progress ? ` (进度: ${sData.progress}%)` : '';
+                  let sText = sData.status ? ` [${sData.status}]` : '';
+                  newMsg[lastIdx].content = `任务已提交 (ID: ${taskId})${sText}${pText}，请耐心等待渲染...`;
+                }
+                return newMsg;
+              });
+            }
+
             if (sData.is_final) {
               isFinal = true;
               setIsTyping(false);
