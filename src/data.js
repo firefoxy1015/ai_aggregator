@@ -214,7 +214,8 @@ export const toolsData = [
     configurableParams: [
       { name: 'images', label: '参考图片', type: 'image_upload', max: 1 },
       { name: 'duration', label: '视频时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'10',l:'10秒'}, {v:'15',l:'15秒'}], default: 5 },
-      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720p',l:'720p'}, {v:'1080p',l:'1080p'}], default: '720p' }
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720p',l:'720p'}, {v:'1080p',l:'1080p'}], default: '720p' },
+      { name: 'generate_audio', label: '生成音频', type: 'select', options: [{v: true, l: '生成音频'}, {v: false, l: '无声视频'}], default: true }
     ]
   },
   { 
@@ -224,7 +225,9 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'images', label: '首尾帧图片', type: 'image_upload', max: 2 },
-      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'10',l:'10秒'}], default: 5 }
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'10',l:'10秒'}], default: 5 },
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720p',l:'720p'}, {v:'1080p',l:'1080p'}], default: '720p' },
+      { name: 'generate_audio', label: '生成音频', type: 'select', options: [{v: true, l: '生成音频'}, {v: false, l: '无声视频'}], default: true }
     ]
   },
   { 
