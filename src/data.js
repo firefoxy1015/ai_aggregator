@@ -206,6 +206,27 @@ export const toolsData = [
     ]
   },
   { 
+    id: 131, title: '即梦 3.5 Pro (全能)', modelId: 'jimeng-3.5-pro', category: 'video', desc: '字节跳动即梦最新旗舰视频生成模型 3.5 Pro。支持文生视频、图生视频，具备卓越的物理世界理解和运动连贯性。', tag: '最新上线', hot: true, icon: 'https://cos.lingkeai.vip/doubao.svg', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' }
+    ],
+    configurableParams: [
+      { name: 'images', label: '参考图片', type: 'image_upload', max: 1 },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'10',l:'10秒'}, {v:'15',l:'15秒'}], default: 5 },
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720p',l:'720p'}, {v:'1080p',l:'1080p'}], default: '720p' }
+    ]
+  },
+  { 
+    id: 132, title: '即梦 3.5 Pro 首尾帧', modelId: 'jimeng-3.5-pro-shouweizhen', category: 'video', desc: '即梦 3.5 Pro 的首尾帧控制模型，上传 2 张图片精准控制视频起始与结束。', tag: '最新上线', hot: true, icon: 'https://cos.lingkeai.vip/doubao.svg', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' }
+    ],
+    configurableParams: [
+      { name: 'images', label: '首尾帧图片', type: 'image_upload', max: 2 },
+      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'10',l:'10秒'}], default: 5 }
+    ]
+  },
+  { 
     id: 129, title: 'Grok Video 10s', modelId: 'grok-video-3-10s', category: 'video', desc: 'Grok 视频生成模型，固定生成10秒高质量视频，纯文本驱动，适合快速创意短片。', tag: '最新上线', hot: true, icon: 'https://cos.lingkeai.vip/Grok_bai.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' }
