@@ -568,7 +568,7 @@ function Workspace() {
 
                 <div className="textarea-with-images">
                   {tool.configurableParams?.filter(p => p.type === 'image_upload').map(param => (
-                    <div key={param.name} className="image-upload-wrapper inline-upload">
+                    <div key={param.name} className="inline-upload">
                       <label className="reference-upload-box inline-box">
                         {isUploading ? <RefreshCw size={24} className="spin" /> : <span className="plus-icon">+</span>}
                         <span className="upload-text">{param.label}</span>
