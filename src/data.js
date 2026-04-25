@@ -206,6 +206,20 @@ export const toolsData = [
     ]
   },
   { 
+    id: 129, title: 'Grok Video 10s', modelId: 'grok-video-3-10s', category: 'video', desc: 'Grok 视频生成模型，固定生成10秒高质量视频，纯文本驱动，适合快速创意短片。', tag: '最新上线', hot: true, icon: 'https://cos.lingkeai.vip/Grok_bai.svg', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' }
+    ],
+    configurableParams: []
+  },
+  { 
+    id: 130, title: 'Grok Video 15s', modelId: 'grok-video-3-15s', category: 'video', desc: 'Grok 视频生成模型，固定生成15秒高质量视频，纯文本驱动，适合社交媒体和创意短片。', tag: '最新上线', hot: true, icon: 'https://cos.lingkeai.vip/Grok_bai.svg', 
+    channels: [
+      { id: 'official', name: '💎 官方直连' }
+    ],
+    configurableParams: []
+  },
+  { 
     id: 105, title: 'veo3.1', modelId: 'veo3.1', category: 'video', desc: '谷歌推出的高可控性视频模型，凭借独特的“首尾帧控制”技术（补全起始与结束画面）和精准运镜指令，能生成自带背景音乐的专业级视频。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/gemini.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' },

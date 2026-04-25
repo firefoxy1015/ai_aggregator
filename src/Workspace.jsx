@@ -262,6 +262,74 @@ function Workspace() {
         setIsTyping(false);
 
       } else {
+        // Models routed through deepwl video endpoint
+        const ALT_VIDEO_MODELS = {
+          'grok-video-3-10s': true, 'grok-video-3-15s': true,
+        };
+        const ALT_VIDEO_URL = 'https://zx1.deepwl.net/v1/video/generations';
+        const ALT_VIDEO_KEY = 'sk-hUviZm3xQzam0EaaA9622c041aA249CbB4924c929c9805Aa';
+        const useAltVideo = ALT_VIDEO_MODELS[tool.modelId];
+
+        if (useAltVideo) {
+          // Deepwl video API: multipart form submit + polling
+          const formData = new FormData();
+          formData.append('model', tool.modelId);
+          formData.append('prompt', userMessage);
+
+          const submitRes = await fetch(ALT_VIDEO_URL, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${ALT_VIDEO_KEY}` },
+            body: formData
+          });
+          const submitData = await submitRes.json();
+          if (!submitRes.ok) throw new Error(submitData.message || submitData.detail || '生成请求失败');
+
+          const taskId = submitData.id || submitData.task_id;
+          setMessages(prev => [...prev, { role: 'system', content: `任务已提交 (ID: ${taskId})，渲染中...`, type: 'text' }]);
+
+          // Poll deepwl video status
+          let isFinal = false;
+          let pollAttempts = 0;
+          const maxPollAttempts = 60;
+          while (!isFinal && pollAttempts < maxPollAttempts) {
+            await new Promise(r => setTimeout(r, 8000));
+            pollAttempts++;
+            try {
+              const statusRes = await fetch(`${ALT_VIDEO_URL}/${taskId}`, {
+                headers: { 'Authorization': `Bearer ${ALT_VIDEO_KEY}` }
+              });
+              if (!statusRes.ok) { console.warn(`Poll ${pollAttempts} failed: HTTP ${statusRes.status}`); continue; }
+              const sData = await statusRes.json();
+              const status = sData.data?.status || sData.status || '';
+              if (status === 'SUCCESS' || status === 'COMPLETED' || status === 'completed') {
+                isFinal = true;
+                setIsTyping(false);
+                const url = sData.data?.result_url || sData.data?.video_url || '';
+                if (url) {
+                  setMessages(prev => [...prev, { role: 'assistant', content: '生成完成：', type: 'media', url, mediaType: 'video' }]);
+                  try {
+                    const gallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
+                    gallery.push({ id: `${Date.now()}_${Math.random().toString(36).substr(2,6)}`, url, mediaType: 'video', modelId: tool.modelId, modelTitle: tool.title, prompt: userMessage, timestamp: Date.now() });
+                    localStorage.setItem('nexus_gallery', JSON.stringify(gallery));
+                  } catch (e) { console.error('Gallery save error:', e); }
+                } else {
+                  setMessages(prev => [...prev, { role: 'system', content: '生成完成但未返回视频文件。', type: 'error' }]);
+                }
+              } else if (status === 'FAILURE' || status === 'FAILED' || status === 'failed') {
+                isFinal = true;
+                setIsTyping(false);
+                const reason = sData.data?.fail_reason || sData.data?.error || '未知错误';
+                setMessages(prev => [...prev, { role: 'system', content: `生成失败: ${reason}`, type: 'error' }]);
+              }
+            } catch (pollErr) {
+              console.warn(`Poll ${pollAttempts} error:`, pollErr.message);
+            }
+          }
+          if (!isFinal) {
+            setIsTyping(false);
+            setMessages(prev => [...prev, { role: 'system', content: `轮询超时（已等待${maxPollAttempts * 8}秒），请稍后重试。`, type: 'error' }]);
+          }
+        } else {
         const finalParams = { ...params };
 
         // Handle custom image_start and image_end mapping
@@ -356,6 +424,7 @@ function Workspace() {
           setIsTyping(false);
           setMessages(prev => [...prev, { role: 'system', content: `轮询超时（已等待${maxPollAttempts * 8}秒），请手动刷新或稍后重试。`, type: 'error' }]);
         }
+        } // end useAltVideo else
       }
     } catch (error) {
       setMessages(prev => [...prev, { role: 'system', content: `调用失败：${error.message}`, type: 'error' }]);
