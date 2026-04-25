@@ -207,7 +207,7 @@ export const toolsData = [
     ]
   },
   { 
-    id: 131, title: '即梦 3.5 Pro (全能)', modelId: 'jimeng-3.5-pro', category: 'video', desc: '字节跳动即梦最新旗舰视频生成模型 3.5 Pro。支持文生视频、图生视频，具备卓越的物理世界理解和运动连贯性。', tag: '🔇无声 | 最新上线', hot: true, icon: 'https://cos.lingkeai.vip/doubao.svg', 
+    id: 131, title: '即梦 3.5 Pro (全能)', modelId: 'doubao-seedance-1-5-pro-251215', category: 'video', desc: '字节跳动即梦最新旗舰视频生成模型 3.5 Pro。支持文生视频、图生视频，具备卓越的物理世界理解和运动连贯性。', tag: '🔊 自带音效 | 最新上线', hot: true, icon: 'https://cos.lingkeai.vip/doubao.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' }
     ],
@@ -218,7 +218,7 @@ export const toolsData = [
     ]
   },
   { 
-    id: 132, title: '即梦 3.5 Pro 首尾帧', modelId: 'jimeng-3.5-pro-shouweizhen', category: 'video', desc: '即梦 3.5 Pro 的首尾帧控制模型，上传 2 张图片精准控制视频起始与结束。', tag: '🔇无声 | 最新上线', hot: true, icon: 'https://cos.lingkeai.vip/doubao.svg', 
+    id: 132, title: '即梦 3.5 Pro 首尾帧', modelId: 'doubao-seedance-1-5-pro-251215', category: 'video', desc: '即梦 3.5 Pro 的首尾帧控制模型，上传 2 张图片精准控制视频起始与结束。', tag: '🔊 自带音效 | 最新上线', hot: true, icon: 'https://cos.lingkeai.vip/doubao.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' }
     ],
@@ -228,14 +228,14 @@ export const toolsData = [
     ]
   },
   { 
-    id: 129, title: 'Grok Video 10s', modelId: 'grok-video-3-10s', category: 'video', desc: 'Grok 视频生成模型，固定生成10秒高质量视频，纯文本驱动，适合快速创意短片。', tag: '🔇无声 | 最新上线', hot: true, icon: 'https://cos.lingkeai.vip/Grok_bai.svg', 
+    id: 129, title: 'Grok Video 10s', modelId: 'grok-video-3-10s', category: 'video', desc: 'Grok 视频生成模型，固定生成10秒高质量视频，纯文本驱动，适合快速创意短片。', tag: '🔊 自带音效 | 最新上线', hot: true, icon: 'https://cos.lingkeai.vip/Grok_bai.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' }
     ],
     configurableParams: []
   },
   { 
-    id: 130, title: 'Grok Video 15s', modelId: 'grok-video-3-15s', category: 'video', desc: 'Grok 视频生成模型，固定生成15秒高质量视频，纯文本驱动，适合社交媒体和创意短片。', tag: '🔇无声 | 最新上线', hot: true, icon: 'https://cos.lingkeai.vip/Grok_bai.svg', 
+    id: 130, title: 'Grok Video 15s', modelId: 'grok-video-3-15s', category: 'video', desc: 'Grok 视频生成模型，固定生成15秒高质量视频，纯文本驱动，适合社交媒体和创意短片。', tag: '🔊 自带音效 | 最新上线', hot: true, icon: 'https://cos.lingkeai.vip/Grok_bai.svg', 
     channels: [
       { id: 'official', name: '💎 官方直连' }
     ],
