@@ -39,7 +39,13 @@ export const toolsData = [
   { id: 13, title: 'Gemini 3.1 Flash Lite', modelId: 'gemini-3.1-flash-lite-preview', category: 'chat', desc: '极速视觉推理。', hot: false, icon: 'Zap', configurableParams: chatParams },
   { id: 14, title: 'Gemini 3 Flash', modelId: 'gemini-3-flash-preview', category: 'chat', desc: '上一代极速模型。', hot: false, icon: 'Zap', configurableParams: chatParams },
 
-  { id: 15, title: 'Grok 1.5 / 4.2', modelId: 'grok-4.2', category: 'chat', desc: 'xAI研发的无审查模型，实时联网数据。', tag: '无审查', hot: true, icon: 'Twitter', configurableParams: chatParams },
+  { id: 15, title: 'Grok 4.2', modelId: 'grok-4-2', category: 'chat', desc: 'xAI最新旗舰，超强推理与实时联网。', tag: '无审查', hot: true, icon: 'Bot', configurableParams: chatParams },
+  { id: 201, title: 'Grok 4', modelId: 'grok-4', category: 'chat', desc: 'xAI强力大模型，无审查实时联网。', hot: false, icon: 'Bot', configurableParams: chatParams },
+  { id: 202, title: 'Grok 4.1 Auto', modelId: 'grok-4-1-auto', category: 'chat', desc: 'xAI智能路由模型，自动选择最佳推理策略。', hot: false, icon: 'Bot', configurableParams: chatParams },
+  { id: 203, title: 'DeepSeek R1', modelId: 'deepseek-r1', category: 'chat', desc: '深度求索推理模型，超强逻辑思考。', tag: '深度思考', hot: true, icon: 'BrainCircuit', configurableParams: chatParams },
+  { id: 204, title: 'DeepSeek V3.2', modelId: 'deepseek-v3.2', category: 'chat', desc: '深度求索最新旗舰，全能高效。', hot: false, icon: 'Globe', configurableParams: chatParams },
+  { id: 205, title: 'GLM-5', modelId: 'glm-5', category: 'chat', desc: '智谱最新旗舰模型。', hot: false, icon: 'Globe', configurableParams: chatParams },
+  { id: 206, title: 'Kimi K2.5', modelId: 'kimi-k2.5', category: 'chat', desc: '月之暗面长上下文旗舰。', hot: false, icon: 'Globe', configurableParams: chatParams },
   { id: 16, title: '豆包 Seed 2.0 Pro', modelId: 'doubao-seed-2-0-pro-260215', category: 'chat', desc: '字节跳动旗舰，256K上下文，多模态。', tag: '国产之光', hot: true, icon: 'BookOpen', configurableParams: chatParams },
   { id: 17, title: '千问 3.6 Plus', modelId: 'qwen3.6-plus', category: 'chat', desc: '阿里云顶尖大模型。', hot: false, icon: 'Cloud', configurableParams: chatParams },
   { id: 18, title: 'MiniMax M2.7', modelId: 'MiniMax-M2.7', category: 'chat', desc: 'MiniMax强大交互模型。', hot: false, icon: 'MessageCircle', configurableParams: chatParams },
@@ -185,7 +191,8 @@ export const toolsData = [
     ]
   },
 
-// --- AI 视频 (Video) ---
+// --- AI 视频 (Video) ---
+
  { 
     id: 100, title: 'grok-video-3-plus', modelId: 'grok-video-3-plus', category: 'video', desc: 'Grok 推出的 Plus 级视频生成模型，支持 10/15/20/25 秒多种时长，覆盖 16:9、9:16、3:2、2:3、1:1 全比例，适合社交媒体和创意短片场景。', tag: '', hot: false, icon: 'https://cos.lingkeai.vip/Grok_bai.svg', 
     channels: [

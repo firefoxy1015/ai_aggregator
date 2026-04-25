@@ -200,11 +200,16 @@ function Workspace() {
 
     try {
       if (tool.category === 'chat') {
-        // Some models use an alternate API endpoint
-        const ALT_MODELS = { 'gpt-5.5': true };
+        // Models routed through alternate deepwl endpoint
+        const ALT_MODELS = {
+          'gpt-5.5': true,
+          'grok-4': true, 'grok-4-2': true, 'grok-4-1-auto': true,
+          'deepseek-r1': true, 'deepseek-v3.2': true,
+          'glm-5': true, 'kimi-k2.5': true
+        };
         const useAlt = ALT_MODELS[tool.modelId];
         const ALT_URL = 'https://zx1.deepwl.net/v1/chat/completions';
-        const ALT_KEY = 'sk-H5gG0ZphEmW0uZ3795551fFa86394a20A9EbF144Ff472d3c';
+        const ALT_KEY = 'sk-hUviZm3xQzam0EaaA9622c041aA249CbB4924c929c9805Aa';
 
         let response;
         if (useAlt) {
