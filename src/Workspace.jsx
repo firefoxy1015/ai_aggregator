@@ -213,8 +213,8 @@ function Workspace() {
         const DATA999_CHAT_MODELS = {
           'gpt-5.5': true
         };
-        const DATA999_URL = 'https://api.ai6700.com/v1/chat/completions';
-        const DATA999_KEY = 'sk-H5gG0ZphEmW0uZ3795551fFa86394a20A9EbF144Ff472d3c';
+        const DATA999_URL = 'https://api.ai6700.com/api/v1/chat/completions';
+        const DATA999_KEY = 'sk-37b060cd778ee075ac3388fe421c6df1cc367f591238195c';
 
         let response;
         if (DEEPWL_MODELS[tool.modelId]) {
@@ -280,28 +280,17 @@ function Workspace() {
         const ALT_VIDEO_URL = 'https://zx1.deepwl.net/v1/video/generations';
         const ALT_VIDEO_KEY = 'sk-hUviZm3xQzam0EaaA9622c041aA249CbB4924c929c9805Aa';
 
-        // Models routed through Data999 video endpoint
-        const DATA999_VIDEO_MODELS = {
-          'jimeng-3.5-pro': true, 'jimeng-3.5-pro-shouweizhen': true, 'kwvideo-v2-quannengcankao': true
-        };
-        const DATA999_VIDEO_URL = 'https://api.ai6700.com/v1/video/generations';
-        const DATA999_VIDEO_KEY = 'sk-H5gG0ZphEmW0uZ3795551fFa86394a20A9EbF144Ff472d3c';
-
         const useAltVideo = ALT_VIDEO_MODELS[tool.modelId];
-        const useData999Video = DATA999_VIDEO_MODELS[tool.modelId];
 
-        if (useAltVideo || useData999Video) {
-          const TARGET_URL = useAltVideo ? ALT_VIDEO_URL : DATA999_VIDEO_URL;
-          const TARGET_KEY = useAltVideo ? ALT_VIDEO_KEY : DATA999_VIDEO_KEY;
-
-          // multipart form submit + polling
+        if (useAltVideo) {
+          // Deepwl video API: multipart form submit + polling
           const formData = new FormData();
           formData.append('model', tool.modelId);
           formData.append('prompt', userMessage);
 
-          const submitRes = await fetch(TARGET_URL, {
+          const submitRes = await fetch(ALT_VIDEO_URL, {
             method: 'POST',
-            headers: { 'Authorization': `Bearer ${TARGET_KEY}` },
+            headers: { 'Authorization': `Bearer ${ALT_VIDEO_KEY}` },
             body: formData
           });
           const submitData = await submitRes.json();
@@ -318,8 +307,8 @@ function Workspace() {
             await new Promise(r => setTimeout(r, 8000));
             pollAttempts++;
             try {
-              const statusRes = await fetch(`${TARGET_URL}/${taskId}`, {
-                headers: { 'Authorization': `Bearer ${TARGET_KEY}` }
+              const statusRes = await fetch(`${ALT_VIDEO_URL}/${taskId}`, {
+                headers: { 'Authorization': `Bearer ${ALT_VIDEO_KEY}` }
               });
               if (!statusRes.ok) { console.warn(`Poll ${pollAttempts} failed: HTTP ${statusRes.status}`); continue; }
               const sData = await statusRes.json();
