@@ -28,12 +28,36 @@ function Gallery() {
         const w = currentGallery[i];
         if (w.status === 'pending') {
           try {
-            const res = await fetch(`https://api.ai6700.com/api/v1/skills/task-status?task_id=${w.taskId}`, {
-              headers: { 'Authorization': `Bearer ${getApiKey()}` }
-            });
-            if (!res.ok) continue;
-            const data = await res.json();
-            const sData = data.data || data;
+            const isDeepWL = w.modelId === 'grok-video-3-10s' || w.modelId === 'grok-video-3-15s';
+            let sData;
+            
+            if (isDeepWL) {
+              const res = await fetch(`https://zx1.deepwl.net/v1/video/generations/${w.taskId}`, {
+                headers: { 'Authorization': `Bearer sk-hUviZm3xQzam0EaaA9622c041aA249CbB4924c929c9805Aa` }
+              });
+              if (!res.ok) continue;
+              const data = await res.json();
+              sData = data.data || data;
+              const status = sData.status || '';
+              if (status === 'SUCCESS' || status === 'COMPLETED' || status === 'completed') {
+                  sData.is_final = true;
+                  sData.result_url = sData.result_url || sData.video_url;
+              } else if (status === 'FAILURE' || status === 'FAILED' || status === 'failed') {
+                  sData.is_final = true;
+                  sData.error = sData.fail_reason || sData.error || '未知错误';
+                  sData.state = 'failed';
+              } else {
+                  sData.is_final = false;
+                  sData.progress = sData.progress || 0;
+              }
+            } else {
+              const res = await fetch(`https://api.ai6700.com/api/v1/skills/task-status?task_id=${w.taskId}`, {
+                headers: { 'Authorization': `Bearer ${getApiKey()}` }
+              });
+              if (!res.ok) continue;
+              const data = await res.json();
+              sData = data.data || data;
+            }
 
             if (sData.is_final) {
               if (sData.state === 'failed' || sData.error) {

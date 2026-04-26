@@ -303,6 +303,25 @@ function Workspace() {
           const taskId = submitData.id || submitData.task_id;
           setMessages(prev => [...prev, { role: 'system', content: `任务已提交 (ID: ${taskId})，渲染中...`, type: 'text' }]);
 
+          // Save PENDING task to gallery
+          try {
+            const gallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
+            gallery.push({
+              id: taskId.toString(),
+              taskId: taskId.toString(),
+              status: 'pending',
+              progressText: '队列中',
+              mediaType: 'video',
+              modelId: tool.modelId,
+              modelTitle: tool.title,
+              prompt: userMessage,
+              timestamp: Date.now()
+            });
+            localStorage.setItem('nexus_gallery', JSON.stringify(gallery));
+          } catch (e) {
+            console.error('Gallery pending save error:', e);
+          }
+
           // Poll deepwl/data999 video status
           let isFinal = false;
           let pollAttempts = 0;
@@ -323,11 +342,7 @@ function Workspace() {
                 const url = sData.data?.result_url || sData.data?.video_url || '';
                 if (url) {
                   setMessages(prev => [...prev, { role: 'assistant', content: '生成完成：', type: 'media', url, mediaType: 'video' }]);
-                  try {
-                    const gallery = JSON.parse(localStorage.getItem('nexus_gallery') || '[]');
-                    gallery.push({ id: `${Date.now()}_${Math.random().toString(36).substr(2,6)}`, url, mediaType: 'video', modelId: tool.modelId, modelTitle: tool.title, prompt: userMessage, timestamp: Date.now() });
-                    localStorage.setItem('nexus_gallery', JSON.stringify(gallery));
-                  } catch (e) { console.error('Gallery save error:', e); }
+                  // Gallery is updated by Gallery.jsx polling the pending task
                 } else {
                   setMessages(prev => [...prev, { role: 'system', content: '生成完成但未返回视频文件。', type: 'error' }]);
                 }
