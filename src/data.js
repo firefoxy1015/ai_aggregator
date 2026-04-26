@@ -269,11 +269,10 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'images', label: '首尾帧', type: 'image_upload', max: 2 },
-      { name: 'generation_mode', label: '生成模式', type: 'select', options: [{v: 'fast', l: '快速'}, {v: 'null', l: '标准'}, {v: 'pro', l: '高质量'}], default: 'fast' },
-      { name: 'aspect_ratio', label: '视频比例', type: 'select', options: [{v: '9:16', l: '竖屏 9:16'}, {v: '16:9', l: '横屏 16:9'}], default: '16:9' },
-      { name: 'enhance_prompt', label: '提示词优化', type: 'select', options: [{v: 'true', l: '开启'}, {v: 'false', l: '关闭'}], default: 'true' },
-      { name: 'enable_upsample', label: '视频超分', type: 'select', options: [{v: 'true', l: '开启'}, {v: 'false', l: '关闭'}], default: 'false' }
+      { name: 'quality', label: '画质', type: 'select', options: [{v: 'sd', l: 'SD 标准'}, {v: '4k', l: '4K 超清'}], default: 'sd' },
+      { name: 'aspect_ratio', label: '画面比例', type: 'select', options: [{v: '9:16', l: '📱 竖屏 9:16'}, {v: '16:9', l: '🖥️ 横屏 16:9'}], default: '16:9' },
+      { name: 'images', label: '首尾帧参考图', type: 'image_upload', max: 2 },
+      { name: 'enhance_prompt', label: '提示词优化(中→英)', type: 'select', options: [{v: 'true', l: '开启'}, {v: 'false', l: '关闭'}], default: 'true' }
     ]
   },
   { 
