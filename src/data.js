@@ -213,9 +213,10 @@ export const toolsData = [
     ],
     configurableParams: [
       { name: 'images', label: '参考图片', type: 'image_upload', max: 1 },
-      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'10',l:'10秒'}, {v:'15',l:'15秒'}], default: 5 },
-      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720p',l:'720p'}, {v:'1080p',l:'1080p'}], default: '720p' },
-      { name: 'generate_audio', label: '生成音频', type: 'select', options: [{v: true, l: '生成音频'}, {v: false, l: '无声视频'}], default: true }
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'480p',l:'480p'}, {v:'720p',l:'720p'}, {v:'1080p',l:'1080p'}], default: '720p' },
+      { name: 'ratio', label: '画面比例', type: 'select', options: [{v:'adaptive',l:'🤖 自适应'}, {v:'16:9',l:'🖥️ 横屏 16:9'}, {v:'9:16',l:'📱 竖屏 9:16'}, {v:'1:1',l:'⬜ 方形 1:1'}, {v:'3:4',l:'📄 3:4'}, {v:'4:3',l:'🖼️ 4:3'}], default: 'adaptive' },
+      { name: 'generate_audio', label: '生成音频', type: 'select', options: [{v: 'true', l: '🔊 生成音频'}, {v: 'false', l: '🔇 无声视频'}], default: 'true' },
+      { name: 'audio_duration', label: '音频时长', type: 'select', options: [{v:'4',l:'4秒'}, {v:'8',l:'8秒'}, {v:'12',l:'12秒'}], default: '8' }
     ]
   },
   { 
@@ -224,10 +225,11 @@ export const toolsData = [
       { id: 'official', name: '💎 官方直连' }
     ],
     configurableParams: [
-      { name: 'images', label: '首尾帧图片', type: 'image_upload', max: 2 },
-      { name: 'duration', label: '视频时长', type: 'select', options: [{v:'5',l:'5秒'}, {v:'10',l:'10秒'}], default: 5 },
-      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'720p',l:'720p'}, {v:'1080p',l:'1080p'}], default: '720p' },
-      { name: 'generate_audio', label: '生成音频', type: 'select', options: [{v: true, l: '生成音频'}, {v: false, l: '无声视频'}], default: true }
+      { name: 'images', label: '首尾帧图片 (首帧+尾帧)', type: 'image_upload', max: 2 },
+      { name: 'resolution', label: '分辨率', type: 'select', options: [{v:'480p',l:'480p'}, {v:'720p',l:'720p'}, {v:'1080p',l:'1080p'}], default: '720p' },
+      { name: 'ratio', label: '画面比例', type: 'select', options: [{v:'adaptive',l:'🤖 自适应'}, {v:'16:9',l:'🖥️ 横屏 16:9'}, {v:'9:16',l:'📱 竖屏 9:16'}, {v:'1:1',l:'⬜ 方形 1:1'}, {v:'3:4',l:'📄 3:4'}, {v:'4:3',l:'🖼️ 4:3'}], default: 'adaptive' },
+      { name: 'generate_audio', label: '生成音频', type: 'select', options: [{v: 'true', l: '🔊 生成音频'}, {v: 'false', l: '🔇 无声视频'}], default: 'true' },
+      { name: 'audio_duration', label: '音频时长', type: 'select', options: [{v:'4',l:'4秒'}, {v:'8',l:'8秒'}, {v:'12',l:'12秒'}], default: '8' }
     ]
   },
   { 
@@ -252,7 +254,11 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'images', label: '参考图片', type: 'image_upload', max: 3 }
+      { name: 'images', label: '参考图片', type: 'image_upload', max: 3 },
+      { name: 'generation_mode', label: '生成模式', type: 'select', options: [{v: 'fast', l: '⚡ 快速'}, {v: 'null', l: '🎯 标准'}, {v: 'pro', l: '💎 高质量'}, {v: 'components', l: '🖼️ 多图参考'}], default: 'null' },
+      { name: 'aspect_ratio', label: '画面比例', type: 'select', options: [{v: '9:16', l: '📱 竖屏 9:16'}, {v: '16:9', l: '🖥️ 横屏 16:9'}], default: '16:9' },
+      { name: 'enhance_prompt', label: '提示词优化(中→英)', type: 'select', options: [{v: 'true', l: '开启'}, {v: 'false', l: '关闭'}], default: 'true' },
+      { name: 'enable_upsample', label: '视频超分', type: 'select', options: [{v: 'true', l: '开启'}, {v: 'false', l: '关闭'}], default: 'false' }
     ]
   },
   { 
@@ -263,8 +269,11 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'quality', label: '视频画质', type: 'select', options: [{v:'sd',l:'标清'}, {v:'4k',l:'4K'}], default: '标清' },
-      { name: 'images', label: '首尾帧', type: 'image_upload', max: 2 }
+      { name: 'images', label: '首尾帧', type: 'image_upload', max: 2 },
+      { name: 'generation_mode', label: '生成模式', type: 'select', options: [{v: 'fast', l: '快速'}, {v: 'null', l: '标准'}, {v: 'pro', l: '高质量'}], default: 'fast' },
+      { name: 'aspect_ratio', label: '视频比例', type: 'select', options: [{v: '9:16', l: '竖屏 9:16'}, {v: '16:9', l: '横屏 16:9'}], default: '16:9' },
+      { name: 'enhance_prompt', label: '提示词优化', type: 'select', options: [{v: 'true', l: '开启'}, {v: 'false', l: '关闭'}], default: 'true' },
+      { name: 'enable_upsample', label: '视频超分', type: 'select', options: [{v: 'true', l: '开启'}, {v: 'false', l: '关闭'}], default: 'false' }
     ]
   },
   { 
@@ -275,7 +284,11 @@ export const toolsData = [
       { id: 'kj', name: '⚡ KJ直连' }
     ],
     configurableParams: [
-      { name: 'images', label: '参考图片', type: 'image_upload', max: 3 }
+      { name: 'images', label: '参考图片', type: 'image_upload', max: 3 },
+      { name: 'generation_mode', label: '生成模式', type: 'select', options: [{v: 'fast', l: '快速'}, {v: 'null', l: '标准'}, {v: 'pro', l: '高质量'}], default: 'pro' },
+      { name: 'aspect_ratio', label: '视频比例', type: 'select', options: [{v: '9:16', l: '竖屏 9:16'}, {v: '16:9', l: '横屏 16:9'}], default: '16:9' },
+      { name: 'enhance_prompt', label: '提示词优化', type: 'select', options: [{v: 'true', l: '开启'}, {v: 'false', l: '关闭'}], default: 'true' },
+      { name: 'enable_upsample', label: '视频超分', type: 'select', options: [{v: 'true', l: '开启'}, {v: 'false', l: '关闭'}], default: 'true' }
     ]
   },
   { 
